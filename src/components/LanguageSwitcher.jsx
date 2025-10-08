@@ -1,7 +1,7 @@
 'use client';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { usePathname, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function LanguageSwitcher({ posts }) {
   const router = useRouter();
@@ -11,28 +11,43 @@ export default function LanguageSwitcher({ posts }) {
   const currentLocale = pathSegments[1] || 'en';
   const [selectedLocale, setSelectedLocale] = useState(currentLocale);
 
+  // Update selected locale when pathname changes
+  useEffect(() => {
+    setSelectedLocale(currentLocale);
+  }, [currentLocale]);
+
   const languages = [
     { code: 'en', label: 'English' },
     { code: 'hi', label: 'Hindi' },
   ];
 
-  const handleLocaleChange = (newLocale) => {
+  const handleLocaleChange = async (newLocale) => {
     setSelectedLocale(newLocale);
 
-    pathSegments[1] = newLocale; // change locale in path
-
-    // If blogpost page, change slug dynamically
+    const pathSegments = pathname.split('/');
+    
+    // Check if we're on a blog post page
     if (pathSegments[2] === 'blogpost' && pathSegments[3]) {
       const currentSlug = pathSegments[3];
-
-      // Find post object where current slug matches enurl or hiurl
-      const post = posts?.find(p => p.enurl === currentSlug || p.hiurl === currentSlug);
-      if (post) {
-        pathSegments[3] = post[newLocale + 'url']; // use enurl or hiurl
+      
+      // Find the current post to get translated slug
+      try {
+        const response = await fetch(`/api/get-translated-slug?slug=${currentSlug}&locale=${currentLocale}&targetLocale=${newLocale}`);
+        const data = await response.json();
+        
+        if (data.translatedSlug) {
+          router.push(`/${newLocale}/blogpost/${data.translatedSlug}`);
+          return;
+        }
+      } catch (error) {
+        console.error('Error getting translated slug:', error);
       }
     }
-
-    router.push(pathSegments.join('/'));
+    
+    // For other pages, just change locale
+    pathSegments[1] = newLocale;
+    const newPath = pathSegments.join('/');
+    router.push(newPath);
   };
 
   return (

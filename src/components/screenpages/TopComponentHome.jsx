@@ -21,7 +21,7 @@ const TopComponentHome = async ({params}) => {
             {t.tagline5} <br className="hidden lg:block" />{' '}
             {t.tagline6}{' '}
             <a
-              href="https://earn11.app/ "
+              href="https://appsnap.app/"
               target="_black"
               className="underline"
             >
