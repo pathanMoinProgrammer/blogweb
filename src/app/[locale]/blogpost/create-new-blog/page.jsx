@@ -1,5 +1,8 @@
 // TODO: Solved Problem that automatic localStorage not give data at mount and give localStorage is not defined error (but working at screen just error faces) and solved by adding coopy button and on the top show start new blog
 
+
+// TODO:  jaise main content ke liye after page leave (locastorage save system 2 sec me) banaya tha waise pure content ke liye karo (pura persistant forgat nahi hona chahiye)
+
 // 'use client';
 
 // import { useEditor, EditorContent } from '@tiptap/react';
