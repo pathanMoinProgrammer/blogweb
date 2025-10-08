@@ -34,3 +34,15 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+
+
+1. multi lang setup of all websites strigs
+2. defult /en
+3. /en, /hi, should load data from content2 folder accoding to lang 
+4. lang chane options
+5. burgor icon right side lang selecter left side 
+6. localhost:3000/hi/chatgpt-aur-gemini-sidhamukabla
+7. if some one changes lang from blogpost page then blogpost lang & url should change accordingly localhost:3000/hi/                
+chatgpt-aur-gemini-sidhamukabla -> localhost:3000/en/chatgpt-vs-gemini-comparison
