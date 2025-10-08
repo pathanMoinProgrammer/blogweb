@@ -62,7 +62,7 @@ export function BlogSection() {
               key={blog.id}
               className="flex group hover:scale-105  flex-col overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800 bg-card shadow-sm hover:shadow-md transition-all duration-500"
             >
-               <a href={blog.url}>
+               <Link href={blog.url}>
               <img
                 src={blog.img}
                 alt={blog.title}
@@ -85,7 +85,7 @@ export function BlogSection() {
                  Read more →
                 </Button>
               </div>
-              </a>
+              </Link>
             </article>
           ))}
         </div>

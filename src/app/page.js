@@ -20,7 +20,6 @@ export default function HomePage() {
   return (
     <main className="min-h-screen  bg-gradient-to-br from-background to-muted font-sans">
       <TopComponentHome />
-      <PricingComponent />
       <BlogSection />
     </main>
   );
