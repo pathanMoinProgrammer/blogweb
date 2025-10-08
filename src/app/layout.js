@@ -8,10 +8,9 @@ import { routing } from "@/i18n/routing";
 
 export default function RootLayout({ children, params }) {
   const locale = params?.locale || "en";
-  console.log("locale:", locale);
 
   return (
-    <html lang={locale}>
+    <html lang={locale} suppressHydrationWarning>
       <body className="antialiased">
         <ThemeProvider 
           attribute="class" 

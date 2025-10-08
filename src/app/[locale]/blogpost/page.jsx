@@ -3,35 +3,40 @@ import fs from 'fs';
 import matter from 'gray-matter';
 import CreateBlog from '@/components/screenpages/createblog';
 import { Plus } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export default function BlogPage({ params }) {
   const locale = params.locale;
 
-  // Read all markdown files for the current locale
   const dirContent = fs.readdirSync(`Blogs/${locale}`, 'utf-8');
 
   const blogs = dirContent.map((file) => {
     const blogContent = fs.readFileSync(`Blogs/${locale}/${file}`, 'utf-8');
     const { data } = matter(blogContent);
 
-    // Use locale-specific slug
     const slug = locale === 'en' ? data.enurl : data.hiurl;
 
     return { ...data, slug };
   });
 
   return (
-    <section className="py-16 px-4 bg-gradient-to-b from-white to-gray-100 dark:from-gray-900 dark:to-gray-800 min-h-screen">
-      <div className="max-w-7xl mx-auto">
+    <section className="py-16 px-4 bg-gradient-to-b from-white to-gray-100 dark:from-gray-900 dark:to-gray-800 min-h-screen relative ">
+      <div className="max-w-7xl mx-auto ">
         <h1 className="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white animate-fade-in">
           Our Latest Blogs
         </h1>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          <Link href={`/en/create-new-blog`}>
+        <Link
+          href={`/${locale}/blogpost/create-new-blog`}
+          className="flex gap-[3px] lg;gap-[7px] absolute lg:right-6 right-4 top-2 lg:top-6 z-1 cursor-pointer "
+        >
+          <Button className="flex  items-center cursor-pointer hover:opacity-70 hover:scale-120 transition-all duration-400 lg:py-[20px] ">
             <Plus />
             Create Blog
-          </Link>
+          </Button>
+        </Link>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {blogs.map((blog, index) => (
             <div
               key={index}

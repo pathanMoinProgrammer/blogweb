@@ -26,7 +26,7 @@ export default function LanguageSwitcher({ posts }) {
       const currentSlug = pathSegments[3];
 
       // Find post object where current slug matches enurl or hiurl
-      const post = posts.find(p => p.enurl === currentSlug || p.hiurl === currentSlug);
+      const post = posts?.find(p => p.enurl === currentSlug || p.hiurl === currentSlug);
       if (post) {
         pathSegments[3] = post[newLocale + 'url']; // use enurl or hiurl
       }
