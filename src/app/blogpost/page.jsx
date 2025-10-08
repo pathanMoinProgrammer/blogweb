@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import fs from 'fs';
 import matter from 'gray-matter';
+import CreateBlog from '@/components/screenpages/createblog';
+import { Plus } from 'lucide-react';
 
 const dirContent = fs.readdirSync('content', 'utf-8');
 
@@ -20,6 +22,10 @@ export default function BlogPage() {
           Our Latest Blogs
         </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          <Link href={`/en/create-new-blog`}>
+            <Plus />
+            Create Blog
+          </Link>
           {blogs.map((blog, index) => (
             <div
               key={index}
