@@ -1,0 +1,16 @@
+{
+    "language": "en",
+    "Homepage": {
+        "tagline1": "A",
+        "tagline2": "Free Blog Web",
+        "tagline3": "for Community",
+        "tagline4": "Users Of Earn 11",
+        "tagline5": "Free to Read and Give Feedback",
+        "tagline6": "for Earn 11 and",
+        "tagline7": "Other Applications"
+    },
+    "BlogPage": {
+        "TopBlogs": "Top Blogs",
+        "Discover": "Discover the most popular articles from our community of writers andexperts."
+    }
+}

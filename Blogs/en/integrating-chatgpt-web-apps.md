@@ -3,7 +3,8 @@ name: 'AI Frontier Blog'
 author: 'Mike Chen'
 date: 'October 15, 2025'
 time: '7 min read'
-url: "integrating-chatgpt-web-apps"
+enurl: "integrating-chatgpt-web-apps"
+hiurl: 'chatgpt-web-apps-ka-samavesh'
 title: 'Integrating ChatGPT into Web Apps: A Guide vs. Gemini Alternatives'
 img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEDSAnC2eJNbiSyvzeLxC5x2VeJuEbhNk0Lw&s'
 description: 'Step-by-step on embedding ChatGPT APIs for dynamic features, and why it edges out Gemini for developer-friendly integrations.'

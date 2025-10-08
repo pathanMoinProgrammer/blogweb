@@ -1,14 +1,14 @@
 ---
-name: 'Tech Insights Blog'
+name: 'AI Frontier Blog'
 author: 'John Doe'
 date: 'October 5, 2025'
 time: '5 min read'
-url : "tutorial"
+enurl: 'ai-future-exploration'
+hiurl: 'ai-bhavi-shodh'
 title: 'Exploring the Future of AI in Web Development'
-img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRv1A-E2msqfCE-7QoomIPDae2c0BPuhQ0iag&s'
+img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3DFTw2K5zqdlpxiG7ENe5Z4vCkxjswHaiLw&s'
 description: 'A deep dive into how AI is revolutionizing modern web apps, with practical tips for developers.'
 ---
-
 
 
 Artificial Intelligence is no longer a futuristic concept; it's here, transforming the way we build and interact with web applications. From automated code generation to personalized user experiences, AI tools are becoming indispensable for developers.

@@ -3,7 +3,8 @@ name: 'AI Frontier Blog'
 author: 'Jane Smith'
 date: 'October 7, 2025'
 time: '6 min read'
-url : "chatgpt-vs-gemini-comparison"
+enurl : "chatgpt-vs-gemini-comparison"
+hiurl: 'chatgpt-aur-gemini-sidhamukabla'
 title: 'ChatGPT vs Gemini: A Head-to-Head Comparison'
 img: 'https://www.milesweb.com/blog/wp-content/uploads/2025/09/chatgpt-vs-gemini.png'
 description: "Breaking down the strengths and weaknesses of OpenAI's ChatGPT and Google's Gemini in natural language processing and creativity."

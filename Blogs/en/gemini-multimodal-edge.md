@@ -3,7 +3,8 @@ name: 'AI Frontier Blog'
 author: 'Sarah Lee'
 date: 'October 12, 2025'
 time: '5 min read'
-url: "gemini-multimodal-edge"
+enurl: "gemini-multimodal-edge"
+hiurl: 'gemini-bahumadhya-kinara'  
 title: "Gemini's Edge in Multimodal AI: Outshining ChatGPT"
 img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8kgiZG844gI5C6oNFnEmZtI1XIPEkMvxelQ&s'
 description: "Why Google's Gemini excels in handling text, images, and audio together, leaving ChatGPT behind in creative multimedia tasks."

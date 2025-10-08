@@ -3,7 +3,8 @@ name: 'Tech Insights Blog'
 author: 'John Doe'
 date: 'October 5, 2025'
 time: '5 min read'
-url : "tutorial"
+enurl : "tutorial"
+hiurl: 'tutorial-kaise-karein'
 title: 'Exploring the Future of AI in Web Development'
 img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRv1A-E2msqfCE-7QoomIPDae2c0BPuhQ0iag&s'
 description: 'A deep dive into how AI is revolutionizing modern web apps, with practical tips for developers.'
