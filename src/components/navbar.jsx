@@ -9,21 +9,25 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { ModeToggle } from './themebtn';
-import { useParams, useRouter, usePathname } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import LanguageSwitcher from './LanguageSwitcher';
+import { useGameTranslations } from './traslatorclient';
+import { useParams } from 'next/navigation';
 
-export default function Navbar({ params }) {
-  // const params = useParams();
-  const locale = params?.locale || 'en'; // default locale
-  // const router = useRouter();
-  // const pathname = usePathname();
+export default function Navbar() {
 
-  // const [sheetOpen, setSheetOpen] = useState(false);
+  const params = useParams()
 
-  // useEffect(() => {
-  //   setSheetOpen(false);
-  // }, [pathname]);
+  const locale = params?.locale; 
+  const [sheetOpen, setSheetOpen] = useState(false);
+  
+  const {translations} = useGameTranslations({ lang: locale })
+
+  const t = translations?.Navbar
+
+  const handleLinkClick = () => {
+    setSheetOpen(false);
+  };
 
   return (
     <nav className="sticky top-0 z-50 border-b justify-center backdrop-blur border-indigo-100 shadow-sm bg-background/50">
@@ -35,20 +39,20 @@ export default function Navbar({ params }) {
             href={`/${locale}`}
             className="text-2xl font-bold text-blue-500 dark:text-white tracking-tight"
           >
-            Our Blogs
+            {t?.ourblogs}
           </Link>
 
           <div className="flex items-center gap-8 ml-6">
-            <Link href={`/${locale}`} className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium">Home</Link>
-            <Link href={`/${locale}/about`} className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium">About</Link>
-            <Link href={`/${locale}/blogpost`} className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium">Blogs</Link>
-            <Link href={`/${locale}/contact`} className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium">Contact</Link>
+            <Link href={`/${locale}`} className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium">{t?.home}</Link>
+            <Link href={`/${locale}/about`} className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium">{t?.about}</Link>
+            <Link href={`/${locale}/blogpost`} className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium">{t?.blog}</Link>
+            <Link href={`/${locale}/contact`} className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium">{t?.contact}</Link>
 
             <LanguageSwitcher />
 
             <div className="flex gap-[20px]">
-              <Button className="w-[70px] hover:scale-130 dark:text-white cursor-pointer" variant="outline">Sign In</Button>
-              <Button className="w-[70px] hover:scale-130 dark:text-white cursor-pointer" variant="outline">Logout</Button>
+              <Button className="w-[70px] hover:scale-130 dark:text-white cursor-pointer" variant="outline">{t?.signIn}</Button>
+              <Button className="w-[70px] hover:scale-130 dark:text-white cursor-pointer" variant="outline">{t?.logout}</Button>
               <ModeToggle />
             </div>
           </div>
@@ -56,9 +60,8 @@ export default function Navbar({ params }) {
 
         {/* Mobile Menu */}
         <div className="md:hidden flex items-center justify-between w-full">
-
           {/* Left: Burger Icon */}
-          <Sheet>
+          <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
             <SheetTrigger>
               <div className='flex items-center gap-3 cursor-pointer'>
                 <svg
@@ -78,7 +81,7 @@ export default function Navbar({ params }) {
                   <path d="M4 19h16" />
                 </svg>
                 <Link href={`/${locale}`} className="text-2xl font-bold text-blue-500 dark:text-white tracking-tight">
-                  Our Blogs
+                  {t?.ourblogs}
                 </Link>
               </div>
             </SheetTrigger>
@@ -91,27 +94,27 @@ export default function Navbar({ params }) {
 
               {/* Links */}
               <div className="flex-1 flex flex-col space-y-4 overflow-y-auto">
-                <Link href={`/${locale}`} className="block py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700">
-                  Home
+                <Link href={`/${locale}`} onClick={handleLinkClick} className="block py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700">
+                  {t?.home}
                 </Link>
-                <Link href={`/${locale}/about`} className="block py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700">
-                  About
+                <Link href={`/${locale}/about`} onClick={handleLinkClick} className="block py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700">
+                  {t?.about}
                 </Link>
-                <Link href={`/${locale}/blogpost`} className="block py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700">
-                  Blogs
+                <Link href={`/${locale}/blogpost`} onClick={handleLinkClick} className="block py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700">
+                  {t?.blog}
                 </Link>
-                <Link href={`/${locale}/contact`} className="block py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700">
-                  Contact
+                <Link href={`/${locale}/contact`} onClick={handleLinkClick} className="block py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700">
+                  {t?.contact}
                 </Link>
               </div>
 
               {/* Buttons at Bottom */}
               <div className="flex gap-4 mt-6">
                 <Button className="flex-1 bg-gradient-to-r from-purple-700/70 to-blue-600/80 text-white font-bold text-xl" variant="outline">
-                  Sign In
+                  {t?.signIn}
                 </Button>
                 <Button className="flex-1 bg-gradient-to-l from-purple-700/70 to-blue-600/80 text-white font-bold text-xl" variant="outline">
-                  Logout
+                  {t?.logout}
                 </Button>
               </div>
             </SheetContent>
@@ -121,10 +124,8 @@ export default function Navbar({ params }) {
           <div className='flex items-center gap-2'>
             <LanguageSwitcher />
             <ModeToggle />
-
           </div>
         </div>
-
       </div>
     </nav>
   );

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 
+
 export function useGameTranslations({ lang }) {
   
   const [translations, setTranslations] = useState(null);
@@ -13,7 +14,7 @@ export function useGameTranslations({ lang }) {
     async function fetchTranslations() {
       try {
         setLoading(true);
-        const messages = (await import(`../../../messages/${lang}.json`)).default;
+        const messages = (await import(`../messages/${lang}.json`)).default;
         if (!messages.client) {
           throw new Error(`No games found in translations for locale "${lang}"`);
         }

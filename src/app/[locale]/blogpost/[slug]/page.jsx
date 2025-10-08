@@ -29,31 +29,11 @@ const page = async ({ params }) => {
   const file = await processor.process(content);
   const htmlContent = String(file);
 
-  // Locale buttons use enurl / hiurl for switching
-  const locales = [
-    { code: 'en', label: 'English', slug: data.enurl },
-    { code: 'hi', label: 'Hindi', slug: data.hiurl },
-  ];
-
   return (
     <div className="min-h-screen bg-background">
       <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Locale Switcher */}
-        <div className="flex justify-end gap-4 mb-4">
-          {locales.map((l) => (
-            <Link
-              key={l.code}
-              href={`/${l.code}/blogpost/${l.slug}`}
-              className={`px-4 py-2 rounded ${
-                l.code === locale
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200'
-              }`}
-            >
-              {l.label}
-            </Link>
-          ))}
-        </div>
+        
 
         {/* Header */}
         <header className="mb-12">

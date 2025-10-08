@@ -12,5 +12,16 @@
     "BlogPage": {
         "TopBlogs": "Top Blogs",
         "Discover": "Discover the most popular articles from our community of writers andexperts."
+    },
+    "client":{
+        "Navbar":{
+            "ourblogs": "Our Blogs",
+            "home" : "Home",
+            "about" : "About",
+            "blog": "Blog",
+            "contact": "Contact",
+            "signIn" : "Sign In",
+            "logout" : "LogOut"
+        }
     }
 }
