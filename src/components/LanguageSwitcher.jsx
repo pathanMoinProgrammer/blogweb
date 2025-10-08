@@ -19,21 +19,14 @@ export default function LanguageSwitcher({ posts }) {
   const handleLocaleChange = (newLocale) => {
     setSelectedLocale(newLocale);
 
-    pathSegments[1] = newLocale; // change locale in path
+    // current path me /en/ ya /hi/ ko replace karke naya locale dal do
+    const pathSegments = pathname.split('/');
+    pathSegments[1] = newLocale; // replace locale segment
+    const newPath = pathSegments.join('/');
 
-    // If blogpost page, change slug dynamically
-    if (pathSegments[2] === 'blogpost' && pathSegments[3]) {
-      const currentSlug = pathSegments[3];
-
-      // Find post object where current slug matches enurl or hiurl
-      const post = posts.find(p => p.enurl === currentSlug || p.hiurl === currentSlug);
-      if (post) {
-        pathSegments[3] = post[newLocale + 'url']; // use enurl or hiurl
-      }
-    }
-
-    router.push(pathSegments.join('/'));
+    router.push(newPath);
   };
+
 
   return (
     <Select value={selectedLocale} onValueChange={handleLocaleChange}>
