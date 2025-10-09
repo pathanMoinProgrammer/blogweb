@@ -12,7 +12,7 @@ export default function BlogEditor({ editor }) {
         onClick={() => editor?.commands.focus()}
       >
         <MenuBar editor={editor} />
-        <EditorContent editor={editor} className="px-5 py-3" />
+        <EditorContent editor={editor} className="px-5 py-3 text-black " />
       </div>
     </div>
   );

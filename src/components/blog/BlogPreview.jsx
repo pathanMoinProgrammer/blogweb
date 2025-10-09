@@ -27,13 +27,13 @@ export default function BlogPreview({ content, editor }) {
   };
 
   return (
-    <div className="mt-6">
-      <h2 className="text-xl font-semibold mb-2">🖋️ Live Preview</h2>
+    <div className="mt-6 dark:border-[1px] rounded-xl p-[2px]">
+      <h2 className="text-xl font-semibold mb-2 ">🖋️ Live Preview</h2>
       <div className="relative">
         <button
           onClick={handleCopy}
           disabled={isCopying}
-          className={`absolute top-3 right-3 w-10 h-10 rounded-lg border border-gray-200 flex items-center justify-center transition-all duration-500 transform ${
+          className={`absolute text-black top-3 right-3 w-10 h-10 rounded-lg border border-gray-200 flex items-center justify-center transition-all duration-500 transform ${
             isCopying
               ? 'bg-green-500 text-white scale-110'
               : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:scale-105'
@@ -54,7 +54,7 @@ export default function BlogPreview({ content, editor }) {
         </button>
 
         <pre
-          className="p-4 border min-h-95 rounded bg-gray-50 whitespace-pre-wrap"
+          className="p-4 border min-h-95 rounded bg-gray-50 text-black whitespace-pre-wrap"
           dangerouslySetInnerHTML={{ __html: content }}
         />
       </div>

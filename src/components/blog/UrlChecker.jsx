@@ -41,7 +41,7 @@ export default function UrlChecker({ enurl, setEnurl }) {
 
   return (
     <div className="w-full">
-      <label className="block text-sm font-semibold mb-2 text-gray-700">
+      <label className="block text-sm font-semibold mb-2 dark:text-white text-gray-700">
         URL Slug *
       </label>
 
