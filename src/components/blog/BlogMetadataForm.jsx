@@ -17,7 +17,7 @@ export default function BlogMetadataForm({
   setImgUrl,
 }) {
   return (
-    <div className="mb-6 space-y-4  dark:bg-purple-500/4 p-6 rounded-lg dark:border-[0.4px]">
+    <div className="mb-6 space-y-4  dark:bg-purple-500/4 p-6 rounded-lg dark:border-[0.4px] border">
       <h2 className="text-xl font-semibold mb-4">Blog Information</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
