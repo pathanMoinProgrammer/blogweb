@@ -409,32 +409,6 @@
 //   );
 // }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // 'use client';
 
 // import { useEditor, EditorContent } from '@tiptap/react';
@@ -1222,6 +1196,8 @@
 
 
 
+
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -1231,11 +1207,15 @@ import TextStyle from '@tiptap/extension-text-style';
 import HardBreak from '@tiptap/extension-hard-break';
 import CustomHorizontalRule from '@/components/blog/extensions/CustomHorizontalRule';
 import BlogMetadataForm from '@/components/blog/BlogMetadataForm';
-import BlogEditor from '@/components/blog/BlogEditor';
 import BlogPreview from '@/components/blog/BlogPreview';
 import Notification from '@/components/blog/Notification';
 import { convertHtmlToMarkdown } from '@/lib/markdownConverter';
 import ImageUploader from '@/components/blog/imageupload';
+import dynamic from 'next/dynamic';
+
+const JoditEditor = dynamic(() => import('@/components/blog/joditeditor.jsx'), {
+  ssr: false,
+});
 
 
 export default function CreateBlogPage() {
@@ -1243,15 +1223,16 @@ export default function CreateBlogPage() {
   const [isMounted, setIsMounted] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
-  
-  // Blog metadata states
+
+
+
   const [blogName, setBlogName] = useState('');
   const [author] = useState('Admin User');
   const [enurl, setEnurl] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [imgUrl, setImgUrl] = useState(
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8kgiZG844gI5C6oNFnEmZtI1XIPEkMvxelQ&s'
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8kgiZG844gI5C6oNFnEmZtI1XIPEkMvxelQ&s',
   );
   const [isCreating, setIsCreating] = useState(false);
 
@@ -1261,7 +1242,7 @@ export default function CreateBlogPage() {
   useEffect(() => {
     setIsMounted(true);
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('blogContent');
+      const saved = localStorage.getItem('joditContent');
       if (saved) setContent(saved);
     }
   }, []);
@@ -1288,7 +1269,11 @@ export default function CreateBlogPage() {
         if (event.key === 'Tab' && !event.shiftKey) {
           event.preventDefault();
           dispatch(
-            state.tr.insertText('      ', state.selection.from, state.selection.to)
+            state.tr.insertText(
+              '      ',
+              state.selection.from,
+              state.selection.to,
+            ),
           );
           return true;
         }
@@ -1297,22 +1282,31 @@ export default function CreateBlogPage() {
           event.preventDefault();
           const hardBreak = schema.nodes.hardBreak;
           if (hardBreak) {
-            dispatch(state.tr.replaceSelectionWith(hardBreak.create()).scrollIntoView());
+            dispatch(
+              state.tr
+                .replaceSelectionWith(hardBreak.create())
+                .scrollIntoView(),
+            );
             return true;
           }
-          dispatch(state.tr.insertText('\n', state.selection.from, state.selection.to));
+          dispatch(
+            state.tr.insertText('\n', state.selection.from, state.selection.to),
+          );
           return true;
         }
 
         return false;
       },
       attributes: {
-        class: 'outline-none focus:outline-none focus:ring-0 whitespace-pre-wrap cursor-text min-h-[400px]',
+        class:
+          'outline-none focus:outline-none focus:ring-0 whitespace-pre-wrap cursor-text min-h-[400px]',
       },
     },
   });
 
   const handleCreateBlog = async () => {
+
+
     if (!blogName || !enurl || !title || !description) {
       setNotificationMessage('❌ Please fill all required fields!');
       setShowNotification(true);
@@ -1364,7 +1358,6 @@ ${markdownContent}`;
         setNotificationMessage('✅ Blog created successfully!');
         setShowNotification(true);
 
-        // Reset form
         setBlogName('');
         setEnurl('');
         setTitle('');
@@ -1402,8 +1395,7 @@ ${markdownContent}`;
         onClose={() => setShowNotification(false)}
       />
 
-
-      <div className="max-w-4xl mx-auto my-3 p-4 font-sans">
+      <div className="max-w-4xl mx-auto my-3 p-4 font-sans ">
         <h1 className="text-3xl font-bold mb-6">📝 Create New Blog Post</h1>
 
         <BlogMetadataForm
@@ -1420,13 +1412,12 @@ ${markdownContent}`;
           setImgUrl={setImgUrl}
         />
 
+        <ImageUploader imgUrl={imgUrl} setImgUrl={setImgUrl} />
+        <JoditEditor storageKey="myBlogPost" />
+        {/* <BlogEditor editor={editor} /> */}
+        
 
-          <ImageUploader imgUrl={imgUrl} setImgUrl={setImgUrl} />
-        <BlogEditor editor={editor} />
-
-
-        <div className="mb-6">
-
+        <div className="my-10">
           <button
             onClick={handleCreateBlog}
             disabled={isCreating}
@@ -1439,8 +1430,18 @@ ${markdownContent}`;
               </>
             ) : (
               <>
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 4v16m8-8H4"
+                  />
                 </svg>
                 Create Blog Post
               </>

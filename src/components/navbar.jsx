@@ -1,4 +1,6 @@
+
 'use client';
+
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import {
@@ -13,10 +15,12 @@ import { useState } from 'react';
 import LanguageSwitcher from './LanguageSwitcher';
 import { useGameTranslations } from './traslatorclient';
 import { useParams } from 'next/navigation';
+// import { useAtomValue } from 'jotai';
+// import { items } from './jotai';
 
 export default function Navbar() {
-
   const params = useParams()
+  // const item = useAtomValue(items)
 
   const locale = params?.locale; 
   const [sheetOpen, setSheetOpen] = useState(false);
@@ -30,29 +34,30 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 border-b justify-center backdrop-blur border-indigo-100 shadow-sm bg-background/50">
+    <nav className="sticky top-0 z-50 border-b justify-center backdrop-blur-sm border-indigo-100 shadow-sm bg-background/50">
       <div className="w-[88%] mx-auto flex items-center justify-between h-20">
 
-        {/* Desktop Menu */}
+
         <div className="hidden md:flex items-center justify-between space-x-8 gap-[10px] w-full">
           <Link
             href={`/${locale}`}
             className="text-2xl font-bold text-blue-500 dark:text-white tracking-tight"
           >
-            {t?.ourblogs}
+            {t?.ourblogs || "Our Blogs"}
           </Link>
+          {/* {item} */}
 
           <div className="flex items-center gap-8 ml-6">
-            <Link href={`/${locale}`} className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium">{t?.home}</Link>
-            <Link href={`/${locale}/about`} className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium">{t?.about}</Link>
-            <Link href={`/${locale}/blogpost`} className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium">{t?.blog}</Link>
-            <Link href={`/${locale}/contact`} className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium">{t?.contact}</Link>
+            <Link href={`/${locale}`} className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium">{t?.home  || "Home"}</Link>
+            <Link href={`/${locale}/about`} className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium">{t?.about  || "About"}</Link>
+            <Link href={`/${locale}/blogpost`} className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium">{t?.blog  || "Blog"}</Link>
+            <Link href={`/${locale}/contact`} className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium">{t?.contact  || "Contact"}</Link>
 
             <LanguageSwitcher />
 
             <div className="flex gap-[20px]">
-              <Button className="w-[70px] hover:scale-130 dark:text-white cursor-pointer" variant="outline">{t?.signIn}</Button>
-              <Button className="w-[70px] hover:scale-130 dark:text-white cursor-pointer" variant="outline">{t?.logout}</Button>
+              <Button className="w-[70px] hover:scale-130 dark:text-white cursor-pointer" variant="outline">{t?.signIn  || "Sign In"}</Button>
+              <Button className="w-[70px] hover:scale-130 dark:text-white cursor-pointer" variant="outline">{t?.logout || "LogOut"}</Button>
               <ModeToggle />
             </div>
           </div>
@@ -81,7 +86,7 @@ export default function Navbar() {
                   <path d="M4 19h16" />
                 </svg>
                 <Link href={`/${locale}`} className="text-2xl font-bold text-blue-500 dark:text-white tracking-tight">
-                  {t?.ourblogs}
+                  {t?.ourblogs || "Our Blogs"}
                 </Link>
               </div>
             </SheetTrigger>
@@ -89,34 +94,34 @@ export default function Navbar() {
             <SheetContent side="left" className="flex flex-col h-screen w-64 p-6 bg-background">
               {/* Header */}
               <SheetHeader className="mb-6">
-                <SheetTitle className="text-2xl font-bold">Our Blogs</SheetTitle>
+                <SheetTitle className="text-2xl font-bold">{t?.ourblogs || "Our Blogs"}</SheetTitle>
               </SheetHeader>
 
               {/* Links */}
               <div className="flex-1 flex flex-col space-y-4 overflow-y-auto">
                 <Link href={`/${locale}`} onClick={handleLinkClick} className="block py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700">
-                  {t?.home}
+                  {t?.home  || "Home"}
                 </Link>
                 <Link href={`/${locale}/about`} onClick={handleLinkClick} className="block py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700">
-                  {t?.about}
+                  {t?.about  || "About"}
                 </Link>
                 <Link href={`/${locale}/blogpost`} onClick={handleLinkClick} className="block py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700">
-                  {t?.blog}
+                  {t?.blog  || "Blogs"}
                 </Link>
                 <Link href={`/${locale}/contact`} onClick={handleLinkClick} className="block py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700">
-                  {t?.contact}
+                  {t?.contact  || "Contact"}
                 </Link>
               </div>
 
               {/* Buttons at Bottom */}
-              <div className="flex gap-4 mt-6">
+              {/* <div className="flex gap-4 mt-6">
                 <Button className="flex-1 bg-gradient-to-r from-purple-700/70 to-blue-600/80 text-white font-bold text-xl" variant="outline">
-                  {t?.signIn}
+                  {t?.signIn  || "Sign In"}
                 </Button>
                 <Button className="flex-1 bg-gradient-to-l from-purple-700/70 to-blue-600/80 text-white font-bold text-xl" variant="outline">
-                  {t?.logout}
+                  {t?.logout || "Sign Out"}
                 </Button>
-              </div>
+              </div> */}
             </SheetContent>
           </Sheet>
 

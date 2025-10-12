@@ -5,8 +5,9 @@ import CreateBlog from '@/components/screenpages/createblog';
 import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-export default function BlogPage({ params }) {
-  const locale = params.locale;
+export default async function BlogPage({ params }) {
+  const locale =await 
+   params.locale;
 
   const dirContent = fs.readdirSync(`Blogs/${locale}`, 'utf-8');
 
