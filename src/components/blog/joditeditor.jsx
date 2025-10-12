@@ -514,7 +514,7 @@ export default function JoditEditor({
           borderRadius: 8,
           overflow: 'hidden',
           background: '#fff',
-          color:"black"
+          color:"#020202ff"
         }}
       >
         {!mounted ? (
