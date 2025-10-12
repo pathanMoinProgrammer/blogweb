@@ -402,6 +402,7 @@ export default function JoditEditor({
     () => ({
       readonly: false,
       height: 600,
+      color:"black",
       toolbarSticky: true,
       toolbarAdaptive: false,
       showXPathInStatusbar: false,
@@ -513,6 +514,7 @@ export default function JoditEditor({
           borderRadius: 8,
           overflow: 'hidden',
           background: '#fff',
+          color:"black"
         }}
       >
         {!mounted ? (
@@ -523,7 +525,7 @@ export default function JoditEditor({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#9ca3af',
+              color: '#000000ff',
             }}
           >
             Loading editor...
@@ -531,7 +533,7 @@ export default function JoditEditor({
         ) : (
           <JoditEditorImport
             ref={editorRef}
-            className="h-[200px]"
+            // className="h-[200px]"
             config={config}
             onBlur={(newContent) => {
               const html =
