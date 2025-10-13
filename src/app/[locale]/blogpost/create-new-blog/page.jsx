@@ -1214,12 +1214,12 @@ import ImageUploader from '@/components/blog/imageupload';
 import dynamic from 'next/dynamic';
 
 
-// const JoditEditor = dynamic(() => import('@/components/blog/joditeditor.jsx'), {
-//   ssr: false,
-// });
+const JoditEditor = dynamic(() => import('@/components/blog/joditeditor.jsx'), {
+  ssr: false,
+});
 
 
-const TipTapEditorFull = dynamic(() => import('@/components/blog/BlogEditor'), { ssr: false });
+// const TipTapEditorFull = dynamic(() => import('@/components/blog/BlogEditor'), { ssr: false });
 
 export default function CreateBlogPage() {
   const [content, setContent] = useState('<p>Start Writing New Blog</p>');
