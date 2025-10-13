@@ -1416,8 +1416,8 @@ ${markdownContent}`;
         />
 
         <ImageUploader imgUrl={imgUrl} setImgUrl={setImgUrl} />
-        {/* <JoditEditor storageKey="myBlogPost" /> */}
-        <TipTapEditorFull editor={editor} />
+        <JoditEditor storageKey="myBlogPost" />
+        {/* <TipTapEditorFull editor={editor} /> */}
         
 
         <div className="my-10">
