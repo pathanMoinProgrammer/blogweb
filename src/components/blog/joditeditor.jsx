@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, {
@@ -140,31 +139,33 @@ export default function JoditEditor({
   }, [htmlToPlainText]);
 
   return (
-    <div className="h-full flex flex-col ">
-      <div className="flex justify-between items-center p-4 bg-white dark:bg-gray-900 sticky top-0 z-10 border-b border-gray-200">
+    <div className="h-full flex flex-col">
+      {/* Header */}
+      <div className="flex justify-between items-center p-4 bg-white dark:bg-gray-900 sticky top-0 z-10 border-b border-gray-200 dark:border-gray-700">
         <h2 className="text-lg font-semibold text-gray-700 dark:text-white">
           📝 Editor
         </h2>
         <div className="flex gap-2">
           <button
             onClick={copyHtml}
-            className={`px-3 py-2 rounded-lg border-none transition-colors text-sm font-medium ${
+            className={`px-3 py-2 rounded-lg border transition-colors text-sm font-medium ${
               copied
-                ? 'bg-green-500 text-white border-green-500'
-                : 'bg-gray-100 border-gray-200 hover:bg-gray-200'
+                ? 'bg-green-500 dark:bg-green-600 text-white border-green-500 dark:border-green-500'
+                : 'bg-gray-100 dark:bg-gray-700 border-gray-200 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-white'
             }`}
           >
             {copied ? 'Copied' : 'Copy HTML'}
           </button>
           <button
             onClick={copyPlain}
-            className="px-3 py-2 rounded-lg border-none bg-white border-gray-200 hover:bg-gray-200 text-sm font-medium"
+            className="px-3 py-2 rounded-lg border bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-700 text-sm font-medium text-gray-700 dark:text-white"
           >
             Copy Text
           </button>
         </div>
       </div>
 
+      {/* Editor Container */}
       <div className="flex-1 overflow-auto bg-white dark:bg-gray-900 border-none rounded-lg">
         {!mounted ? (
           <div className="h-full flex items-center justify-center text-gray-600 dark:text-gray-300">

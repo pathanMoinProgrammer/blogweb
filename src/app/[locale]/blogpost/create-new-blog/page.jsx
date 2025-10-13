@@ -36,6 +36,7 @@ export default function CreateBlogPage() {
   const AUTO_SAVE_DELAY = 2000;
   const DRAFT_KEY = 'blogDraft';
   const saveTimeout = useRef(null);
+  
   useEffect(() => {
     setIsMounted(true);
     if (typeof window !== 'undefined') {
@@ -180,7 +181,7 @@ ${contee}`;
 
   if (!isMounted) {
     return (
-      <div className="max-w-4xl mx-auto my-8 p-4 text-gray-500">
+      <div className="max-w-4xl mx-auto my-8 p-4 text-gray-500 dark:text-gray-400">
         Loading editor...
       </div>
     );
@@ -194,7 +195,8 @@ ${contee}`;
         onClose={() => setShowNotification(false)}
       />
 
-      <section className="w-full flex flex-col md:flex-row overflow-hidden">
+      {/* Main Layout */}
+      <section className="w-full flex flex-col md:flex-row overflow-hidden bg-white dark:bg-gray-900">
         <div className="w-full md:flex-1 p-4 md:p-6 overflow-auto">
           <BlogMetadataForm
             blogName={blogName}
@@ -223,13 +225,14 @@ ${contee}`;
           />
         </div>
 
-        <div className="w-full md:w-1/3 p-4 md:p-6 border-t md:border-t-0 md:border-l border-gray-200 bg-gray-50">
+        <div className="w-full md:w-1/3 p-4 md:p-6 border-t md:border-t-0 md:border-l border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
           <ImageUploader imgUrl={imgUrl} setImgUrl={setImgUrl} />
         </div>
       </section>
 
-      <section className="w-screen min-h-[100px] flex flex-col lg:flex-row overflow-hidden bg-gray-50">
-        <div className="flex-1 p-4 lg:p-6 overflow-auto ">
+      {/* Editor Section */}
+      <section className="w-screen min-h-[100px] flex flex-col lg:flex-row overflow-hidden bg-gray-50 dark:bg-gray-800">
+        <div className="flex-1 p-4 lg:p-6 overflow-auto">
           <JoditEditor
             storageKey="myBlogPost"
             setHtmContent={setHtmContent}
@@ -239,22 +242,25 @@ ${contee}`;
           />
         </div>
       </section>
-      <div className="w-full h-[600px]  p-4 lg:p-6 border-l   border-gray-200">
+
+      {/* Preview Section */}
+      <div className="w-full h-[600px] p-4 lg:p-6 border-l border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
         <BlogPreview content={content} editor={editor} />
       </div>
 
-      <section className="w-full  flex flex-col justify-end p-6 bg-gradient-to-b from-gray-50 to-white">
+      {/* Final Review Section */}
+      <section className="w-full flex flex-col justify-end p-6 bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900">
         <div className="max-w-4xl mx-auto w-full">
-          <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
-            <h2 className="text-2xl font-bold mb-6">✅ Final Review</h2>
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-6 border border-gray-200 dark:border-gray-700">
+            <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">✅ Final Review</h2>
             <div className="grid md:grid-cols-2 gap-6 mb-8">
               <div>
-                <p className="text-sm text-gray-600 mb-2">Title</p>
-                <p className="font-semibold">{title || 'Untitled'}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Title</p>
+                <p className="font-semibold text-gray-900 dark:text-white">{title || 'Untitled'}</p>
               </div>
               <div>
-                <p className="text-sm text-gray-600 mb-2">Status</p>
-                <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Status</p>
+                <span className="px-3 py-1 bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-200 rounded-full text-sm">
                   Ready to Publish
                 </span>
               </div>
@@ -264,7 +270,7 @@ ${contee}`;
           <button
             onClick={handleCreateBlog}
             disabled={isCreating}
-            className="w-full px-8 py-4 bg-green-600 text-white font-bold text-lg rounded-lg hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-3 shadow-xl fixed bottom-2 left-1/2 transform -translate-x-1/2 md:w-auto md:bottom-8 z-10"
+            className="w-full px-8 py-4 bg-green-600 hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600 text-white font-bold text-lg rounded-lg disabled:bg-gray-400 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-3 shadow-xl fixed bottom-2 left-1/2 transform -translate-x-1/2 md:w-auto md:bottom-8 z-10 border border-green-600 dark:border-green-500"
           >
             {isCreating ? (
               <>
