@@ -478,6 +478,7 @@ export default function JoditEditor({
         </div>
 
         <div style={{ display: 'flex', gap: 8 }}>
+    
           <button
             onClick={copyHtml}
             title="Copy HTML to clipboard"
