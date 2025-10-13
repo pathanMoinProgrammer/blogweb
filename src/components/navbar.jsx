@@ -35,7 +35,7 @@ export default function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 border-b justify-center backdrop-blur-sm border-indigo-100 shadow-sm bg-background/50">
-      <div className="w-[88%] mx-auto flex items-center justify-between h-20">
+      <div className="w-[88%] mx-auto flex items-center justify-between h-16">
 
 
         <div className="hidden md:flex items-center justify-between space-x-8 gap-[10px] w-full">

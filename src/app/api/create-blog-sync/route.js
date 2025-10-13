@@ -24,8 +24,8 @@
 //     }
 //     fs.writeFileSync(filePath, content, 'utf-8');
 //     return NextResponse.json(
-//       { 
-//         success: true, 
+//       {
+//         success: true,
 //         message: 'Blog created successfully',
 //         path: `Blogs/${locale}/${slug}.md`
 //       },
@@ -40,59 +40,44 @@
 //   }
 // }
 
-
-
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
-
-/**
- * POST handler — creates a new markdown blog file.
- * Expected JSON: { locale: 'en', slug: 'blog-slug', content: 'markdown content' }
- */
 export async function POST(request) {
   try {
-    // Parse JSON from frontend
     const { locale, slug, content } = await request.json();
 
-    // Validate input
     if (!locale || !slug || !content) {
       return NextResponse.json(
         { error: 'Missing required fields: locale, slug, or content.' },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
-    // Create folder path like: /Blogs/en/
     const dirPath = path.join(process.cwd(), 'Blogs', locale);
 
-    // Ensure the directory exists (recursively)
     if (!fs.existsSync(dirPath)) {
       fs.mkdirSync(dirPath, { recursive: true });
     }
 
-    // Build file path like: /Blogs/en/blog-slug.md
     const filePath = path.join(dirPath, `${slug}.md`);
 
-    // Prevent overwriting existing blogs
     if (fs.existsSync(filePath)) {
       return NextResponse.json(
         { error: 'A blog with this slug already exists.', exists: true },
-        { status: 409 }
+        { status: 409 },
       );
     }
 
-    // Write markdown content to the file
     fs.writeFileSync(filePath, content, 'utf-8');
 
-    // Respond with success
     return NextResponse.json(
       {
         success: true,
         message: '✅ Blog created successfully!',
         path: `Blogs/${locale}/${slug}.md`,
       },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     console.error('❌ Error creating blog:', error);
@@ -101,7 +86,7 @@ export async function POST(request) {
         error: 'Failed to create blog file.',
         details: error.message,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

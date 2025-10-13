@@ -6,8 +6,8 @@ import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default async function BlogPage({ params }) {
-  const locale =await 
-   params.locale;
+  const param = await params;
+  const locale = param.locale;
 
   const dirContent = fs.readdirSync(`Blogs/${locale}`, 'utf-8');
 

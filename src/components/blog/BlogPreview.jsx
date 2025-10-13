@@ -27,16 +27,17 @@ export default function BlogPreview({ content, editor }) {
   };
 
   return (
-    <div className="mt-6 dark:border-[1px] rounded-xl p-[2px]">
-      <h2 className="text-xl font-semibold mb-2 ">🖋️ Live Preview</h2>
-      <div className="relative">
+    <div className="flex flex-col w-full h-full border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden ">
+      {/* Header */}
+      <div className="flex justify-between items-center p-4 bg-white dark:bg-gray-900 sticky top-0 z-10 border-b border-gray-200 dark:border-gray-700">
+        <h2 className="text-lg font-semibold text-gray-700 dark:text-white">🖋️ Live Preview</h2>
         <button
           onClick={handleCopy}
           disabled={isCopying}
-          className={`absolute text-black top-3 right-3 w-10 h-10 rounded-lg border border-gray-200 flex items-center justify-center transition-all duration-500 transform ${
+          className={`w-10 h-10 flex items-center justify-center rounded-lg border transition-all duration-300 ${
             isCopying
-              ? 'bg-green-500 text-white scale-110'
-              : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:scale-105'
+              ? 'bg-green-500 text-white border-green-500 scale-110'
+              : 'bg-gray-100 border-gray-300 text-gray-700 hover:bg-gray-200 hover:scale-105 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white'
           } disabled:opacity-70`}
         >
           {isCopying ? (
@@ -52,9 +53,12 @@ export default function BlogPreview({ content, editor }) {
             </svg>
           )}
         </button>
+      </div>
 
-        <pre
-          className="p-4 border min-h-95 rounded bg-gray-50 text-black whitespace-pre-wrap"
+      {/* Live Preview Content */}
+      <div className="flex-1 overflow-auto p-6 bg-gray-50 dark:bg-gray-800">
+        <div
+          className="prose prose-lg max-w-none text-black dark:text-white whitespace-pre-wrap leading-relaxed"
           dangerouslySetInnerHTML={{ __html: content }}
         />
       </div>
