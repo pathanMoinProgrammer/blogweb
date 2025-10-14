@@ -39,8 +39,9 @@ export default async function BlogPage({ params }) {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {blogs.map((blog, index) => (
+            <Link href={`/${locale}/blogpost/${blog.slug}`} key={index}>
             <div
-              key={index}
+              // key={index}
               className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition-all duration-500 hover:scale-105 hover:shadow-2xl animate-slide-up"
               style={{ animationDelay: `${index * 100}ms` }}
             >
@@ -59,13 +60,13 @@ export default async function BlogPage({ params }) {
                   {blog.description}
                 </p>
 
-                <Link href={`/${locale}/blogpost/${blog.slug}`}>
+                
                   <button className="bg-blue-600 dark:bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors duration-300">
                     Read More
                   </button>
-                </Link>
               </div>
             </div>
+          </Link>
           ))}
         </div>
       </div>
