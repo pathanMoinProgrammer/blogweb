@@ -74,7 +74,7 @@ export default function CreateBlogPage() {
         updatedAt: new Date().toISOString(),
       };
 
-      console.log(draft, "draft, draft")
+      // console.log(draft, "draft, draft")
 
       try {
         localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));

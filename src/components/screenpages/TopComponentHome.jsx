@@ -5,7 +5,7 @@ const TopComponentHome = async ({params}) => {
 
   const t = await getTranslations(params, "Homepage")
 
-  console.log("t", t)
+  // console.log("t", t)
 
   return (
     <section className="container px-4 py-10 mx-auto lg:h-128 lg:space-x-8 lg:flex lg:items-center">
