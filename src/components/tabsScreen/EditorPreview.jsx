@@ -30,7 +30,7 @@ export default function EditorPreviewTabs({
         <Tabs.List className="flex border-b gap-[4px]  border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-4">
           <Tabs.Trigger
             value="editor"
-            className=" border-t-[0.5px]  rounded-t-[4px] border-r-[0.5px] border-l-[0.5px] border-black px-6 cursor-pointer py-2 text-sm font-medium bg-blue-50/40 text-gray-700 dark:text-gray-300 data-[state=active]:text-blue-500 dark:data-[state=active]:text-blue-400 data-[state=active]:border-b-2 data-[state=active]:border-blue-500 dark:data-[state=active]:border-blue-400 transition-all"
+            className=" border-t-[0.5px]  rounded-t-[4px] border-r-[0.5px] border-l-[0.5px] border-black px-6 cursor-pointer py-2 text-sm font-medium  text-gray-700 dark:text-gray-300 data-[state=active]:text-blue-500 dark:data-[state=active]:text-blue-400 data-[state=active]:border-b-2 data-[state=active]:border-blue-500 dark:data-[state=active]:border-blue-400 transition-all"
           >
             Post
           </Tabs.Trigger>
