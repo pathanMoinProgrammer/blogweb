@@ -4,7 +4,8 @@ import { useState } from 'react';
 import Lottie from 'lottie-react';
 import checkmarkAnim from '../../components/Checkmark.json';
 
-export default function BlogPreview({ content, editor }) {
+export default function BlogPreview({ HtmContent, editor }) {
+  // console.log(HtmContent, "HtmContent in preview");
   const [isCopying, setIsCopying] = useState(false);
 
   const handleCopy = async () => {
@@ -27,10 +28,9 @@ export default function BlogPreview({ content, editor }) {
   };
 
   return (
-    <div className="flex flex-col w-full h-screen border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden ">
-
+    <div className="flex flex-col w-full h-screen border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
       <div className="flex justify-between items-center p-4 bg-white dark:bg-gray-900 sticky top-0 z-10 border-b border-gray-200 dark:border-gray-700">
-        <pre className="text-lg font-semibold text-gray-700 dark:text-white font-sans"> 🖋️   Preview</pre>
+        <pre className="text-lg font-semibold text-gray-700 dark:text-white font-sans">🖋️ Preview</pre>
         <button
           onClick={handleCopy}
           disabled={isCopying}
@@ -59,7 +59,7 @@ export default function BlogPreview({ content, editor }) {
       <div className="flex-1 overflow-auto p-6 bg-gray-50 dark:bg-gray-800">
         <div
           className="prose prose-lg max-w-none text-black dark:text-white whitespace-pre-wrap leading-relaxed"
-          dangerouslySetInnerHTML={{ __html: content }}
+          dangerouslySetInnerHTML={{ __html: HtmContent }}
         />
       </div>
     </div>

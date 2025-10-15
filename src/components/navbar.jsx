@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link';
@@ -15,16 +14,13 @@ import { useState } from 'react';
 import LanguageSwitcher from './LanguageSwitcher';
 import { useGameTranslations } from './traslatorclient';
 import { useParams } from 'next/navigation';
-// import { useAtomValue } from 'jotai';
-// import { items } from './jotai';
 
 export default function Navbar() {
   const params = useParams()
-  // const item = useAtomValue(items)
 
-  const locale = params?.locale; 
+  const locale = params?.locale;
   const [sheetOpen, setSheetOpen] = useState(false);
-  
+
   const {translations} = useGameTranslations({ lang: locale })
 
   const t = translations?.Navbar
@@ -37,7 +33,6 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 border-b justify-center backdrop-blur-sm border-indigo-100 shadow-sm bg-background/50">
       <div className="w-[88%] mx-auto flex items-center justify-between h-16">
 
-
         <div className="hidden md:flex items-center justify-between space-x-8 gap-[10px] w-full">
           <Link
             href={`/${locale}`}
@@ -45,7 +40,6 @@ export default function Navbar() {
           >
             {t?.ourblogs || "Our Blogs"}
           </Link>
-          {/* {item} */}
 
           <div className="flex items-center gap-8 ml-6">
             <Link href={`/${locale}`} className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium">{t?.home  || "Home"}</Link>

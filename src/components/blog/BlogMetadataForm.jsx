@@ -100,31 +100,31 @@ function BlogMetadataForm({
 
         {imgUrl && (
           <div
-            className="mt-3 relative group cursor-pointer"
+            className="mt-3 h-[30%] relative group cursor-pointer"
             onClick={() => setIsFullscreen(true)}
           >
             <img
               src={imgUrl}
               alt="Preview"
-              className="max-h-48 w-full object-cover rounded-lg border border-gray-300 dark:border-gray-600 transition-transform duration-300 group-hover:scale-[1.02]"
+              className="h-full w-full object-cover rounded-lg border border-gray-300 dark:border-gray-600 transition-transform duration-300 group-hover:scale-[1.02]"
             />
-            <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 rounded-lg flex items-center justify-center text-white font-medium text-sm transition-opacity">
+
+            <div className="absolute inset-0 z-10   bg-black/50 group-hover:opacity-100 rounded-lg flex items-center justify-center text-white font-medium text-sm transition-opacity">
               Click to view fullscreen
             </div>
           </div>
         )}
       </div>
 
-      {/* Fullscreen Modal */}
-      {isFullscreen && (
+     {isFullscreen && (
         <div
           onClick={() => setIsFullscreen(false)}
-          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4 cursor-zoom-out"
+          className="fixed inset-0 z-50 bg-black/90  flex items-center justify-center p-4 cursor-zoom-out"
         >
           <img
             src={imgUrl}
             alt="Fullscreen preview"
-            className="max-w-full max-h-full object-contain rounded-lg shadow-lg"
+            className="max-w-full max-h-full   object-cover rounded-lg shadow-lg"
           />
         </div>
       )}
@@ -133,3 +133,4 @@ function BlogMetadataForm({
 }
 
 export default BlogMetadataForm;
+

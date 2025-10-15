@@ -9,7 +9,7 @@ import rehypeStringify from 'rehype-stringify';
 import Link from 'next/link';
 
 const page = async ({ params }) => {
-  const { locale, slug } = params;
+  const { locale, slug } =await params;
 
   const filepath = `Blogs/${locale}/${slug}.md`;
 

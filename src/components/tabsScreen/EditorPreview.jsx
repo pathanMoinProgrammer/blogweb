@@ -1,9 +1,7 @@
 'use client';
-
 import * as Tabs from '@radix-ui/react-tabs';
 import JoditEditor from '@/components/blog/joditeditor';
 import BlogPreview from '@/components/blog/BlogPreview';
-import BlogMetadataForm from '../blog/BlogMetadataForm';
 import BlogFormSection from './BlogMetaData';
 
 export default function EditorPreviewTabs({
@@ -25,9 +23,9 @@ export default function EditorPreviewTabs({
   setImgUrl,
 }) {
   return (
-    <section className="w-full min-h-[400px] max-[900px]:mt-10    dark:bg-gray-800">
+    <section className="w-full min-h-[400px] max-[1300px]:mt-10 dark:bg-gray-800">
       <Tabs.Root defaultValue="editor" className="flex flex-col">
-        <Tabs.List className="flex border-b gap-2 border-gray-200 dark:border-gray-700  dark:bg-gray-900 px-4 [&>*]:cursor-pointer [&>*]:hover:bg-gray-100/80">
+        <Tabs.List className="flex border-b gap-2 border-gray-200 dark:border-gray-700 dark:bg-gray-900 px-4 [&>*]:cursor-pointer dark:[&>*]:hover:bg-gray-100/10 [&>*]:hover:bg-black/10">
           <Tabs.Trigger
             value="editor"
             className="px-6 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 
@@ -42,14 +40,14 @@ export default function EditorPreviewTabs({
 
           <Tabs.Trigger
             value="metadata"
-            className="min-[700px]:hidden px-6 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 
+            className="min-[1300px]:hidden px-6 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 
     border border-transparent rounded-t-md 
     data-[state=active]:bg-white dark:data-[state=active]:bg-gray-800 
     data-[state=active]:border-gray-200 dark:data-[state=active]:border-gray-700 
     data-[state=active]:border-b-white dark:data-[state=active]:border-b-gray-800 
     focus:outline-none focus:ring-0 transition-colors"
           >
-            Meta Data
+            Meta-Data
           </Tabs.Trigger>
 
           <Tabs.Trigger
@@ -65,7 +63,7 @@ export default function EditorPreviewTabs({
           </Tabs.Trigger>
         </Tabs.List>
 
-        <Tabs.Content value="editor" className=" lg:p-1  overflow-auto">
+        <Tabs.Content value="editor" className="lg:p-1 overflow-auto">
           <JoditEditor
             storageKey="myBlogPost"
             setHtmContent={setHtmContent}
@@ -74,37 +72,26 @@ export default function EditorPreviewTabs({
             content={content}
           />
         </Tabs.Content>
-        <Tabs.Content value="metadata" className="p-4 lg:p-6 overflow-auto">
+        <Tabs.Content value="metadata" className="p-4 lg:p-6 overflow-auto min-[1300px]:hidden">
           <BlogFormSection
             blogName={blogName}
-            setBlogName={(v) => {
-              setBlogName(v);
-              scheduleSaveDraft({ blogName: v });
-            }}
+            setBlogName={setBlogName}
             author={author}
             enurl={enurl}
-            setEnurl={(v) => {
-              setEnurl(v);
-              scheduleSaveDraft({ enurl: v });
-            }}
+            setEnurl={setEnurl}
             title={title}
-            setTitle={(v) => {
-              setTitle(v);
-              scheduleSaveDraft({ title: v });
-            }}
+            setTitle={setTitle}
             description={description}
-            setDescription={(v) => {
-              setDescription(v);
-              scheduleSaveDraft({ description: v });
-            }}
+            setDescription={setDescription}
             imgUrl={imgUrl}
             setImgUrl={setImgUrl}
           />
         </Tabs.Content>
         <Tabs.Content value="preview" className="p-4 lg:p-6 overflow-auto">
-          <BlogPreview content={content} editor={editor} />
+          <BlogPreview HtmContent={HtmContent} editor={editor} />
         </Tabs.Content>
       </Tabs.Root>
     </section>
   );
 }
+

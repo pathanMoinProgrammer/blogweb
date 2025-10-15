@@ -9,6 +9,8 @@ import React, {
 } from 'react';
 import dynamic from 'next/dynamic';
 import 'jodit/es5/jodit.min.css';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { isClear } from '../jotai';
 
 const JoditEditorImport = dynamic(() => import('jodit-react'), { ssr: false });
 
@@ -17,14 +19,18 @@ export default function JoditEditor({
   initial = '<p>Start writing...</p>',
   autosaveDelay = 1500,
   onChange = () => {},
-  setHtmlContent = () => {},
+  setHtmContent = () => {},
   setContent = () => {},
+  content,
+  HtmContent,
 }) {
   const editorRef = useRef(null);
   const [mounted, setMounted] = useState(false);
   const [initialValue, setInitialValue] = useState(initial);
   const [copied, setCopied] = useState(false);
   const saveTimer = useRef(null);
+  const clear = useAtomValue(isClear);
+  const setClear = useSetAtom(isClear);
 
   const htmlToPlainText = useCallback((html) => {
     if (!html) return '';
@@ -32,18 +38,32 @@ export default function JoditEditor({
     const doc = parser.parseFromString(html, 'text/html');
     return doc.body.textContent || '';
   }, []);
+  useEffect(() => {
+      console.log(`${storageKey}:html`  ,"localStorage")
+
+    if (clear) {
+      localStorage.removeItem(`${storageKey}:html`);
+      setClear(false)
+      console.log(clear, "atom")
+      console.log(localStorage.getItem(`${storageKey}:html`), "localStorage")
+    }
+  }, [clear]);
 
   useEffect(() => {
     setMounted(true);
     if (typeof window !== 'undefined') {
       try {
         const savedHtml = localStorage.getItem(`${storageKey}:html`);
-        if (savedHtml) setInitialValue(savedHtml);
+        if (savedHtml) {
+          console.log("saved html", `${storageKey}:html`, savedHtml)
+          setInitialValue(savedHtml);
+          setHtmContent(savedHtml);
+        }
       } catch (e) {
         console.warn('localStorage load error', e);
       }
     }
-  }, [storageKey]);
+  }, [storageKey, setHtmContent]);
 
   const scheduleSave = useCallback(
     (html) => {
@@ -54,8 +74,8 @@ export default function JoditEditor({
           const plain = htmlToPlainText(html);
           localStorage.setItem(`${storageKey}:html`, html);
           localStorage.setItem(storageKey, plain);
-          setHtmlContent(html);
-          setContent(plain);
+          setHtmContent(html);
+          setContent(html);
           onChange(html);
         } catch (e) {
           console.warn('localStorage save error', e);
@@ -66,7 +86,7 @@ export default function JoditEditor({
       autosaveDelay,
       htmlToPlainText,
       onChange,
-      setHtmlContent,
+      setHtmContent,
       setContent,
       storageKey,
     ],
@@ -139,8 +159,7 @@ export default function JoditEditor({
   }, [htmlToPlainText]);
 
   return (
-    <div className="h-full w-full flex flex-col ">
-      {/* Header */}
+    <div className="h-full w-full flex flex-col">
       <div className="flex justify-between items-center p-4 bg-white dark:text-black dark:bg-gray-900 sticky top-0 z-10 border-b border-gray-200 dark:border-gray-700">
         <h2 className="text-lg font-semibold text-gray-700 dark:text-white">
           📝 Editor
@@ -165,8 +184,7 @@ export default function JoditEditor({
         </div>
       </div>
 
-      {/* Editor Container */}
-      <div className="flex-1 overflow-auto bg-white dark:text-black  dark:bg-gray-900 border-none rounded-lg">
+      <div className="flex-1 overflow-auto bg-white dark:text-black dark:bg-gray-900 border-none rounded-lg">
         {!mounted ? (
           <div className="h-full flex items-center justify-center text-gray-600 dark:text-gray-300">
             Loading editor...
