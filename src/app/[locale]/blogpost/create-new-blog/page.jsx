@@ -432,6 +432,43 @@ export default function CreateBlogPage() {
       });
       const wordCount = markdownContent.split(/\s+/).length;
       const readTime = Math.ceil(wordCount / 200);
+      // const contee =
+      //         markdownContent == '<p>Start Writing New Blog</p>'
+      //           ? content
+      //           : markdownContent == 'Start Writing New Blog'
+      //           ? content
+      //           : markdownContent;
+
+      //       console.log(contee, 'contee');
+
+      //       const fullMarkdown = `---
+      // name: '${blogName}'
+      // author: '${author}'
+      // date: '${date}'
+      // time: '${readTime} min read'
+      // enurl: "${enurl}"
+      // hiurl: null
+      // title: "${title}"
+      // img: '${imgUrl}'
+      // description: "${description}"
+      // ---
+
+      // ${contee}`;
+      //       console.log(fullMarkdown, 'fullMarkdown');
+
+      //       // const res = await fetch('/api/create-blog-sync', {
+      //       //   method: 'POST',
+      //       //   headers: { 'Content-Type': 'application/json' },
+      //       //   body: JSON.stringify({
+      //       //     locale: 'en',
+      //       //     slug: enurl,
+      //       //     content: fullMarkdown,
+      //       //   }),
+      //       // });
+
+      //       // const result = await res.json();
+      //       const res = { ok: true };
+
       const contee =
         markdownContent == ''
           ? content

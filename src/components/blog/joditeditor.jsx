@@ -141,7 +141,7 @@ export default function JoditEditor({
   return (
     <div className="h-full w-full flex flex-col ">
       {/* Header */}
-      <div className="flex justify-between items-center p-4 bg-white dark:bg-gray-900 sticky top-0 z-10 border-b border-gray-200 dark:border-gray-700">
+      <div className="flex justify-between items-center p-4 bg-white dark:text-black dark:bg-gray-900 sticky top-0 z-10 border-b border-gray-200 dark:border-gray-700">
         <h2 className="text-lg font-semibold text-gray-700 dark:text-white">
           📝 Editor
         </h2>
@@ -166,7 +166,7 @@ export default function JoditEditor({
       </div>
 
       {/* Editor Container */}
-      <div className="flex-1 overflow-auto bg-white dark:bg-gray-900 border-none rounded-lg">
+      <div className="flex-1 overflow-auto bg-white dark:text-black  dark:bg-gray-900 border-none rounded-lg">
         {!mounted ? (
           <div className="h-full flex items-center justify-center text-gray-600 dark:text-gray-300">
             Loading editor...

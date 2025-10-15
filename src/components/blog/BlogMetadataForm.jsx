@@ -27,7 +27,7 @@ function BlogMetadataForm({
 
   return (
     <>
-      <div className="w-full h-screen space-y-4 p-6 rounded-lg border border-gray-200 dark:border-gray-700 bg-blue-50/30 dark:bg-gray-800">
+      <div className="w-full min-[1000px]:h-screen space-y-4 p-6 rounded-lg border border-gray-200 dark:border-gray-700 bg-blue-50/30 dark:bg-gray-800">
         <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Blog Information</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
