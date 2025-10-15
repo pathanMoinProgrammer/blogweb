@@ -27,7 +27,7 @@ export default function BlogPreview({ content, editor }) {
   };
 
   return (
-    <div className="flex flex-col w-full h-full border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden ">
+    <div className="flex flex-col w-full h-screen border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden ">
 
       <div className="flex justify-between items-center p-4 bg-white dark:bg-gray-900 sticky top-0 z-10 border-b border-gray-200 dark:border-gray-700">
         <pre className="text-lg font-semibold text-gray-700 dark:text-white font-sans"> 🖋️   Preview</pre>

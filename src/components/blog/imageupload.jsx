@@ -52,8 +52,8 @@ function ImageUploader({ imgUrl, setImgUrl }) {
   return (
     <div className="h-full flex flex-col bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
       {/* Header */}
-      <div className="sticky top-0 bg-gray-50 dark:bg-gray-800 px-6 py-4 border-b border-gray-200 dark:border-gray-700 z-10">
-        <label className="block text-sm font-semibold text-gray-700 dark:text-white">
+      <div className=" top-0 bg-gray-50 dark:bg-gray-800 px-6 py-4 border-b border-gray-200 dark:border-gray-700 z-10">
+        <label className=" text-sm font-semibold text-gray-700 dark:text-white">
           🖼️ Cover Image
         </label>
       </div>
