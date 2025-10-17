@@ -41,7 +41,7 @@
 
 'use client';
 
-import { items } from '@/components/jotai';
+import { isClear } from '@/components/jotai';
 import { useAtom } from 'jotai';
 import { ScopeProvider } from 'jotai-scope';
 import React, { useState } from 'react';
@@ -72,7 +72,7 @@ const Page = () => {
             const cardContent = <Card key={index} />;
 
             return useScope ? (
-              <ScopeProvider atoms={[items]} key={index}>
+              <ScopeProvider atoms={[isClear]} key={index}>
                 {cardContent}
               </ScopeProvider>
             ) : (
