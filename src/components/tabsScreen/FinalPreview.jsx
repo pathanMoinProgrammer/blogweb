@@ -27,7 +27,7 @@ export default function FinalReviewSection({ title, isCreating, handleCreateBlog
         </div>
 
         {/* Floating Publish Button */}
-        <div className="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-20 w-[90%] sm:w-auto">
+        {/* <div className="fixed bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-20 w-[90%] sm:w-auto">
           <button
             onClick={handleCreateBlog}
             disabled={isCreating}
@@ -57,7 +57,7 @@ export default function FinalReviewSection({ title, isCreating, handleCreateBlog
               </>
             )}
           </button>
-        </div>
+        </div> */}
       </div>
     </section>
   );

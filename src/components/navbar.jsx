@@ -16,14 +16,14 @@ import { useGameTranslations } from './traslatorclient';
 import { useParams } from 'next/navigation';
 
 export default function Navbar() {
-  const params = useParams()
+  const params = useParams();
 
   const locale = params?.locale;
   const [sheetOpen, setSheetOpen] = useState(false);
 
-  const {translations} = useGameTranslations({ lang: locale })
+  const { translations } = useGameTranslations({ lang: locale });
 
-  const t = translations?.Navbar
+  const t = translations?.Navbar;
 
   const handleLinkClick = () => {
     setSheetOpen(false);
@@ -32,28 +32,63 @@ export default function Navbar() {
   return (
     <nav className="sticky top-0 z-50 border-b justify-center backdrop-blur-sm border-indigo-100 shadow-sm bg-background/50">
       <div className="w-[88%] mx-auto flex items-center justify-between h-16">
-
         <div className="hidden md:flex items-center justify-between space-x-8 gap-[10px] w-full">
           <Link
             href={`/${locale}`}
             className="text-2xl font-bold text-blue-500 dark:text-white tracking-tight"
           >
-            {t?.ourblogs || "Our Blogs"}
+            {t?.ourblogs || 'Our Blogs'}
           </Link>
 
           <div className="flex items-center gap-8 ml-6">
-            <Link href={`/${locale}`} className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium">{t?.home  || "Home"}</Link>
-            <Link href={`/${locale}/about`} className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium">{t?.about  || "About"}</Link>
-            <Link href={`/${locale}/blogpost`} className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium">{t?.blog  || "Blog"}</Link>
-            <Link href={`/${locale}/contact`} className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium">{t?.contact  || "Contact"}</Link>
+            <Link
+              href={`/${locale}`}
+              className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium"
+            >
+              {t?.home || 'Home'}
+            </Link>
+            <Link
+              href={`/${locale}/about`}
+              className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium"
+            >
+              {t?.about || 'About'}
+            </Link>
+            <Link
+              href={`/${locale}/blogpost`}
+              className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium"
+            >
+              {t?.blog || 'Blog'}
+            </Link>
+            <Link
+              href={`/${locale}/contact`}
+              className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium"
+            >
+              {t?.contact || 'Contact'}
+            </Link>
+            <Link
+              href={`/${locale}/my-profile`}
+              className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium"
+            >
+              {'My Blogs'}
+            </Link>
 
             <LanguageSwitcher />
 
-            <div className="flex gap-[20px]">
-              <Button className="w-[70px] hover:scale-130 dark:text-white cursor-pointer" variant="outline">{t?.signIn  || "Sign In"}</Button>
-              <Button className="w-[70px] hover:scale-130 dark:text-white cursor-pointer" variant="outline">{t?.logout || "LogOut"}</Button>
+            {/* <div className="flex gap-[20px]">
+              <Button
+                className="w-[70px] hover:scale-130 dark:text-white cursor-pointer"
+                variant="outline"
+              >
+                {t?.signIn || 'Sign In'}
+              </Button>
+              <Button
+                className="w-[70px] hover:scale-130 dark:text-white cursor-pointer"
+                variant="outline"
+              >
+                {t?.logout || 'LogOut'}
+              </Button>
               <ModeToggle />
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -62,7 +97,7 @@ export default function Navbar() {
           {/* Left: Burger Icon */}
           <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
             <SheetTrigger>
-              <div className='flex items-center gap-3 cursor-pointer'>
+              <div className="flex items-center gap-3 cursor-pointer">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -79,31 +114,61 @@ export default function Navbar() {
                   <path d="M4 12h16" />
                   <path d="M4 19h16" />
                 </svg>
-                <Link href={`/${locale}`} className="text-2xl font-bold text-blue-500 dark:text-white tracking-tight">
-                  {t?.ourblogs || "Our Blogs"}
+                <Link
+                  href={`/${locale}`}
+                  className="text-2xl font-bold text-blue-500 dark:text-white tracking-tight"
+                >
+                  {t?.ourblogs || 'Our Blogs'}
                 </Link>
               </div>
             </SheetTrigger>
 
-            <SheetContent side="left" className="flex flex-col h-screen w-64 p-6 bg-background">
+            <SheetContent
+              side="left"
+              className="flex flex-col h-screen w-64 p-6 bg-background"
+            >
               {/* Header */}
               <SheetHeader className="mb-6">
-                <SheetTitle className="text-2xl font-bold">{t?.ourblogs || "Our Blogs"}</SheetTitle>
+                <SheetTitle className="text-2xl font-bold">
+                  {t?.ourblogs || 'Our Blogs'}
+                </SheetTitle>
               </SheetHeader>
 
               {/* Links */}
               <div className="flex-1 flex flex-col space-y-4 overflow-y-auto">
-                <Link href={`/${locale}`} onClick={handleLinkClick} className="block py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700">
-                  {t?.home  || "Home"}
+                <Link
+                  href={`/${locale}`}
+                  onClick={handleLinkClick}
+                  className="block py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700"
+                >
+                  {t?.home || 'Home'}
                 </Link>
-                <Link href={`/${locale}/about`} onClick={handleLinkClick} className="block py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700">
-                  {t?.about  || "About"}
+                <Link
+                  href={`/${locale}/about`}
+                  onClick={handleLinkClick}
+                  className="block py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700"
+                >
+                  {t?.about || 'About'}
                 </Link>
-                <Link href={`/${locale}/blogpost`} onClick={handleLinkClick} className="block py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700">
-                  {t?.blog  || "Blogs"}
+                <Link
+                  href={`/${locale}/blogpost`}
+                  onClick={handleLinkClick}
+                  className="block py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700"
+                >
+                  {t?.blog || 'Blogs'}
                 </Link>
-                <Link href={`/${locale}/contact`} onClick={handleLinkClick} className="block py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700">
-                  {t?.contact  || "Contact"}
+                <Link
+                  href={`/${locale}/contact`}
+                  onClick={handleLinkClick}
+                  className="block py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700"
+                >
+                  {t?.contact || 'Contact'}
+                </Link>
+                <Link
+                  href={`/${locale}/my-profile`}
+                  className="block py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700"
+                >
+                  {'My Blogs'}
                 </Link>
               </div>
 
@@ -120,7 +185,7 @@ export default function Navbar() {
           </Sheet>
 
           {/* Right: Mode Toggle */}
-          <div className='flex items-center gap-2'>
+          <div className="flex items-center gap-2">
             <LanguageSwitcher />
             <ModeToggle />
           </div>

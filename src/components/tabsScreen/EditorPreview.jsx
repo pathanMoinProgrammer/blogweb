@@ -23,7 +23,7 @@ export default function EditorPreviewTabs({
   setImgUrl,
 }) {
   return (
-    <section className="w-full min-h-[400px] max-[1300px]:mt-10 dark:bg-gray-800">
+    <section className="w-full min-h-[400px] mt-5 max-[1300px]:mt-10 dark:bg-gray-800">
       <Tabs.Root defaultValue="editor" className="flex flex-col">
         <Tabs.List className="flex border-b gap-2 border-gray-200 dark:border-gray-700 dark:bg-gray-900 px-4 [&>*]:cursor-pointer dark:[&>*]:hover:bg-gray-100/10 [&>*]:hover:bg-black/10">
           <Tabs.Trigger

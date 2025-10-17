@@ -28,7 +28,7 @@ export function useGameTranslations({ lang }) {
         setError(err.message);
       } finally {
         setLoading(false);
-        console.log(`[useGameTranslations] Loading complete, loading: false`);
+        // console.log(`[useGameTranslations] Loading complete, loading: false`);
       }
     }
 

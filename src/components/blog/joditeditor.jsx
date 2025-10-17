@@ -39,13 +39,9 @@ export default function JoditEditor({
     return doc.body.textContent || '';
   }, []);
   useEffect(() => {
-      // console.log(`${storageKey}:html`  ,"localStorage")
-
     if (clear) {
       localStorage.removeItem(`${storageKey}:html`);
-      setClear(false)
-      // console.log(clear, "atom")
-      // console.log(localStorage.getItem(`${storageKey}:html`), "localStorage")
+      setClear(false);
     }
   }, [clear]);
 
@@ -55,7 +51,6 @@ export default function JoditEditor({
       try {
         const savedHtml = localStorage.getItem(`${storageKey}:html`);
         if (savedHtml) {
-          // console.log("saved html", `${storageKey}:html`, savedHtml)
           setInitialValue(savedHtml);
           setHtmContent(savedHtml);
         }
@@ -193,7 +188,8 @@ export default function JoditEditor({
           <JoditEditorImport
             ref={editorRef}
             config={config}
-            value={initialValue}
+          
+            value={content || initialValue}
             onBlur={(newContent) => scheduleSave(newContent)}
             onChange={(newContent) => scheduleSave(newContent)}
           />

@@ -4,11 +4,12 @@ import { useAtom } from 'jotai'
 import React from 'react'
 
 const page = () => {
-  const [item, setitem]= useAtom(items)
+  // const [item, setitem]= useAtom(items)
   return (
     <div>
-      {item}
-      <button onClick={()=> setitem(prev => prev+1)}>Increase</button>
+      {/* {item} */}
+      {/* <button onClick={()=> setitem(prev => prev+1)}>Increase</button> */}
+      Its Contact Page
     </div>
   )
 }
