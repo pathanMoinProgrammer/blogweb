@@ -145,7 +145,7 @@ const Page = () => {
 export default Page;
 
 const Card = () => {
-  const [item, setItem] = useAtom(items);
+  const [item, setItem] = useAtom(isClear);
 
   return (
     <div className="p-4 border rounded shadow">
