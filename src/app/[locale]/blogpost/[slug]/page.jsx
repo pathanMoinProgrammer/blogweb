@@ -7,7 +7,6 @@ import remarkRehype from 'remark-rehype';
 import rehypeFormat from 'rehype-format';
 import rehypeStringify from 'rehype-stringify';
 import Link from 'next/link';
-
 import { slugReadRef } from '@/firebase/firebaseAdminRefs';
 
 const page = async ({ params }) => {
@@ -18,25 +17,8 @@ const page = async ({ params }) => {
   const filepath = `Blogs/${locale}/${slug}.md`;
   if (rowDataRef.docs.length > 0) {
     rowDataRef.docs.forEach((gData) => (data = gData.data()));
-    // rowDataRef.docs.forEach((gData) => console.log(gData.data()));
   }
-  console.log(data, 'data');
-
-  // if (!fs.existsSync(filepath)) {
-  //   notFound();
-  // }
-
-  // const filedata = fs.readFileSync(filepath, 'utf-8');
-  // const { data, content } = matter(filedata);
-
-  // const processor = unified()
-  //   .use(remarkParse)
-  //   .use(remarkRehype)
-  //   .use(rehypeFormat)
-  //   .use(rehypeStringify);
-
-  // const file = await processor.process(content);
-  // const htmlContent = String(file);
+  
   const htmlContent = data.content;
 
   return (

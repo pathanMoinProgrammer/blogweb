@@ -5,7 +5,7 @@ import matter from 'gray-matter';
 import { getTranslations } from '../traslator';
 
 export async function BlogSection({ params }) {
-  const locale = params.locale;
+  const locale = await params.locale;
 
   // Now read markdown files
   const dirContent = fs.readdirSync(`Blogs/${locale}`, 'utf-8');

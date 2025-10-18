@@ -24,7 +24,6 @@ const DeleteAdminPost = ({ postid, languages }) => {
     setConfirm(true)
   }
 
-  console.log(error, "error", loading, "loading")
 
   const handleCancel = () => {
     setConfirm(false);
@@ -39,7 +38,7 @@ const DeleteAdminPost = ({ postid, languages }) => {
         disabled={loading}
         className={`${
           loading ? 'rounded-full' : 'rounded-md'
-        } bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 text-white transition-all duration-300 flex items-center gap-2`}
+        } bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 text-white transition-all duration-300 flex items-center gap-2 `}
       >
         {loading ? (
           <Loader2 className="w-4 h-4 animate-spin" />

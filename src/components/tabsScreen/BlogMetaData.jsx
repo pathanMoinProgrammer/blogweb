@@ -41,6 +41,3 @@ export default function BlogFormSection({
     </section>
   );
 }
-
-
-// object-cover

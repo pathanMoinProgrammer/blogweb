@@ -16,10 +16,11 @@ export const postColRef = collection(db, 'posts');
 export const translationsCg = collectionGroup(db, 'translations');
 
 export const timestamp = () => Timestamp.now();
-export const postDocRef = (postid, locale) => [
-  doc(postColRef, postid),
-  doc(postColRef, postid, 'translations', locale),
-];
+export const postDocRef = (postid, locale) => {
+  const parentRef = doc(postColRef, postid);
+  const childRef = doc(postColRef, postid, 'translations', locale);
+  return { parentRef, childRef };
+};
 
 export const delDocRef = (postid, languages) => {
   const langsArray = [doc(postColRef, postid)];
@@ -30,8 +31,5 @@ export const delDocRef = (postid, languages) => {
     );
   }
 
-  console.log('langs', languages);
-
-  let arrayofRefs = langsArray;
-  return arrayofRefs;
+  return langsArray;
 };
