@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Button } from './ui/button';
+import { Button } from './button';
 import { Plus, Loader2 } from 'lucide-react'; // Loader2 = spinning icon
 import Link from 'next/link';
 import { addDoc } from 'firebase/firestore';
@@ -11,18 +11,18 @@ import { useRouter } from 'next/navigation';
 export const CreateNewAdminBlog = ({ locale }) => {
   const [loading, setLoading] = useState(false);
   const [uid, setUid] = useState(null);
-  const router = useRouter()
+  const router = useRouter();
   const emptyData = {
     author: 'Untitled',
     createdAt: timestamp(),
     description: 'NA',
-    enslug: "",
-    esslug:"" ,
-    hislug: "",
-    imgUrl: "NA",
+    enslug: '',
+    esslug: '',
+    hislug: '',
+    imgUrl: 'NA',
     languages: [],
     // name: '',
-    title: "untitled",
+    title: 'untitled',
     updatedAt: timestamp(),
   };
 
@@ -32,7 +32,7 @@ export const CreateNewAdminBlog = ({ locale }) => {
       const docRef = await addDoc(postColRef, emptyData);
       setUid(docRef.id);
       setLoading(false);
-      router.push(`/${locale}/blogpost/create-new-blog/${docRef.id}`)
+      router.push(`/${locale}/blogpost/create-new-blog/${docRef.id}`);
     } catch (error) {
       console.error(error, 'error');
     }
@@ -55,8 +55,8 @@ export const CreateNewAdminBlog = ({ locale }) => {
             href={`/${locale}/blogpost/create-new-blog/${uid}`}
             
           > */}
-            <Plus className="w-5 h-5" />
-            <span>Create New Blog</span>
+          <Plus className="w-5 h-5" />
+          <span>Create New Blog</span>
           {/* </Link> */}
         </div>
       )}

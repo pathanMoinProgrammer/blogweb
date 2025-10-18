@@ -28,4 +28,27 @@ if you have data , load it and display it in editor
 
 if user click on any article language, redirect user to /language/create-new-blog/postId
 
+///////////////
+
+<CreateBlogPost >
+ // hold all states here with formik 
+ // create formik state here and pass it down as needed
+ // on submit
+ MOBILE VIEW Tab 
+ <Metadata metadata />
+ <BlogPost blogpost />
+ <Preview htmlContent/>
+ 
+ compute view tABS
+  <Metadata metadata />
+ <BlogPost blogpost />
+ <Preview htmlContent/>
+
+Meta data component - title, descriptiion, author, slug, image
+Blog Post - html content 
+Preview - which will show html content preview
+<CreateBlogPost />
+
+
+
 

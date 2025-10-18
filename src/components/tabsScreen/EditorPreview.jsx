@@ -6,26 +6,12 @@ import BlogFormSection from './BlogMetaData';
 import { useBlogContext } from '@/hooks/costumHooks/blogMetadataContext';
 
 export default function EditorPreviewTabs({
-    editor
+  formData,
+  setFormData,
+  editor = null,
 }) {
-  const {
-    blogName,
-    setBlogName,
-    enurl,
-    setEnurl,
-    title,
-    setTitle,
-    description,
-    setDescription,
-    imgUrl,
-    setImgUrl,
-    content,
-    setContent,
-    HtmContent,
-    setHtmContent,
-    author,
-  } = useBlogContext();
-  // const { content } = useBlogContext();
+  const { HtmContent } = formData;
+  console.log(formData, 'formData');
 
   return (
     <section className="w-full min-h-[400px] mt-5 max-[1300px]:mt-10 dark:bg-gray-800">
@@ -71,29 +57,15 @@ export default function EditorPreviewTabs({
         <Tabs.Content value="editor" className="lg:p-1 overflow-auto">
           <JoditEditor
             storageKey="myBlogPost"
-            setHtmContent={setHtmContent}
-            HtmContent={HtmContent}
-            setContent={setContent}
-            content={content}
+            formData={formData}
+            setFormData={setFormData}
           />
         </Tabs.Content>
         <Tabs.Content
           value="metadata"
           className="p-4 lg:p-6 overflow-auto min-[1300px]:hidden"
         >
-          <BlogFormSection
-            blogName={blogName}
-            setBlogName={setBlogName}
-            author={author}
-            enurl={enurl}
-            setEnurl={setEnurl}
-            title={title}
-            setTitle={setTitle}
-            description={description}
-            setDescription={setDescription}
-            imgUrl={imgUrl}
-            setImgUrl={setImgUrl}
-          />
+          <BlogFormSection setFormData={setFormData} />
         </Tabs.Content>
         <Tabs.Content value="preview" className="p-4 lg:p-6 overflow-auto">
           <BlogPreview HtmContent={HtmContent} editor={editor} />

@@ -1,3 +1,15 @@
+// const {
+//   blogName, setBlogName,
+//   enurl, setEnurl,
+//   title, setTitle,
+//   description, setDescription,
+//   imgUrl, setImgUrl,
+//   content, setContent,
+//   HtmContent, setHtmContent,
+//   author, setAuthor,
+//   clickable, setClickable,
+// } = useBlogContext();
+
 import { useEffect, useRef, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { arrayUnion } from 'firebase/firestore';
@@ -7,17 +19,17 @@ import { useReadDoc } from '@/hooks/fireatoreHooks/useReadDoc';
 import { useBlogContext } from '@/hooks/costumHooks/blogMetadataContext';
 
 export default function useCreateBlogPage() {
-  const {
-    blogName, setBlogName,
-    enurl, setEnurl,
-    title, setTitle,
-    description, setDescription,
-    imgUrl, setImgUrl,
-    content, setContent,
-    HtmContent, setHtmContent,
-    author, setAuthor,
-    clickable, setClickable,
-  } = useBlogContext();
+  const [formData, setFormData] = useState({
+    blogName: '',
+    enurl: '',
+    title: '',
+    description: '',
+    imgUrl: '',
+    content: '',
+    HtmContent: '',
+    author: '',
+  });
+  const [clickable, setClickable] = useState(true);
 
   const [isMounted, setIsMounted] = useState(false);
   const { loading, error, setDataWithLang } = useCreateDoc();
@@ -38,65 +50,78 @@ export default function useCreateBlogPage() {
   useEffect(() => {
     if (state?.data && Object.keys(state.data).length > 0) {
       const d = state.data;
-      setBlogName(d.slug || '');
-      setTitle(d.title || '');
-      setDescription(d.description || '');
-      setImgUrl(d.imgUrl || '');
-      setEnurl(d.slug || '');
-      setContent(d.content || '<p>Start Writing New Blog</p>');
-      setHtmContent(d.content || '<p>Start Writing New Blog</p>');
+      setFormData((prev) => ({
+        ...prev,
+        blogName: d.slug || '',
+        enurl: d.slug || '',
+        title: d.title || '',
+        description: d.description || '',
+        imgUrl: d.imgUrl || '',
+        content: d.content || '<p>Start Writing New Blog</p>',
+        HtmContent: d.content || '<p>Start Writing New Blog</p>',
+        author: d.author || 'Admin User',
+      }));
     }
   }, [state?.data]);
 
   useEffect(() => {
+    setIsMounted(true);
     if (typeof window === 'undefined') return;
     const saved = localStorage.getItem(DRAFT_KEY);
     if (saved) {
       try {
         const data = JSON.parse(saved);
-        setBlogName(data.blogName || '');
-        setEnurl(data.enurl || '');
-        setTitle(data.title || '');
-        setDescription(data.description || '');
-        setImgUrl(data.imgUrl || '');
-        setContent(data.content || '<p>Start Writing New Blog</p>');
-        setHtmContent(data.htmlContent || '<p>Start Writing New Blog</p>');
+        setFormData((prev) => ({
+          ...prev,
+          blogName: data.blogName || '',
+          enurl: data.enurl || '',
+          title: data.title || '',
+          description: data.description || '',
+          imgUrl: data.imgUrl || '',
+          content: data.content || '<p>Start Writing New Blog</p>',
+          HtmContent: data.htmlContent || '<p>Start Writing New Blog</p>',
+          author: data.author || prev.author,
+        }));
       } catch (e) {
         console.warn('Error restoring draft', e);
       }
     }
+    return () => {
+      setIsMounted(false);
+    };
   }, []);
 
   const objForData = {
-    author,
-    content,
-    HtmContent,
+    author: formData.author,
+    content: formData.content,
+    HtmContent: formData.HtmContent,
     createdAt: timestamp(),
-    description,
-    imgUrl,
+    description: formData.description,
+    imgUrl: formData.imgUrl,
     lang: locale,
-    slug: enurl,
+    slug: formData.enurl,
     status: 'draft',
-    title,
+    title: formData.title,
     updatedAt: timestamp(),
   };
-
 
   const scheduleSaveDraft = (updatedData = {}) => {
     if (saveTimeout.current) clearTimeout(saveTimeout.current);
     saveTimeout.current = setTimeout(() => {
+     
       const draft = {
-        blogName,
-        enurl,
-        title,
-        description,
-        imgUrl,
-        content,
-        HtmContent,
-        author,
         ...updatedData,
-        updatedAt: new Date().toISOString(),
+        author: formData.author,
+        content: formData.content,
+        HtmContent: formData.HtmContent,
+        description: formData.description,
+        imgUrl: formData.imgUrl,
+        lang: locale,
+        slug: formData.enurl,
+        status: 'draft',
+        title: formData.title,
       };
+
       localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
     }, AUTO_SAVE_DELAY);
   };
@@ -106,7 +131,7 @@ export default function useCreateBlogPage() {
       await setDataWithLang(parentRef, {
         ...objForData,
         languages: arrayUnion(locale),
-        [url]: enurl,
+        [url]: formData.enurl,
       });
       await setDataWithLang(childRef, objForData);
       router.push(`/${locale}/my-profile`);
@@ -117,21 +142,16 @@ export default function useCreateBlogPage() {
   };
 
   return {
+    formData,
+    setClickable,
+    clickable,
+    setFormData,
     loading,
     error,
     handleCreateBlog,
     scheduleSaveDraft,
     setIsMounted,
     isMounted,
-
-    blogName, setBlogName,
-    enurl, setEnurl,
-    title, setTitle,
-    description, setDescription,
-    imgUrl, setImgUrl,
-    content, setContent,
-    HtmContent, setHtmContent,
-    author, setAuthor,
-    clickable, setClickable,
+    handleCreateBlog,
   };
 }

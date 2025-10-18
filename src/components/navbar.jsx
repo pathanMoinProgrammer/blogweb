@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/sheet';
 import { ModeToggle } from './themebtn';
 import { useState } from 'react';
-import LanguageSwitcher from './LanguageSwitcher';
+import LanguageSwitcher from './ui/LanguageSwitcher';
 import { useGameTranslations } from './traslatorclient';
 import { useParams } from 'next/navigation';
 

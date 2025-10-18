@@ -19,10 +19,10 @@ export default function JoditEditor({
   initial = '<p>Start writing...</p>',
   autosaveDelay = 1500,
   onChange = () => {},
-  setHtmContent = () => {},
-  setContent = () => {},
   content,
   HtmContent,
+  formData,
+  setFormData, 
 }) {
   const editorRef = useRef(null);
   const [mounted, setMounted] = useState(false);
@@ -52,13 +52,13 @@ export default function JoditEditor({
         const savedHtml = localStorage.getItem(`${storageKey}:html`);
         if (savedHtml) {
           setInitialValue(savedHtml);
-          setHtmContent(savedHtml);
+          setFormData(prev => ({...prev, HtmContent:savedHtml}))
         }
       } catch (e) {
         console.warn('localStorage load error', e);
       }
     }
-  }, [storageKey, setHtmContent]);
+  }, [storageKey, setFormData]);
 
   const scheduleSave = useCallback(
     (html) => {
@@ -69,8 +69,8 @@ export default function JoditEditor({
           const plain = htmlToPlainText(html);
           localStorage.setItem(`${storageKey}:html`, html);
           localStorage.setItem(storageKey, plain);
-          setHtmContent(html);
-          setContent(html);
+
+          setFormData(prev => ({...prev, HtmContent:html, content:html}))
           onChange(html);
         } catch (e) {
           console.warn('localStorage save error', e);
@@ -81,8 +81,7 @@ export default function JoditEditor({
       autosaveDelay,
       htmlToPlainText,
       onChange,
-      setHtmContent,
-      setContent,
+      setFormData,
       storageKey,
     ],
   );
@@ -189,7 +188,7 @@ export default function JoditEditor({
             ref={editorRef}
             config={config}
           
-            value={content || initialValue}
+            value={formData.content || initialValue}
             onBlur={(newContent) => scheduleSave(newContent)}
             onChange={(newContent) => scheduleSave(newContent)}
           />

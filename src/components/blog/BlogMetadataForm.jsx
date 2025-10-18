@@ -2,19 +2,9 @@
 import { useState, useEffect } from 'react';
 import UrlChecker from './UrlChecker';
 
-function BlogMetadataForm({
-  blogName,
-  setBlogName,
-  author,
-  enurl,
-  setEnurl,
-  title,
-  setTitle,
-  description,
-  setDescription,
-  imgUrl,
-  setImgUrl,
-}) {
+function BlogMetadataForm({ formData, setFormData }) {
+  const { blogName, enurl, title, description, imgUrl, author } = formData;
+
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   useEffect(() => {
@@ -28,7 +18,9 @@ function BlogMetadataForm({
   return (
     <>
       <div className="w-full min-[1000px]:h-screen space-y-4 p-6 rounded-lg border border-gray-200 dark:border-gray-700 bg-blue-50/30 dark:bg-gray-800">
-        <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Blog Information</h2>
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+          Blog Information
+        </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
@@ -38,13 +30,15 @@ function BlogMetadataForm({
             <input
               type="text"
               value={blogName}
-              onChange={(e) => setBlogName(e.target.value)}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, blogName: e.target.value }))
+              }
               className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
               placeholder="e.g., AI Frontier Blog"
             />
           </div>
 
-          <UrlChecker enurl={enurl} setEnurl={setEnurl} />
+          <UrlChecker formData={formData} setFormData={setFormData} />
         </div>
 
         <div>
@@ -54,7 +48,9 @@ function BlogMetadataForm({
           <input
             type="text"
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) =>
+              setFormData((prev) => ({ ...prev, title: e.target.value }))
+            }
             className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
             placeholder="Gemini's Edge in Multimodal AI"
           />
@@ -66,7 +62,9 @@ function BlogMetadataForm({
           </label>
           <textarea
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            onChange={(e) =>
+              setFormData((prev) => ({ ...prev, description: e.target.value }))
+            }
             className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
             placeholder="Brief description of your blog post..."
             rows={3}
@@ -80,7 +78,9 @@ function BlogMetadataForm({
           <input
             type="url"
             value={imgUrl}
-            onChange={(e) => setImgUrl(e.target.value)}
+            onChange={(e) =>
+              setFormData((prev) => ({ ...prev, imgUrl: e.target.value }))
+            }
             className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
             placeholder="https://..."
           />
@@ -116,7 +116,7 @@ function BlogMetadataForm({
         )}
       </div>
 
-     {isFullscreen && (
+      {isFullscreen && (
         <div
           onClick={() => setIsFullscreen(false)}
           className="fixed inset-0 z-50 bg-black/90  flex items-center justify-center p-4 cursor-zoom-out"
@@ -133,4 +133,3 @@ function BlogMetadataForm({
 }
 
 export default BlogMetadataForm;
-

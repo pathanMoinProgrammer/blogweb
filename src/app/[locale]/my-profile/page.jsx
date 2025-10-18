@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import { CreateNewAdminBlog } from '../../../components/createNewAdminBlog';
-import { langPostQuery, posts } from '@/firebase/firebaseAdminRefs';
-import { Pencil, Plus, Delete } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import DeleteAdminPost from '@/components/deleteAdminPost';
+import { CreateNewAdminBlog } from '../../../components/ui/createNewAdminBlog';
+import { posts } from '@/firebase/firebaseAdminRefs';
+import { Plus } from 'lucide-react';
+// import {} from '@/components/ui/button';
+import DeleteAdminPost from '@/components/ui/deleteAdminPost';
 
 export default async function AdminBlogPage({ params }) {
   const param = await params;
@@ -73,7 +73,9 @@ export default async function AdminBlogPage({ params }) {
                           {locale}
                         </span>
                       )}
-                      <Link href={`/${locale}/blogpost/create-new-blog/${blog.id}`}>
+                      <Link
+                        href={`/${locale}/blogpost/create-new-blog/${blog.id}`}
+                      >
                         <Plus className="w-5 h-5" />
                       </Link>
                     </div>
@@ -89,7 +91,12 @@ export default async function AdminBlogPage({ params }) {
                     })}
                   </td>
                   <td className="flex justify-center items-center">
-                    <span className=""><DeleteAdminPost postid={blog.id} languages={blog.languages}/></span>
+                    <span className="">
+                      <DeleteAdminPost
+                        postid={blog.id}
+                        languages={blog.languages}
+                      />
+                    </span>
                   </td>
                 </tr>
               ))}
