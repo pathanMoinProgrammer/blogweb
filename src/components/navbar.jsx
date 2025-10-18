@@ -17,6 +17,7 @@ import { useParams } from 'next/navigation';
 
 export default function Navbar() {
   const params = useParams();
+  // const router
 
   const locale = params?.locale;
   const [sheetOpen, setSheetOpen] = useState(false);
