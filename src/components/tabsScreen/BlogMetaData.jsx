@@ -8,19 +8,6 @@ export default function BlogFormSection({
   formData,
   setFormData,
 }) {
-  //  const {
-  //   blogName,
-  //   setBlogName,
-  //   enurl,
-  //   setEnurl,
-  //   title,
-  //   setTitle,
-  //   description,
-  //   setDescription,
-  //   imgUrl,
-  //   setImgUrl,
-  //   author,
-  // } = useBlogContext();
 
 
   return (
@@ -29,9 +16,6 @@ export default function BlogFormSection({
         <BlogMetadataForm formData={formData} setFormData={setFormData} />
       </div>
 
-      {/* <div className="w-full md:w-1/3 p-4 md:p-6   rounded-2xl ">
-        <ImageUploader imgUrl={imgUrl} setImgUrl={setImgUrl} />
-      </div> */}
     </section>
   );
 }
