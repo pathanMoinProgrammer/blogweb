@@ -3,25 +3,30 @@ import * as Tabs from '@radix-ui/react-tabs';
 import JoditEditor from '@/components/blog/joditeditor';
 import BlogPreview from '@/components/blog/BlogPreview';
 import BlogFormSection from './BlogMetaData';
+import { useBlogContext } from '@/hooks/costumHooks/blogMetadataContext';
 
 export default function EditorPreviewTabs({
-  content,
-  setContent,
-  HtmContent,
-  setHtmContent,
-  editor,
-  blogName,
-  setBlogName,
-  author,
-  enurl,
-  setEnurl,
-  title,
-  setTitle,
-  description,
-  setDescription,
-  imgUrl,
-  setImgUrl,
+    editor
 }) {
+  const {
+    blogName,
+    setBlogName,
+    enurl,
+    setEnurl,
+    title,
+    setTitle,
+    description,
+    setDescription,
+    imgUrl,
+    setImgUrl,
+    content,
+    setContent,
+    HtmContent,
+    setHtmContent,
+    author,
+  } = useBlogContext();
+  // const { content } = useBlogContext();
+
   return (
     <section className="w-full min-h-[400px] mt-5 max-[1300px]:mt-10 dark:bg-gray-800">
       <Tabs.Root defaultValue="editor" className="flex flex-col">
@@ -72,7 +77,10 @@ export default function EditorPreviewTabs({
             content={content}
           />
         </Tabs.Content>
-        <Tabs.Content value="metadata" className="p-4 lg:p-6 overflow-auto min-[1300px]:hidden">
+        <Tabs.Content
+          value="metadata"
+          className="p-4 lg:p-6 overflow-auto min-[1300px]:hidden"
+        >
           <BlogFormSection
             blogName={blogName}
             setBlogName={setBlogName}
@@ -94,4 +102,3 @@ export default function EditorPreviewTabs({
     </section>
   );
 }
-

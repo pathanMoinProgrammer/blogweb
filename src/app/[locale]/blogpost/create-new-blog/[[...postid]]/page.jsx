@@ -7,12 +7,14 @@ import { Button } from '@/components/ui/button';
 import { useParams } from 'next/navigation';
 import { Loader2, Save } from 'lucide-react';
 import useCreateBlogPage from '@/components/MvcComponents/useCreateBlogPage';
+import { BlogProvider } from '@/hooks/costumHooks/blogMetadataContext';
+import { useEffect } from 'react';
 
 const JoditEditor = dynamic(() => import('@/components/blog/joditeditor.jsx'), {
   ssr: false,
 });
 
-export default function CreateBlogPage() {
+export function CreateBlogContx() {
   const params = useParams();
   const locale = params.locale;
   const {
@@ -20,7 +22,9 @@ export default function CreateBlogPage() {
     error,
     content,
     HtmContent,
+    setIsMounted,
     isMounted,
+
     showNotification,
     notificationMessage,
     blogName,
@@ -30,7 +34,6 @@ export default function CreateBlogPage() {
     description,
     imgUrl,
     clickable,
-
 
     setContent,
     setHtmContent,
@@ -43,10 +46,45 @@ export default function CreateBlogPage() {
     setDescription,
     setImgUrl,
 
-
     handleCreateBlog,
     scheduleSaveDraft,
   } = useCreateBlogPage(locale);
+
+  // console.log('loading:', loading);
+  // console.log('loading:', loading);
+  console.log('error:', error);
+  // console.log('content:', content);
+  // console.log('HtmContent:', HtmContent);
+  // console.log('isMounted:', isMounted);
+  // console.log('showNotification:', showNotification);
+  // console.log('notificationMessage:', notificationMessage);
+  // console.log('blogName:', blogName);
+  // console.log('author:', author);
+  // console.log('enurl:', enurl);
+  // console.log('title:', title);
+  // console.log('description:', description);
+  // console.log('imgUrl:', imgUrl);
+  // console.log('clickable:', clickable);
+
+  // console.log('setIsMounted:', setIsMounted);
+  // console.log('setContent:', setContent);
+  // console.log('setHtmContent:', setHtmContent);
+  // console.log('setShowNotification:', setShowNotification);
+  // console.log('setNotificationMessage:', setNotificationMessage);
+  // console.log('setBlogName:', setBlogName);
+  // console.log('setAuthor:', setAuthor);
+  // console.log('setEnurl:', setEnurl);
+  // console.log('setTitle:', setTitle);
+  // console.log('setDescription:', setDescription);
+  // console.log('setImgUrl:', setImgUrl);
+
+  useEffect(() => {
+    setIsMounted(true);
+
+    return () => {
+      setIsMounted(false);
+    };
+  }, []);
 
   if (!isMounted) {
     return (
@@ -64,55 +102,10 @@ export default function CreateBlogPage() {
         onClose={() => setShowNotification(false)}
       />
 
-      <EditorPreviewTabs
-        content={content}
-        setContent={setContent}
-        HtmContent={HtmContent}
-        setHtmContent={setHtmContent}
-        editor={null}
-        blogName={blogName}
-        setBlogName={(v) => {
-          setBlogName(v);
-        }}
-        author={author}
-        enurl={enurl}
-        setEnurl={(v) => {
-          setEnurl(v);
-        }}
-        title={title}
-        setTitle={(v) => {
-          setTitle(v);
-        }}
-        description={description}
-        setDescription={(v) => {
-          setDescription(v);
-        }}
-        imgUrl={imgUrl}
-        setImgUrl={setImgUrl}
-      />
+      <EditorPreviewTabs editor={null} />
 
       <div className="max-[1300px]:hidden">
-        <BlogFormSection
-          blogName={blogName}
-          setBlogName={(v) => {
-            setBlogName(v);
-          }}
-          author={author}
-          enurl={enurl}
-          setEnurl={(v) => {
-            setEnurl(v);
-          }}
-          title={title}
-          setTitle={(v) => {
-            setTitle(v);
-          }}
-          description={description}
-          setDescription={(v) => {
-            setDescription(v);
-          }}
-          imgUrl={imgUrl}
-          setImgUrl={setImgUrl}
-        />
+        <BlogFormSection />
       </div>
 
       <div className="absolute top-0 right-3 flex gap-4 z-10">
@@ -156,3 +149,12 @@ export default function CreateBlogPage() {
     </div>
   );
 }
+
+export const CreateBlogPage = () => {
+  return (
+    <BlogProvider>
+      <CreateBlogContx />
+    </BlogProvider>
+  );
+};
+export default CreateBlogPage;
