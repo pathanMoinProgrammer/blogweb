@@ -69,14 +69,19 @@ export const handleDeleteWithRef = async (
 
       const data = snap.data();
       const langs = data?.languages || [];
-      // router.push(`/${langs[0]}/create-new-blog/${postidClient}`)
+
+      if (langs.length > 0) {
+        const randomIndex = Math.floor(Math.random() * langs.length);
+        router.push(`/${langs[randomIndex]}/blogpost/create-new-blog/${postidClient}`);
+      }
+
       if (langs.length === 0) {
         const parentRef = doc(postColRef, postidClient);
         deleteDocument(parentRef)
           .then(() => {
-            console.log(`Deleted parent post: ${postidClient}`);
+            router.push(`/${locale}/my-profile`);
           })
-          .catch((err) => console.error('Error deleting parent:', err));
+          .catch();
       } else {
       }
 
