@@ -4,14 +4,16 @@ import JoditEditor from '@/components/blog/joditeditor';
 import BlogPreview from '@/components/blog/BlogPreview';
 import BlogFormSection from './BlogMetaData';
 import { useBlogContext } from '@/hooks/costumHooks/blogMetadataContext';
+import BlogMetadataForm from '../blog/BlogMetadataForm';
 
 export default function EditorPreviewTabs({
   formData,
   setFormData,
   editor = null,
+  formik
 }) {
   const { HtmContent } = formData;
-  console.log(formData, 'formData');
+  // console.log(formData, 'formData');
 
   return (
     <section className="w-full min-h-[400px] mt-5 max-[1300px]:mt-10 dark:bg-gray-800">
@@ -65,7 +67,7 @@ export default function EditorPreviewTabs({
           value="metadata"
           className="p-4 lg:p-6 overflow-auto min-[1300px]:hidden"
         >
-          <BlogFormSection setFormData={setFormData} />
+          <BlogMetadataForm setFormData={setFormData} formData={formData} formik={formik} />
         </Tabs.Content>
         <Tabs.Content value="preview" className="p-4 lg:p-6 overflow-auto">
           <BlogPreview HtmContent={HtmContent} editor={editor} />

@@ -58,7 +58,7 @@ export default function LanguageSwitcher({ posts }) {
       value={selectedLocale || 'English'}
       onValueChange={handleLocaleChange}
     >
-      <SelectTrigger className="w-[120px] h-10">
+      <SelectTrigger className="w-[100px] h-10">
         <SelectValue placeholder="Language" />
       </SelectTrigger>
       <SelectContent>

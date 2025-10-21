@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
@@ -13,11 +12,11 @@ import { ModeToggle } from './themebtn';
 import { useState } from 'react';
 import LanguageSwitcher from './ui/LanguageSwitcher';
 import { useGameTranslations } from './traslatorclient';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 export default function Navbar() {
   const params = useParams();
-  // const router
+  const router = useRouter();
 
   const locale = params?.locale;
   const [sheetOpen, setSheetOpen] = useState(false);
@@ -30,48 +29,58 @@ export default function Navbar() {
     setSheetOpen(false);
   };
 
+  const handleNavigation = (url) => {
+    router.push(url);
+  };
+
   return (
     <nav className="sticky top-0 z-50 border-b justify-center backdrop-blur-sm border-indigo-100 shadow-sm bg-background/50">
       <div className="w-[88%] mx-auto flex items-center justify-between h-16">
-        <div className="hidden md:flex items-center justify-between space-x-8 gap-[10px] w-full">
-          <Link
-            href={`/${locale}`}
-            className="text-2xl font-bold text-blue-500 dark:text-white tracking-tight"
+        <div className="hidden md:flex items-center justify-between space-x-8 gap-[10px] w-full ">
+          <Button
+            variant="ghost"
+            onClick={() => handleNavigation(`/${locale}`)}
+            className="text-2xl font-bold text-blue-500 dark:text-white tracking-tight p-0 h-auto hover:bg-transparent cursor-pointer"
           >
             {t?.ourblogs || 'Our Blogs'}
-          </Link>
+          </Button>
 
-          <div className="flex items-center gap-8 ml-6">
-            <Link
-              href={`/${locale}`}
-              className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium"
+          <div className="flex items-center gap-8 ml-6  [&>*]:cursor-pointer">
+            <Button
+              variant="ghost"
+              onClick={() => handleNavigation(`/${locale}`)}
+              className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium p-0 h-auto hover:bg-transparent"
             >
               {t?.home || 'Home'}
-            </Link>
-            <Link
-              href={`/${locale}/about`}
-              className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium"
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={() => handleNavigation(`/${locale}/about`)}
+              className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium p-0 h-auto hover:bg-transparent"
             >
               {t?.about || 'About'}
-            </Link>
-            <Link
-              href={`/${locale}/blogpost`}
-              className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium"
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={() => handleNavigation(`/${locale}/blogpost`)}
+              className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium p-0 h-auto hover:bg-transparent"
             >
               {t?.blog || 'Blog'}
-            </Link>
-            <Link
-              href={`/${locale}/contact`}
-              className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium"
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={() => handleNavigation(`/${locale}/contact`)}
+              className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium p-0 h-auto hover:bg-transparent"
             >
               {t?.contact || 'Contact'}
-            </Link>
-            <Link
-              href={`/${locale}/my-profile`}
-              className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium"
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={() => handleNavigation(`/${locale}/my-profile`)}
+              className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium p-0 h-auto hover:bg-transparent"
             >
               {'My Blogs'}
-            </Link>
+            </Button>
 
             <LanguageSwitcher />
 
@@ -88,102 +97,125 @@ export default function Navbar() {
               >
                 {t?.logout || 'LogOut'}
               </Button>
+              </div> */}
+
+            <div className='cursor-pointer hover:scale-125 transition-all duration-300 absolute right-5'>
               <ModeToggle />
-            </div> */}
+            </div>
           </div>
         </div>
 
         {/* Mobile Menu */}
         <div className="md:hidden flex items-center justify-between w-full">
-          {/* Left: Burger Icon */}
-          <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-            <SheetTrigger>
-              <div className="flex items-center gap-3 cursor-pointer">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="lucide lucide-menu"
-                >
-                  <path d="M4 5h16" />
-                  <path d="M4 12h16" />
-                  <path d="M4 19h16" />
-                </svg>
-                <Link
-                  href={`/${locale}`}
-                  className="text-2xl font-bold text-blue-500 dark:text-white tracking-tight"
-                >
-                  {t?.ourblogs || 'Our Blogs'}
-                </Link>
-              </div>
-            </SheetTrigger>
+          {/* Left: Logo and Burger Icon */}
+          <div className="flex items-center  ">
 
-            <SheetContent
-              side="left"
-              className="flex flex-col h-screen w-64 p-6 bg-background"
+            <Sheet open={sheetOpen} onOpenChange={setSheetOpen} >
+              <SheetTrigger asChild className=''>
+                <button className=" hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors absolute left-3 ">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-menu"
+                  >
+                    <path d="M4 5h16" />
+                    <path d="M4 12h16" />
+                    <path d="M4 19h16" />
+                  </svg>
+                </button>
+              </SheetTrigger>
+
+              <SheetContent
+                side="left"
+                className="flex flex-col h-screen w-64 p-6 bg-background"
+              >
+                {/* Header */}
+                <SheetHeader className="mb-6 ">
+                  <SheetTitle className="text-2xl font-bold ">
+                    {t?.ourblogs || 'Our Blogs'}
+                  </SheetTitle>
+                </SheetHeader>
+
+                {/* Links */}
+                <div className="flex-1 flex flex-col space-y-4 overflow-y-auto [&>*]:cursor-pointer ">
+                  <Button
+                    variant="ghost"
+                    onClick={() => {
+                      handleNavigation(`/${locale}`);
+                      handleLinkClick();
+                    }}
+                    className="justify-start py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700 h-auto"
+                  >
+                    {t?.home || 'Home'}
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={() => {
+                      handleNavigation(`/${locale}/about`);
+                      handleLinkClick();
+                    }}
+                    className="justify-start py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700 h-auto"
+                  >
+                    {t?.about || 'About'}
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={() => {
+                      handleNavigation(`/${locale}/blogpost`);
+                      handleLinkClick();
+                    }}
+                    className="justify-start py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700 h-auto"
+                  >
+                    {t?.blog || 'Blogs'}
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={() => {
+                      handleNavigation(`/${locale}/contact`);
+                      handleLinkClick();
+                    }}
+                    className="justify-start py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700 h-auto"
+                  >
+                    {t?.contact || 'Contact'}
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={() => {
+                      handleNavigation(`/${locale}/my-profile`);
+                      handleLinkClick();
+                    }}
+                    className="justify-start py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700 h-auto"
+                  >
+                    {'My Blogs'}
+                  </Button>
+                </div>
+
+                {/* Buttons at Bottom */}
+                {/* <div className="flex gap-4 mt-6">
+                  <Button className="flex-1 bg-gradient-to-r from-purple-700/70 to-blue-600/80 text-white font-bold text-xl" variant="outline">
+                    {t?.signIn  || "Sign In"}
+                  </Button>
+                  <Button className="flex-1 bg-gradient-to-l from-purple-700/70 to-blue-600/80 text-white font-bold text-xl" variant="outline">
+                    {t?.logout || "Sign Out"}
+                  </Button>
+                </div> */}
+              </SheetContent>
+            </Sheet>
+            <Button
+              variant="ghost"
+              onClick={() => handleNavigation(`/${locale}`)}
+              className="text-2xl font-bold text-blue-500 dark:text-white tracking-tight p-0 h-auto hover:bg-transparent mx-5"
             >
-              {/* Header */}
-              <SheetHeader className="mb-6">
-                <SheetTitle className="text-2xl font-bold">
-                  {t?.ourblogs || 'Our Blogs'}
-                </SheetTitle>
-              </SheetHeader>
-
-              {/* Links */}
-              <div className="flex-1 flex flex-col space-y-4 overflow-y-auto">
-                <Link
-                  href={`/${locale}`}
-                  onClick={handleLinkClick}
-                  className="block py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700"
-                >
-                  {t?.home || 'Home'}
-                </Link>
-                <Link
-                  href={`/${locale}/about`}
-                  onClick={handleLinkClick}
-                  className="block py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700"
-                >
-                  {t?.about || 'About'}
-                </Link>
-                <Link
-                  href={`/${locale}/blogpost`}
-                  onClick={handleLinkClick}
-                  className="block py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700"
-                >
-                  {t?.blog || 'Blogs'}
-                </Link>
-                <Link
-                  href={`/${locale}/contact`}
-                  onClick={handleLinkClick}
-                  className="block py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700"
-                >
-                  {t?.contact || 'Contact'}
-                </Link>
-                <Link
-                  href={`/${locale}/my-profile`}
-                  className="block py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700"
-                >
-                  {'My Blogs'}
-                </Link>
-              </div>
-
-              {/* Buttons at Bottom */}
-              {/* <div className="flex gap-4 mt-6">
-                <Button className="flex-1 bg-gradient-to-r from-purple-700/70 to-blue-600/80 text-white font-bold text-xl" variant="outline">
-                  {t?.signIn  || "Sign In"}
-                </Button>
-                <Button className="flex-1 bg-gradient-to-l from-purple-700/70 to-blue-600/80 text-white font-bold text-xl" variant="outline">
-                  {t?.logout || "Sign Out"}
-                </Button>
-              </div> */}
-            </SheetContent>
-          </Sheet>
+              {t?.ourblogs || 'Our Blogs'}
+            </Button>
+          </div>
 
           {/* Right: Mode Toggle */}
           <div className="flex items-center gap-2">

@@ -1,7 +1,13 @@
-import { deleteDoc as deleteDocument } from 'firebase/firestore';
+import {
+  arrayRemove,
+  deleteDoc as deleteDocument,
+  doc,
+  updateDoc,
+  onSnapshot,
+} from 'firebase/firestore';
 
 const { postColRef } = require('@/firebase/firebaseRefs');
-const { useState, useEffect } = require('react');
+const { useState } = require('react');
 
 export const useDeleteDoc = () => {
   const [state, setState] = useState({
@@ -38,4 +44,39 @@ export const useDeleteDoc = () => {
   };
 
   return { ...state, deleteDoc, deleteAllDoc };
+};
+
+export const handleDeleteWithRef = async (
+  ref,
+  postidClient,
+  locale,
+  router
+) => {
+
+  try {
+    await deleteDocument(ref[1]);
+
+    await updateDoc(ref[0], {
+      languages: arrayRemove(locale),
+    });
+
+    const unsubscribe = onSnapshot(ref[0], (snap) => {
+      if (!snap.exists()) return;
+
+      const data = snap.data();
+      const langs = data?.languages || [];
+      router.push(`/${langs[0]}/create-new-blog/${postidClient}`)
+      if (langs.length === 0) {
+        const parentRef = doc(postColRef, postidClient);
+        deleteDocument(parentRef)
+          .then(() => {
+            console.log(`Deleted parent post: ${postidClient}`);
+          })
+          .catch((err) => console.error('Error deleting parent:', err));
+      } else {
+      }
+
+      unsubscribe();
+    });
+  } catch (error) {}
 };

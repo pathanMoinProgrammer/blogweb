@@ -1,47 +1,90 @@
-import { postColRef } from '@/firebase/firebaseRefs';
-import { useState, useEffect } from 'react';
-import { collection, doc, getDoc } from 'firebase/firestore';
+import { useState, useEffect } from "react";
+import { onSnapshot } from "firebase/firestore";
 
-export const useReadDoc = (ref) => {
+export const useReadDoc = (ref, postid, locale) => {
   const [state, setState] = useState({
     loading: false,
     error: false,
     data: undefined,
+    languages: undefined,
+    ids: [],
   });
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        setState((prev) => ({ ...prev, loading: true }));
-        
-        const docref = await getDoc(ref)
+    if (!ref || !postid) {
+      setState({
+        loading: false,
+        error: false,
+        data: undefined,
+        languages: undefined,
+        ids: [],
+      });
+      return;
+    }
 
+    setState((prev) => ({ ...prev, loading: true }));
 
-        if (!docref.data()) {
-          setState((prev) => ({
-            ...prev,
+    let unsub;
+    try {
+      unsub = onSnapshot(
+        ref,
+        (docSnap) => {
+          if (!docSnap.exists()) {
+            setState({
+              loading: false,
+              error: `No data found for post: ${postid}`,
+              data: undefined,
+              languages: undefined,
+              ids: [],
+            });
+            return;
+          }
+
+          const parentData = docSnap.data() || {};
+
+          const languages =
+            Array.isArray(parentData.languages) && parentData.languages.length > 0
+              ? parentData.languages
+              : undefined;
+
+          const selectedLocaleData =
+            locale && parentData.translations?.[locale]
+              ? parentData.translations[locale]
+              : {};
+
+          setState({
             loading: false,
-            error: 'error while get Data!',
-          }));
-          return;
+            error: false,
+            data: { ...parentData, ...selectedLocaleData },
+            languages,
+            ids: [],
+          });
+        },
+        (error) => {
+          setState({
+            loading: false,
+            error: error?.message || "Unknown error",
+            data: undefined,
+            languages: undefined,
+            ids: [],
+          });
         }
-        setState((prev) => ({
-          ...prev,
-          loading: false,
-          data: docref.data(),
-        }));
-      } catch (error) {
-        setState((prev) => ({
-          ...prev,
-          loading: false,
-          error: error.message,
-          data: ['not any vlaue fount'],
-        }));
-      }
+      );
+    } catch (err) {
+      setState({
+        loading: false,
+        error: err?.message || "Unknown error",
+        data: undefined,
+        languages: undefined,
+        ids: [],
+      });
+    }
+
+    // Cleanup
+    return () => {
+      if (typeof unsub === "function") unsub();
     };
-    // return () => getData();
-    getData();
-  }, []);
+  }, [ref, postid, locale]);
 
   return { ...state };
 };
