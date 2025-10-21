@@ -47,9 +47,9 @@ export default function useCreateBlogPage() {
   const DRAFT_KEY = 'blogDraft';
   const saveTimeout = useRef(null);
 
-  const handleDelete = (postidClient, locale) => {
+  const handleDelete = () => {
     try {
-      handleDeleteWithRef(refArray, postidClient, locale, router);
+      handleDeleteWithRef(refArray, postid, locale, router);
     } catch (error) {
       console.error(error, 'error');
     }

@@ -4,6 +4,7 @@ import {
   doc,
   updateDoc,
   onSnapshot,
+  setDoc,
 } from 'firebase/firestore';
 
 const { postColRef } = require('@/firebase/firebaseRefs');
@@ -50,22 +51,25 @@ export const handleDeleteWithRef = async (
   ref,
   postidClient,
   locale,
-  router
+  router,
 ) => {
-
   try {
     await deleteDocument(ref[1]);
 
-    await updateDoc(ref[0], {
-      languages: arrayRemove(locale),
-    });
+    await setDoc(
+      ref[0],
+      {
+        languages: arrayRemove(locale),
+      },
+      { merge: true },
+    );
 
     const unsubscribe = onSnapshot(ref[0], (snap) => {
       if (!snap.exists()) return;
 
       const data = snap.data();
       const langs = data?.languages || [];
-      router.push(`/${langs[0]}/create-new-blog/${postidClient}`)
+      // router.push(`/${langs[0]}/create-new-blog/${postidClient}`)
       if (langs.length === 0) {
         const parentRef = doc(postColRef, postidClient);
         deleteDocument(parentRef)
