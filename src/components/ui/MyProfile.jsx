@@ -1,8 +1,8 @@
 import React from 'react';
 import { CreateNewAdminBlog } from './createNewAdminBlog';
-import DeleteAdminPost from './deleteAdminPost';
 import Link from 'next/link';
 import { Plus } from 'lucide-react';
+import DeleteButton from './deleteAdminPost';
 
 const MyProfile = ({ locale, blogs, ids }) => {
   return (
@@ -34,11 +34,15 @@ const MyProfile = ({ locale, blogs, ids }) => {
                   className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 [&>*]:py-4 [&>*]:px-6"
                 >
                   <td className="py-4 px-6 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                    {blog.title || 'Blog Post'}
+                    {blog.title.length > 15
+                      ? `${blog.title.slice(0, 15)}...`
+                      : blog.title || 'Blog Post'}
                   </td>
                   <td className="py-4 px-6">
                     <p className="line-clamp-2 text-gray-600 dark:text-gray-300">
-                      {blog.description}
+                      {blog.description.length > 25
+                        ? `${blog.description.slice(0, 15)}...`
+                        : blog.description || 'Blog Description'}
                     </p>
                   </td>
                   <td className="py-4 px-6 text-center">
@@ -79,9 +83,10 @@ const MyProfile = ({ locale, blogs, ids }) => {
                   </td>
                   <td className="flex justify-center  ">
                     <span className="">
-                      <DeleteAdminPost
-                        postid={blog.id}
-                        languages={blog.languages}
+                      <DeleteButton
+                        mode="admin"
+                        postid={blog?.id}
+                        languages={blog?.languages}
                       />
                     </span>
                   </td>
@@ -91,9 +96,9 @@ const MyProfile = ({ locale, blogs, ids }) => {
           </table>
         </div>
       </div>
-      {/* <Comp dataed={ids}  /> */}
     </section>
   );
 };
 
 export default MyProfile;
+

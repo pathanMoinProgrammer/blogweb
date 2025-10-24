@@ -1,37 +1,54 @@
 'use client';
 import React from 'react';
-import Notification from '../blog/Notification'
+import Notification from '../blog/Notification';
 import EditorPreviewTabs from '../tabsScreen/EditorPreview';
 import BlogMetadataForm from '../blog/BlogMetadataForm';
 import ActionButton from './actionButton';
 
 const CreateBlogPage = ({
   loading,
-  notificationMessage,
+  error,
   setShowNotification,
   showNotification,
   formData,
-  setFormData,
-  handleCreateBlog,
-  handleDelete,
   formik,
-  postid
+  postid,
+  refArray,
+  locale,
+  notifyMessage,
+  setNotifiMessage,
 }) => {
   return (
-    <div className="dark:bg-gray-800 relative">
+    <div onSubmit={formik.handleSubmit} className='relative' >
       <Notification
-        message={notificationMessage}
+        message={
+          notifyMessage || error?.message || 'Operation was Successfull !'
+        }
         isVisible={showNotification}
         onClose={() => setShowNotification(false)}
       />
-      <EditorPreviewTabs formData={formData} setFormData={setFormData} formik={formik}/>
+      <EditorPreviewTabs
+        formData={formData}
+        formik={formik}
+        setNotifiMessage={setNotifiMessage}
+      />
       <div className="max-[1300px]:hidden">
-        <BlogMetadataForm formData={formData} setFormData={setFormData} formik={formik} />
+        <BlogMetadataForm
+          formData={formData}
+          formik={formik}
+          setNotifiMessage={setNotifiMessage}
+        />
       </div>
-      <ActionButton loading={loading} postid={postid} handleCreateBlog={handleCreateBlog} handleDelete={handleDelete}  />
+      <ActionButton
+        loading={loading}
+        formik={formik}
+        postid={postid}
+        refArray={refArray}
+        locale={locale}
+        setNotifiMessage={setNotifiMessage}
+      />
     </div>
   );
 };
 
 export default CreateBlogPage;
-

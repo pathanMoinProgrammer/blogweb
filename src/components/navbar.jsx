@@ -34,7 +34,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 border-b justify-center backdrop-blur-sm border-indigo-100 shadow-sm bg-background/50">
+    <nav className="sticky top-0 z-50 border-b justify-center backdrop-blur-sm border-indigo-100 dark:bg-[rgb(21,29,44)] shadow-sm bg-background/50">
       <div className="w-[88%] mx-auto flex items-center justify-between h-16">
         <div className="hidden md:flex items-center justify-between space-x-8 gap-[10px] w-full ">
           <Button
@@ -84,34 +84,16 @@ export default function Navbar() {
 
             <LanguageSwitcher />
 
-            {/* <div className="flex gap-[20px]">
-              <Button
-                className="w-[70px] hover:scale-130 dark:text-white cursor-pointer"
-                variant="outline"
-              >
-                {t?.signIn || 'Sign In'}
-              </Button>
-              <Button
-                className="w-[70px] hover:scale-130 dark:text-white cursor-pointer"
-                variant="outline"
-              >
-                {t?.logout || 'LogOut'}
-              </Button>
-              </div> */}
-
-            <div className='cursor-pointer hover:scale-125 transition-all duration-300 absolute right-5'>
+            <div className="cursor-pointer hover:scale-125 transition-all duration-300 absolute right-5">
               <ModeToggle />
             </div>
           </div>
         </div>
 
-        {/* Mobile Menu */}
         <div className="md:hidden flex items-center justify-between w-full">
-          {/* Left: Logo and Burger Icon */}
           <div className="flex items-center  ">
-
-            <Sheet open={sheetOpen} onOpenChange={setSheetOpen} >
-              <SheetTrigger asChild className=''>
+            <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+              <SheetTrigger asChild className="">
                 <button className=" hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors absolute left-3 ">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -136,14 +118,12 @@ export default function Navbar() {
                 side="left"
                 className="flex flex-col h-screen w-64 p-6 bg-background"
               >
-                {/* Header */}
                 <SheetHeader className="mb-6 ">
                   <SheetTitle className="text-2xl font-bold ">
                     {t?.ourblogs || 'Our Blogs'}
                   </SheetTitle>
                 </SheetHeader>
 
-                {/* Links */}
                 <div className="flex-1 flex flex-col space-y-4 overflow-y-auto [&>*]:cursor-pointer ">
                   <Button
                     variant="ghost"
@@ -196,16 +176,6 @@ export default function Navbar() {
                     {'My Blogs'}
                   </Button>
                 </div>
-
-                {/* Buttons at Bottom */}
-                {/* <div className="flex gap-4 mt-6">
-                  <Button className="flex-1 bg-gradient-to-r from-purple-700/70 to-blue-600/80 text-white font-bold text-xl" variant="outline">
-                    {t?.signIn  || "Sign In"}
-                  </Button>
-                  <Button className="flex-1 bg-gradient-to-l from-purple-700/70 to-blue-600/80 text-white font-bold text-xl" variant="outline">
-                    {t?.logout || "Sign Out"}
-                  </Button>
-                </div> */}
               </SheetContent>
             </Sheet>
             <Button
@@ -217,7 +187,6 @@ export default function Navbar() {
             </Button>
           </div>
 
-          {/* Right: Mode Toggle */}
           <div className="flex items-center gap-2">
             <LanguageSwitcher />
             <ModeToggle />

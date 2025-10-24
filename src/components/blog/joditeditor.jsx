@@ -22,7 +22,7 @@ export default function JoditEditor({
   content,
   HtmContent,
   formData,
-  setFormData, 
+  formik,
 }) {
   const editorRef = useRef(null);
   const [mounted, setMounted] = useState(false);
@@ -31,6 +31,7 @@ export default function JoditEditor({
   const saveTimer = useRef(null);
   const clear = useAtomValue(isClear);
   const setClear = useSetAtom(isClear);
+  const { values, handleSubmit, errors, touched, setFieldValue } = formik;
 
   const htmlToPlainText = useCallback((html) => {
     if (!html) return '';
@@ -52,13 +53,15 @@ export default function JoditEditor({
         const savedHtml = localStorage.getItem(`${storageKey}:html`);
         if (savedHtml) {
           setInitialValue(savedHtml);
-          setFormData(prev => ({...prev, HtmContent:savedHtml}))
+          // setFormData((prev) => ({ ...prev, HtmContent: savedHtml }));
+          setFieldValue('content', savedHtml);
+          setFieldValue('HtmContent', savedHtml);
         }
       } catch (e) {
         console.warn('localStorage load error', e);
       }
     }
-  }, [storageKey, setFormData]);
+  }, [storageKey]);
 
   const scheduleSave = useCallback(
     (html) => {
@@ -70,20 +73,16 @@ export default function JoditEditor({
           localStorage.setItem(`${storageKey}:html`, html);
           localStorage.setItem(storageKey, plain);
 
-          setFormData(prev => ({...prev, HtmContent:html, content:html}))
+          // setFormData((prev) => ({ ...prev, HtmContent: html, content: html }));
+          setFieldValue('content', html);
+          setFieldValue('HtmContent', html);
           onChange(html);
         } catch (e) {
           console.warn('localStorage save error', e);
         }
       }, autosaveDelay);
     },
-    [
-      autosaveDelay,
-      htmlToPlainText,
-      onChange,
-      setFormData,
-      storageKey,
-    ],
+    [autosaveDelay, htmlToPlainText, onChange, storageKey],
   );
 
   const config = useMemo(
@@ -187,7 +186,6 @@ export default function JoditEditor({
           <JoditEditorImport
             ref={editorRef}
             config={config}
-          
             value={formData.content || initialValue}
             onBlur={(newContent) => scheduleSave(newContent)}
             onChange={(newContent) => scheduleSave(newContent)}

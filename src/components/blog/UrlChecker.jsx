@@ -1,8 +1,14 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 
-export default function UrlChecker({ enurl, setFieldValue }) {
- const [isCheckingUrl, setIsCheckingUrl] = useState(false);
+export default function UrlChecker({
+  enurl = 'enurl',
+  errors,
+  touched,
+  setFieldValue,
+  handleBlur,
+}) {
+  const [isCheckingUrl, setIsCheckingUrl] = useState(false);
   const [urlExists, setUrlExists] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -22,7 +28,7 @@ export default function UrlChecker({ enurl, setFieldValue }) {
     }
 
     if (!validSlugRegex.test(enurl)) {
-      setErrorMsg('Used character is not allowed.');
+      setErrorMsg('Only lowercase letters, numbers, and hyphens are allowed.');
       setUrlExists(false);
       return;
     } else {
@@ -37,10 +43,12 @@ export default function UrlChecker({ enurl, setFieldValue }) {
         const res = await fetch('/api/available-blog-sync', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ locale: 'en', slug: enurl }),
+          body: JSON.stringify({  slug: enurl }),
         });
 
+
         const data = await res.json();
+
         setUrlExists(res.ok && Boolean(data.exists));
       } catch (err) {
         console.error('Error checking URL:', err);
@@ -63,21 +71,25 @@ export default function UrlChecker({ enurl, setFieldValue }) {
         <input
           type="text"
           value={enurl}
+          name="enurl"
           onChange={handleChange}
+          onBlur={handleBlur}
           placeholder="gemini-multimodal-edge"
           className={`w-full px-4 py-2 pr-12 border rounded-lg focus:ring-2 focus:border-transparent transition-all duration-300 
             bg-white dark:bg-gray-700 text-gray-900 dark:text-white 
-            placeholder-gray-500 dark:placeholder-gray-400
+            placeholder-gray-500 dark:placeholder-gray-400 text-sm sm:text-base
             ${
-              errorMsg
-                ? 'border-red-400 dark:border-red-500 focus:ring-red-500 dark:focus:ring-red-500'
+              touched.enurl && errors.enurl
+                ? 'border-red-400 dark:border-red-500 focus:ring-red-500'
+                : errorMsg
+                ? 'border-red-400 dark:border-red-500 focus:ring-red-500'
                 : isCheckingUrl
-                ? 'border-blue-400 dark:border-blue-300 focus:ring-blue-400 dark:focus:ring-blue-300'
+                ? 'border-blue-400 dark:border-blue-300 focus:ring-blue-400'
                 : urlExists
-                ? 'border-red-400 dark:border-red-500 focus:ring-red-500 dark:focus:ring-red-500'
+                ? 'border-red-400 dark:border-red-500 focus:ring-red-500'
                 : enurl
-                ? 'border-green-400 dark:border-green-500 focus:ring-green-500 dark:focus:ring-green-500'
-                : 'border-gray-300 dark:border-gray-600 focus:ring-blue-500 dark:focus:ring-blue-500'
+                ? 'border-green-400 dark:border-green-500 focus:ring-green-500'
+                : 'border-gray-300 dark:border-gray-600 focus:ring-blue-500'
             }`}
         />
 
@@ -110,7 +122,7 @@ export default function UrlChecker({ enurl, setFieldValue }) {
             <div className="text-green-500 dark:text-green-400 animate-pulse">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
+                className="h-5 w-5 sm:h-6 sm:w-6"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -129,7 +141,7 @@ export default function UrlChecker({ enurl, setFieldValue }) {
             <div className="text-red-500 dark:text-red-400">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
+                className="h-5 w-5 sm:h-6 sm:w-6"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -146,8 +158,10 @@ export default function UrlChecker({ enurl, setFieldValue }) {
         </div>
       </div>
 
-      <div className="mt-2 min-h-[1.25rem]">
-        {errorMsg ? (
+      <div className="mt-1 min-h-[1.25rem]">
+        {touched.enurl && errors.enurl ? (
+          <p className="text-sm text-red-600 font-medium">{errors.enurl}</p>
+        ) : errorMsg ? (
           <p className="text-sm text-red-600 dark:text-red-400 font-medium">
             {errorMsg}
           </p>
@@ -157,35 +171,11 @@ export default function UrlChecker({ enurl, setFieldValue }) {
           </p>
         ) : !isCheckingUrl && enurl && !urlExists ? (
           <p className="text-sm text-green-600 dark:text-green-400 font-medium flex items-center gap-1">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M16.707 5.293a1 1 0 010 1.414L8.414 15l-4.121-4.121a1 1 0 111.414-1.414L8.414 12.172l7.879-7.879a1 1 0 011.414 0z"
-                clipRule="evenodd"
-              />
-            </svg>
-            This URL is available!
+            ✅ This URL is available!
           </p>
         ) : !isCheckingUrl && enurl && urlExists ? (
           <p className="text-sm text-red-600 dark:text-red-400 font-medium flex items-center gap-1">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v4a1 1 0 002 0V7zm0 6a1 1 0 10-2 0 1 1 0z"
-                clipRule="evenodd"
-              />
-            </svg>
-            This URL is already taken.
+            ⚠️ This URL is already taken.
           </p>
         ) : null}
       </div>

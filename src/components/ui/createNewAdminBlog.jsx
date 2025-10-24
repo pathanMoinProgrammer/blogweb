@@ -51,13 +51,8 @@ export const CreateNewAdminBlog = ({ locale }) => {
         </div>
       ) : (
         <div className="flex items-center gap-1 w-33">
-          {/* <Link
-            href={`/${locale}/blogpost/create-new-blog/${uid}`}
-            
-          > */}
           <Plus className="w-5 h-5" />
           <span>Create New Blog</span>
-          {/* </Link> */}
         </div>
       )}
     </Button>

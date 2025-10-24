@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { arrayUnion, deleteDoc } from 'firebase/firestore';
-import { postDocRef, timestamp } from '@/firebase/firebaseRefs';
+import { arrayUnion } from 'firebase/firestore';
+import { postDocRef } from '@/firebase/firebaseRefs';
 import { useCreateDoc } from '@/hooks/fireatoreHooks/useCreateDoc';
 import { useReadDoc } from '@/hooks/fireatoreHooks/useReadDoc';
 import { useMemo } from 'react';
@@ -9,7 +9,6 @@ import { useFormik } from 'formik';
 import { blogSchema } from '../yupValidSchema';
 import { arrayAtom } from '../jotai';
 import { useAtomValue } from 'jotai';
-import { handleDeleteWithRef } from '@/hooks/fireatoreHooks/useDeleteDoc';
 
 export default function useCreateBlogPage() {
   const [formData, setFormData] = useState({
@@ -21,9 +20,10 @@ export default function useCreateBlogPage() {
     content: '',
     HtmContent: '',
     author: '',
+    type: '',
   });
-  const [showNotification, setShowNotification] = useState('');
-  const array = useAtomValue(arrayAtom);
+  const [showNotification, setShowNotification] = useState(false);
+  const [notifyMessage, setNotifiMessage] = useState(null);
 
   const [isMounted, setIsMounted] = useState(false);
   const { loading, error, setDataWithLang } = useCreateDoc();
@@ -41,19 +41,9 @@ export default function useCreateBlogPage() {
 
   const state = useReadDoc(parentRef, postid, locale);
 
-  const languagesArray = state?.data?.languages;
-
   const AUTO_SAVE_DELAY = 2000;
   const DRAFT_KEY = 'blogDraft';
   const saveTimeout = useRef(null);
-
-  const handleDelete = async () => {
-    try {
-      await handleDeleteWithRef(refArray, postid, locale, router);
-    } catch (error) {
-      console.error(error, 'error');
-    }
-  };
 
   useEffect(() => {
     if (state?.data && Object.keys(state.data).length > 0) {
@@ -70,6 +60,7 @@ export default function useCreateBlogPage() {
         author: d.author || 'Admin User',
       }));
     }
+    // console.log(localStorage.getItem('blogDraft'));
   }, [state?.data]);
 
   useEffect(() => {
@@ -99,20 +90,6 @@ export default function useCreateBlogPage() {
     };
   }, []);
 
-  const objForData = {
-    author: formData.author,
-    content: formData.content,
-    HtmContent: formData.HtmContent,
-    createdAt: timestamp(),
-    description: formData.description,
-    imgUrl: formData.imgUrl,
-    lang: locale,
-    slug: formData.enurl,
-    status: 'draft',
-    title: formData.title,
-    updatedAt: timestamp(),
-  };
-
   const scheduleSaveDraft = (updatedData = {}) => {
     if (saveTimeout.current) clearTimeout(saveTimeout.current);
     saveTimeout.current = setTimeout(() => {
@@ -133,15 +110,14 @@ export default function useCreateBlogPage() {
     }, AUTO_SAVE_DELAY);
   };
 
-  const handleCreateBlog = async () => {
+  const handleCreateBlog = async (values) => {
     try {
       await setDataWithLang(parentRef, {
-        ...objForData,
+        ...values,
         languages: arrayUnion(locale),
-        [url]: formData.enurl,
+        [url]: values.enurl,
       });
-      await setDataWithLang(childRef, objForData);
-      // router.push(`/${locale}/my-profile`); // just show saved notification
+      await setDataWithLang(childRef, values);
     } catch (err) {
       console.error('Error creating blog:', err);
     }
@@ -150,16 +126,19 @@ export default function useCreateBlogPage() {
   const formik = useFormik({
     initialValues: formData,
     validationSchema: blogSchema,
+    validateOnBlur: true,
+    validateOnChange: false,
     enableReinitialize: true,
-
-    // onSubmit: (values) => {
-    //   handleBlogSubmit(values);
-    // },
+    onSubmit: async (values) => {
+      console.log(values, 'checking value and type');
+      if (values.type == 'publish') {
+        await handleCreateBlog(values);
+        setShowNotification(true);
+      } else if (values.type == 'draft') {
+        scheduleSaveDraft(values);
+      }
+    },
   });
-
-  useEffect(() => {
-    setFormData(formik.values);
-  }, [formik.values, setFormData]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -172,18 +151,18 @@ export default function useCreateBlogPage() {
   return {
     loading,
     formData,
-    setFormData,
     error,
-    handleCreateBlog,
     scheduleSaveDraft,
     setIsMounted,
     isMounted,
-    handleCreateBlog,
     showNotification,
     setShowNotification,
     postid,
-    handleDelete,
     state,
     formik,
+    refArray,
+    locale,
+    notifyMessage,
+    setNotifiMessage,
   };
 }

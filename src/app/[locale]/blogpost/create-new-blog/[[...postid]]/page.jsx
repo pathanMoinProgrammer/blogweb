@@ -9,13 +9,14 @@ export default function CreateBlogContx() {
     isMounted,
     showNotification,
     setShowNotification,
-    handleDelete,
     loading,
     formData,
-    setFormData,
-    handleCreateBlog,
     postid,
     formik,
+    refArray,
+    locale,
+    notifyMessage,
+    setNotifiMessage,
   } = useCreateBlogPage();
 
   if (!isMounted) {
@@ -30,14 +31,15 @@ export default function CreateBlogContx() {
     <CreateBlogPage
       loading={loading}
       error={error}
-      handleDelete={handleDelete}
       setShowNotification={setShowNotification}
       showNotification={showNotification}
       formData={formData}
-      setFormData={setFormData}
-      handleCreateBlog={handleCreateBlog}
       formik={formik}
       postid={postid}
+      refArray={refArray}
+      locale={locale}
+      notifyMessage={notifyMessage}
+      setNotifiMessage={setNotifiMessage}
     />
   );
 }

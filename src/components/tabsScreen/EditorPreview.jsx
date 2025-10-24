@@ -8,15 +8,13 @@ import BlogMetadataForm from '../blog/BlogMetadataForm';
 
 export default function EditorPreviewTabs({
   formData,
-  setFormData,
   editor = null,
   formik
 }) {
   const { HtmContent } = formData;
-  // console.log(formData, 'formData');
 
   return (
-    <section className="w-full min-h-[400px] mt-5 max-[1300px]:mt-10 dark:bg-gray-800">
+    <section className="w-full min-h-[400px] mt-5 max-[1300px]:mt-10 dark:bg-gray-800 ">
       <Tabs.Root defaultValue="editor" className="flex flex-col">
         <Tabs.List className="flex border-b gap-2 border-gray-200 dark:border-gray-700 dark:bg-gray-900 px-4 [&>*]:cursor-pointer dark:[&>*]:hover:bg-gray-100/10 [&>*]:hover:bg-black/10">
           <Tabs.Trigger
@@ -60,14 +58,14 @@ export default function EditorPreviewTabs({
           <JoditEditor
             storageKey="myBlogPost"
             formData={formData}
-            setFormData={setFormData}
+            formik={formik}
           />
         </Tabs.Content>
         <Tabs.Content
           value="metadata"
           className="p-4 lg:p-6 overflow-auto min-[1300px]:hidden"
         >
-          <BlogMetadataForm setFormData={setFormData} formData={formData} formik={formik} />
+          <BlogMetadataForm  formData={formData} formik={formik} />
         </Tabs.Content>
         <Tabs.Content value="preview" className="p-4 lg:p-6 overflow-auto">
           <BlogPreview HtmContent={HtmContent} editor={editor} />

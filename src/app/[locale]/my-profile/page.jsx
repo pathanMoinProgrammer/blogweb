@@ -1,7 +1,5 @@
 import { posts } from '@/firebase/firebaseAdminRefs';
 import MyProfile from '@/components/ui/MyProfile';
-import data from '@/components/clientFunciton';
-import Comp from "../../../components/Comp"
 
 export default async function AdminBlogPage({ params }) {
   const param = await params;
@@ -18,10 +16,9 @@ export default async function AdminBlogPage({ params }) {
     });
   }
 
-
   return (
     <>
-      <MyProfile locale={locale} blogs={blogs} ids={ids} />
+      <MyProfile locale={locale} blogs={blogs} ids={ids}   />
     </>
   );
 }

@@ -1,18 +1,18 @@
 'use client';
-import { useState, useEffect } from 'react';
-import { useFormik } from 'formik';
-import { blogSchema } from '../yupValidSchema';
+import { useState } from 'react';
 import UrlChecker from './UrlChecker';
 
-const BlogMetadataForm = ({ formData, setFormData, formik }) => {
+const BlogMetadataForm = ({ formData, formik }) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const { values, handleChange, handleSubmit, errors, touched } = formik;
-  
+  const { values, errors, touched, setFieldValue, handleBlur } = formik;
+
+  const handleCustomChange = (e) => {
+    const { name, value } = e.target;
+    setFieldValue(name, value);
+  };
+
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="w-full min-[1000px]:h-screen space-y-4 p-6 rounded-lg border border-gray-200 dark:border-gray-700 bg-blue-50/30 dark:bg-gray-800"
-    >
+    <div className="w-full mt-5 min-[1000px]:h-screen space-y-4 p-6 rounded-lg border border-gray-200 dark:border-gray-700 bg-blue-50/30 dark:bg-gray-800">
       <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
         Blog Information
       </h2>
@@ -26,11 +26,11 @@ const BlogMetadataForm = ({ formData, setFormData, formik }) => {
             type="text"
             name="blogName"
             value={values.blogName}
-            onChange={handleChange}
+            onChange={handleCustomChange}
+            onBlur={handleBlur}
             className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
               focus:ring-2 focus:ring-blue-500 focus:border-transparent 
-              bg-white dark:bg-gray-700 text-gray-900 dark:text-white 
-              placeholder-gray-500 dark:placeholder-gray-400"
+              bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
             placeholder="e.g., AI Frontier Blog"
           />
           {touched.blogName && errors.blogName && (
@@ -39,8 +39,11 @@ const BlogMetadataForm = ({ formData, setFormData, formik }) => {
         </div>
 
         <UrlChecker
-          enurl={formik.values.enurl}
-          setFieldValue={formik.setFieldValue}
+          enurl={values.enurl}
+          setFieldValue={setFieldValue}
+          touched={touched}
+          errors={errors}
+          handleBlur={handleBlur}
         />
       </div>
 
@@ -52,11 +55,11 @@ const BlogMetadataForm = ({ formData, setFormData, formik }) => {
           type="text"
           name="title"
           value={values.title}
-          onChange={handleChange}
+          onChange={handleCustomChange}
+          onBlur={handleBlur}
           className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
             focus:ring-2 focus:ring-blue-500 focus:border-transparent 
-            bg-white dark:bg-gray-700 text-gray-900 dark:text-white 
-            placeholder-gray-500 dark:placeholder-gray-400"
+            bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
           placeholder="Gemini's Edge in Multimodal AI"
         />
         {touched.title && errors.title && (
@@ -71,12 +74,12 @@ const BlogMetadataForm = ({ formData, setFormData, formik }) => {
         <textarea
           name="description"
           value={values.description}
-          onChange={handleChange}
+          onChange={handleCustomChange}
           rows={3}
+          onBlur={handleBlur}
           className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
             focus:ring-2 focus:ring-blue-500 focus:border-transparent 
-            bg-white dark:bg-gray-700 text-gray-900 dark:text-white 
-            placeholder-gray-500 dark:placeholder-gray-400"
+            bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
           placeholder="Brief description of your blog post..."
         />
         {touched.description && errors.description && (
@@ -86,17 +89,17 @@ const BlogMetadataForm = ({ formData, setFormData, formik }) => {
 
       <div>
         <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-white">
-          Image URL <span className="text-purple-500"> * </span>
+          Image URL <span className="text-purple-500">*</span>
         </label>
         <input
           type="url"
           name="imgUrl"
           value={values.imgUrl}
-          onChange={handleChange}
+          onChange={handleCustomChange}
+          onBlur={handleBlur}
           className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
             focus:ring-2 focus:ring-blue-500 focus:border-transparent 
-            bg-white dark:bg-gray-700 text-gray-900 dark:text-white 
-            placeholder-gray-500 dark:placeholder-gray-400"
+            bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
           placeholder="https://..."
         />
         {touched.imgUrl && errors.imgUrl && (
@@ -113,10 +116,12 @@ const BlogMetadataForm = ({ formData, setFormData, formik }) => {
           name="author"
           value={values.author}
           disabled
+          // onBlur={formik.onBlur}
           className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
             bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-300"
         />
       </div>
+
       {values.imgUrl && (
         <div
           className="mt-3 h-[30%] relative group cursor-pointer"
@@ -150,8 +155,7 @@ const BlogMetadataForm = ({ formData, setFormData, formik }) => {
           />
         </div>
       )}
-
-    </form>
+    </div>
   );
 };
 
