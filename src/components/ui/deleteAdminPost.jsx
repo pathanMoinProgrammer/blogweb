@@ -28,13 +28,13 @@ const DeleteButton = ({
   });
 
   return (
-    <div>
+    <div className='w-[100%]'>
       <Button
         variant={mode === 'admin' ? 'destructive' : 'outline'}
         size={mode === 'admin' ? 'sm' : 'lg'}
         className={`${
           loading ? 'opacity-70 cursor-wait' : 'cursor-pointer'
-        } bg-red-500/80 text-white hover:bg-red-600 transition-all duration-300 flex items-center gap-2 rounded-md`}
+        } bg-red-500/80 text-white hover:bg-red-600 dark:bg-red-500/60 transition-all py-5.4 duration-300  w-full  flex items-center gap-2 rounded-md`}
         onClick={() => setConfirm(true)}
         disabled={loading}
       >
@@ -43,7 +43,7 @@ const DeleteButton = ({
         ) : (
           <Trash className="w-4 h-4" />
         )}
-        <span className="hidden sm:inline">Delete</span>
+        <span className=" sm:inline">Delete</span>
       </Button>
 
       {confirm && (

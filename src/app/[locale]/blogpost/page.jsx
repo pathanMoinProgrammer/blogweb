@@ -16,7 +16,6 @@ export default async function BlogPage({ params }) {
     indexedData.docs.forEach((gData) => blogs.push(gData.data()));
   }
 
-
   return (
     <section className="py-16 px-4 bg-gradient-to-b from-white to-gray-100 dark:from-gray-900 dark:to-gray-800 min-h-screen relative ">
       <div className="max-w-7xl mx-auto ">

@@ -3,29 +3,22 @@ import Link from 'next/link';
 import fs from 'fs';
 import matter from 'gray-matter';
 import { getTranslations } from '../traslator';
+import { langPostQuery } from '@/firebase/firebaseAdminRefs';
 
 export async function BlogSection({ params }) {
   const locale = await params.locale;
-
-  // Now read markdown files
-  const dirContent = fs.readdirSync(`Blogs/${locale}`, 'utf-8');
-
-  const blogs = dirContent.map((file) => {
-    const blogContent = fs.readFileSync(`Blogs/${locale}/${file}`, 'utf-8');
-    const { data } = matter(blogContent);
-
-    // Locale-specific slug
-    const slug = locale === 'en' ? data.enurl : data.hiurl;
-
-    return { ...data, slug };
-  });
-
   const t = await getTranslations(locale, 'BlogPage');
+  let blogs = [];
+  const indexedData = await langPostQuery(locale).get();
+  if (indexedData.docs.length > 0) {
+    indexedData.docs.forEach((gData) => {
+      blogs.push(gData.data());
+    });
+  }
 
   return (
     <section className="py-16 px-4 bg-background">
       <div className="max-w-[80%] mx-auto">
-        {/* Section Header */}
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white md:text-4xl">
             {t.TopBlogs}
@@ -39,12 +32,11 @@ export async function BlogSection({ params }) {
           {blogs.map((blog, index) => (
             <Link href={`/${locale}/blogpost/${blog.slug}`} key={index}>
               <article
-                // key={blog.slug}
                 className="flex group hover:scale-105 flex-col overflow-hidden rounded-xl border border-gray-200 dark:border-gray-800 bg-card shadow-sm hover:shadow-md transition-all duration-500"
               >
                 <div className="h-full flex flex-col">
                   <img
-                    src={blog.img}
+                    src={blog.imgUrl}
                     alt={blog.title}
                     className="h-55 w-full object-cover group-hover:scale-110 transition-all"
                   />

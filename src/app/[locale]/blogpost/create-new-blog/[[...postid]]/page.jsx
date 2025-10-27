@@ -1,6 +1,6 @@
 'use client';
 
-import useCreateBlogPage from '@/components/MvcComponents/useCreateBlogPage';
+import useCreateBlogPage from '@/hooks/costumHooks/useCreateBlogPage';
 import CreateBlogPage from '@/components/ui/createBlogPage';
 
 export default function CreateBlogContx() {
@@ -17,6 +17,10 @@ export default function CreateBlogContx() {
     locale,
     notifyMessage,
     setNotifiMessage,
+    languages,
+    isFullscreen,
+    setIsFullscreen,
+    type
   } = useCreateBlogPage();
 
   if (!isMounted) {
@@ -40,6 +44,10 @@ export default function CreateBlogContx() {
       locale={locale}
       notifyMessage={notifyMessage}
       setNotifiMessage={setNotifiMessage}
+      languages={languages}
+      isFullscreen={isFullscreen}
+      setIsFullscreen={setIsFullscreen}
+      type={type}
     />
   );
 }

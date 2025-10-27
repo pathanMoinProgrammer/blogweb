@@ -2,7 +2,7 @@ import { setDoc, doc, arrayRemove, onSnapshot, deleteDoc } from 'firebase/firest
 import { postColRef } from '@/firebase/firebaseRefs';
 
 
-export const handleClientDelete = async (refArray, postidClient, locale, router) => {
+export const handleClientDelete = async (refArray, postidClient, locale, router, languages) => {
   try {
     await deleteDoc(refArray[1]);
 

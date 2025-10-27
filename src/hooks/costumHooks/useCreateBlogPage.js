@@ -1,29 +1,29 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { arrayUnion } from 'firebase/firestore';
-import { postDocRef } from '@/firebase/firebaseRefs';
+import { postDocRef, timestamp } from '@/firebase/firebaseRefs';
 import { useCreateDoc } from '@/hooks/fireatoreHooks/useCreateDoc';
 import { useReadDoc } from '@/hooks/fireatoreHooks/useReadDoc';
 import { useMemo } from 'react';
 import { useFormik } from 'formik';
-import { blogSchema } from '../yupValidSchema';
-import { arrayAtom } from '../jotai';
-import { useAtomValue } from 'jotai';
+import { blogSchema } from '../../components/yupValidSchema';
 
 export default function useCreateBlogPage() {
   const [formData, setFormData] = useState({
     blogName: '',
-    enurl: '',
+    slug: '',
     title: '',
     description: '',
     imgUrl: '',
     content: '',
     HtmContent: '',
-    author: '',
+    author: 'admin',
     type: '',
   });
   const [showNotification, setShowNotification] = useState(false);
   const [notifyMessage, setNotifiMessage] = useState(null);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [type, setType] = useState('');
 
   const [isMounted, setIsMounted] = useState(false);
   const { loading, error, setDataWithLang } = useCreateDoc();
@@ -39,33 +39,43 @@ export default function useCreateBlogPage() {
   }, [postid, locale]);
   const refArray = [parentRef, childRef];
 
-  const state = useReadDoc(parentRef, postid, locale);
+  const {
+    loading: relativeLoad,
+    error: relativeErr,
+    data,
+    languages: relateLangs,
+    ids,
+  } = useReadDoc({
+    ref: childRef,
+    ref2: parentRef,
+    postid: postid,
+    locale: locale,
+    parentRead: true,
+  });
+
+  useEffect(() => {
+    if (data !== undefined && data?.type) {
+      setType(data?.type);
+    }
+  }, [data?.type]);
 
   const AUTO_SAVE_DELAY = 2000;
   const DRAFT_KEY = 'blogDraft';
   const saveTimeout = useRef(null);
 
   useEffect(() => {
-    if (state?.data && Object.keys(state.data).length > 0) {
-      const d = state.data;
+    if (data && data !== undefined && Object.keys(data).length > 0) {
+      const d = data;
       setFormData((prev) => ({
         ...prev,
-        blogName: d.slug || '',
-        enurl: d.slug || '',
-        title: d.title || '',
-        description: d.description || '',
-        imgUrl: d.imgUrl || '',
-        content: d.content || '<p>Start Writing New Blog</p>',
-        HtmContent: d.content || '<p>Start Writing New Blog</p>',
-        author: d.author || 'Admin User',
+        ...d,
       }));
     }
-    // console.log(localStorage.getItem('blogDraft'));
-  }, [state?.data]);
+  }, [data]);
 
   useEffect(() => {
     setIsMounted(true);
-    if (typeof window === 'undefined') return;
+    if (typeof window == 'undefined') return;
     const saved = localStorage.getItem(DRAFT_KEY);
     if (saved) {
       try {
@@ -73,7 +83,7 @@ export default function useCreateBlogPage() {
         setFormData((prev) => ({
           ...prev,
           blogName: data.blogName || '',
-          enurl: data.enurl || '',
+          slug: data.slug || '',
           title: data.title || '',
           description: data.description || '',
           imgUrl: data.imgUrl || '',
@@ -101,7 +111,7 @@ export default function useCreateBlogPage() {
         description: formData.description,
         imgUrl: formData.imgUrl,
         lang: locale,
-        slug: formData.enurl,
+        slug: formData.slug,
         status: 'draft',
         title: formData.title,
       };
@@ -115,9 +125,17 @@ export default function useCreateBlogPage() {
       await setDataWithLang(parentRef, {
         ...values,
         languages: arrayUnion(locale),
-        [url]: values.enurl,
+        [url]: values.slug,
+        slug: arrayUnion(values.slug),
+        lang: locale,
+        updatedAt: timestamp(),
       });
-      await setDataWithLang(childRef, values);
+      await setDataWithLang(childRef, {
+        ...values,
+        slug: values.slug,
+        lang: locale,
+        updatedAt: timestamp(),
+      });
     } catch (err) {
       console.error('Error creating blog:', err);
     }
@@ -130,12 +148,22 @@ export default function useCreateBlogPage() {
     validateOnChange: false,
     enableReinitialize: true,
     onSubmit: async (values) => {
-      console.log(values, 'checking value and type');
       if (values.type == 'publish') {
-        await handleCreateBlog(values);
-        setShowNotification(true);
+        await handleCreateBlog({ ...values, type: 'publish' });
+        setType('publish');
+        localStorage.removeItem('blogDraft');
+        setNotifiMessage('Your Blog was Published ✅ Successfully!!');
+        setTimeout(() => {
+          setShowNotification(true);
+        }, 0);
       } else if (values.type == 'draft') {
-        scheduleSaveDraft(values);
+        scheduleSaveDraft({ ...values, type: 'draft' });
+        await handleCreateBlog({ ...values, type: 'draft' });
+        setType('draft');
+        setNotifiMessage('Your Blog was Saved to Draft ✅ Successfully');
+        setTimeout(() => {
+          setShowNotification(true);
+        }, 0);
       }
     },
   });
@@ -158,11 +186,14 @@ export default function useCreateBlogPage() {
     showNotification,
     setShowNotification,
     postid,
-    state,
     formik,
     refArray,
     locale,
     notifyMessage,
     setNotifiMessage,
+    languages: relateLangs,
+    isFullscreen,
+    setIsFullscreen,
+    type,
   };
 }

@@ -5,7 +5,7 @@ const BlogContext = createContext(null);
 
 export function BlogProvider({ children }) {
   const [blogName, setBlogName] = useState('');
-  const [enurl, setEnurl] = useState('');
+  const [slug, setSlug] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [imgUrl, setImgUrl] = useState('');
@@ -16,7 +16,7 @@ export function BlogProvider({ children }) {
 
   const value = {
     blogName, setBlogName,
-    enurl, setEnurl,
+    slug, setSlug,
     title, setTitle,
     description, setDescription,
     imgUrl, setImgUrl,

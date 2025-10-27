@@ -1,16 +1,15 @@
-
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
 export async function POST(request) {
   try {
-    const { locale, slug } = await request.json();
+    const { slug } = await request.json();
 
-    if (!locale || !slug) {
+    if (!slug) {
       return NextResponse.json(
-        { error: 'Missing required fields: locale or slug.' },
-        { status: 400 }
+        { error: 'Missing required fields: slug.' },
+        { status: 400 },
       );
     }
 
@@ -18,15 +17,20 @@ export async function POST(request) {
 
     const exists = fs.existsSync(filePath);
 
-    return NextResponse.json(
-      { exists, message: exists ? 'URL already exists' : 'URL available' },
-      { status: 200 }
-    );
+    // const exists = true;
+
+    return NextResponse.json({
+      status: 200,
+      error: null,
+      exists,
+      message: exists ? 'URL already exists' : 'URL available',
+    });
   } catch (error) {
     console.error('❌ Error checking blog URL:', error);
-    return NextResponse.json(
-      { error: 'Failed to check blog availability', details: error.message },
-      { status: 500 }
-    );
+    return NextResponse.json({
+      error: 'Failed to check blog availability',
+      details: error.message,
+      status: 500,
+    });
   }
 }

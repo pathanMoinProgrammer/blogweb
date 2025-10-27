@@ -23,7 +23,7 @@ export const useDeleteLogic = ({
       if (mode == 'admin') {
         await handleServerDelete(deleteAllDoc, postid, languages, router);
       } else {
-        await handleClientDelete(refArray, postid, locale, router);
+        await handleClientDelete(refArray, postid, locale, router, languages);
       }
     } catch (error) {
       console.error('Delete error:', error);

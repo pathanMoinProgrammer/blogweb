@@ -18,7 +18,7 @@ export async function GET(request) {
     const filedata = fs.readFileSync(filepath, 'utf-8');
     const { data } = matter(filedata);
 
-    const translatedSlug = targetLocale === 'en' ? data.enurl : data.hiurl;
+    const translatedSlug = targetLocale === 'en' ? data.slug : data.hiurl;
 
     return NextResponse.json({ translatedSlug });
   } catch (error) {

@@ -2,16 +2,16 @@
 import * as Tabs from '@radix-ui/react-tabs';
 import JoditEditor from '@/components/blog/joditeditor';
 import BlogPreview from '@/components/blog/BlogPreview';
-import BlogFormSection from './BlogMetaData';
-import { useBlogContext } from '@/hooks/costumHooks/blogMetadataContext';
 import BlogMetadataForm from '../blog/BlogMetadataForm';
 
 export default function EditorPreviewTabs({
   formData,
   editor = null,
-  formik
+  formik,
+  isFullscreen,
+  setIsFullscreen,
 }) {
-  const { HtmContent } = formData;
+  const { HtmContent } = formik.values;
 
   return (
     <section className="w-full min-h-[400px] mt-5 max-[1300px]:mt-10 dark:bg-gray-800 ">
@@ -65,7 +65,12 @@ export default function EditorPreviewTabs({
           value="metadata"
           className="p-4 lg:p-6 overflow-auto min-[1300px]:hidden"
         >
-          <BlogMetadataForm  formData={formData} formik={formik} />
+          <BlogMetadataForm
+            formData={formData}
+            formik={formik}
+            isFullscreen={isFullscreen}
+            setIsFullscreen={setIsFullscreen}
+          />
         </Tabs.Content>
         <Tabs.Content value="preview" className="p-4 lg:p-6 overflow-auto">
           <BlogPreview HtmContent={HtmContent} editor={editor} />

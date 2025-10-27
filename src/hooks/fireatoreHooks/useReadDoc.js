@@ -1,7 +1,13 @@
-import { useState, useEffect } from "react";
-import { onSnapshot } from "firebase/firestore";
+import { useState, useEffect } from 'react';
+import { getDoc } from 'firebase/firestore';
 
-export const useReadDoc = (ref, postid, locale) => {
+export const useReadDoc = ({
+  ref,
+  ref2,
+  postid,
+  locale,
+  parentRead = false,
+}) => {
   const [state, setState] = useState({
     loading: false,
     error: false,
@@ -24,12 +30,32 @@ export const useReadDoc = (ref, postid, locale) => {
 
     setState((prev) => ({ ...prev, loading: true }));
 
-    let unsub;
-    try {
-      unsub = onSnapshot(
-        ref,
-        (docSnap) => {
-          if (!docSnap.exists()) {
+    const fetchDoc = async () => {
+      try {
+        
+        const result = await getDoc(ref);
+
+        if (!result.exists()) {
+          console.warn(`⚠️ No data found for post: ${postid}`);
+          setState({
+            loading: false,
+            error: `No data found for post: ${postid}`,
+            data: undefined,
+            languages: undefined,
+            ids: [],
+          });
+          return;
+        }
+        const childResult = result.data() || {};
+
+        setState({
+          loading: false,
+          error: false,
+          data: { ...childResult },
+        });
+        if (parentRead) {
+          const rowParent = await getDoc(ref2);
+          if (!rowParent.exists()) {
             setState({
               loading: false,
               error: `No data found for post: ${postid}`,
@@ -37,53 +63,36 @@ export const useReadDoc = (ref, postid, locale) => {
               languages: undefined,
               ids: [],
             });
-            return;
           }
-
-          const parentData = docSnap.data() || {};
+          const parentData = rowParent.data() || {};
 
           const languages =
-            Array.isArray(parentData.languages) && parentData.languages.length > 0
+            Array.isArray(parentData.languages) &&
+            parentData.languages.length > 0
               ? parentData.languages
               : undefined;
-
-          const selectedLocaleData =
-            locale && parentData.translations?.[locale]
-              ? parentData.translations[locale]
-              : {};
 
           setState({
             loading: false,
             error: false,
-            data: { ...parentData, ...selectedLocaleData },
-            languages,
-            ids: [],
-          });
-        },
-        (error) => {
-          setState({
-            loading: false,
-            error: error?.message || "Unknown error",
-            data: undefined,
-            languages: undefined,
-            ids: [],
+            languages: languages,
           });
         }
-      );
-    } catch (err) {
-      setState({
-        loading: false,
-        error: err?.message || "Unknown error",
-        data: undefined,
-        languages: undefined,
-        ids: [],
-      });
-    }
-
-    // Cleanup
-    return () => {
-      if (typeof unsub === "function") unsub();
+      } catch (err) {
+        console.error('❌ Firestore error:', err);
+        setState({
+          loading: false,
+          error: err?.message || 'Unknown error',
+          data: undefined,
+          languages: undefined,
+          ids: [],
+        });
+      }
     };
+
+    fetchDoc();
+
+    return () => {};
   }, [ref, postid, locale]);
 
   return { ...state };

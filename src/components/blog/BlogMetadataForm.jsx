@@ -1,15 +1,13 @@
 'use client';
-import { useState } from 'react';
-import UrlChecker from './UrlChecker';
+import leoProfanity from 'leo-profanity';
+import { useSafeInputHandler } from '@/hooks/costumHooks/blogMetaDataChecker';
 
-const BlogMetadataForm = ({ formData, formik }) => {
-  const [isFullscreen, setIsFullscreen] = useState(false);
+leoProfanity.loadDictionary();
+
+const BlogMetadataForm = ({ formik, isFullscreen, setIsFullscreen }) => {
   const { values, errors, touched, setFieldValue, handleBlur } = formik;
-
-  const handleCustomChange = (e) => {
-    const { name, value } = e.target;
-    setFieldValue(name, value);
-  };
+  const { handleSafeChange, slugError, renderWarning } =
+    useSafeInputHandler(setFieldValue);
 
   return (
     <div className="w-full mt-5 min-[1000px]:h-screen space-y-4 p-6 rounded-lg border border-gray-200 dark:border-gray-700 bg-blue-50/30 dark:bg-gray-800">
@@ -26,25 +24,46 @@ const BlogMetadataForm = ({ formData, formik }) => {
             type="text"
             name="blogName"
             value={values.blogName}
-            onChange={handleCustomChange}
+            onChange={handleSafeChange}
             onBlur={handleBlur}
             className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
               focus:ring-2 focus:ring-blue-500 focus:border-transparent 
               bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
             placeholder="e.g., AI Frontier Blog"
           />
+          {renderWarning('blogName')}
           {touched.blogName && errors.blogName && (
             <p className="text-red-500 text-sm mt-1">{errors.blogName}</p>
           )}
         </div>
 
-        <UrlChecker
-          enurl={values.enurl}
-          setFieldValue={setFieldValue}
-          touched={touched}
-          errors={errors}
-          handleBlur={handleBlur}
-        />
+        <div>
+          <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-white">
+            Blog Slug <span className="text-purple-500">*</span>
+          </label>
+          <input
+            type="text"
+            name="slug"
+            value={values.slug}
+            onChange={handleSafeChange}
+            onBlur={handleBlur}
+            className={`w-full px-4 py-2 border rounded-lg 
+              focus:ring-2 focus:border-transparent 
+              bg-white dark:bg-gray-700 text-gray-900 dark:text-white
+              ${
+                slugError || (touched.slug && errors.slug)
+                  ? 'border-red-500 focus:ring-red-500'
+                  : 'border-gray-300 dark:border-gray-600 focus:ring-blue-500'
+              }`}
+            placeholder="e.g., ai-frontier-blog"
+          />
+          {slugError && (
+            <p className="text-red-500 text-sm mt-1">{slugError}</p>
+          )}
+          {!slugError && touched.slug && errors.slug && (
+            <p className="text-red-500 text-sm mt-1">{errors.slug}</p>
+          )}
+        </div>
       </div>
 
       <div>
@@ -55,13 +74,14 @@ const BlogMetadataForm = ({ formData, formik }) => {
           type="text"
           name="title"
           value={values.title}
-          onChange={handleCustomChange}
+          onChange={handleSafeChange}
           onBlur={handleBlur}
           className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
             focus:ring-2 focus:ring-blue-500 focus:border-transparent 
             bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
           placeholder="Gemini's Edge in Multimodal AI"
         />
+        {renderWarning('title')}
         {touched.title && errors.title && (
           <p className="text-red-500 text-sm mt-1">{errors.title}</p>
         )}
@@ -74,7 +94,7 @@ const BlogMetadataForm = ({ formData, formik }) => {
         <textarea
           name="description"
           value={values.description}
-          onChange={handleCustomChange}
+          onChange={handleSafeChange}
           rows={3}
           onBlur={handleBlur}
           className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
@@ -82,6 +102,7 @@ const BlogMetadataForm = ({ formData, formik }) => {
             bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
           placeholder="Brief description of your blog post..."
         />
+        {renderWarning('description')}
         {touched.description && errors.description && (
           <p className="text-red-500 text-sm mt-1">{errors.description}</p>
         )}
@@ -95,13 +116,14 @@ const BlogMetadataForm = ({ formData, formik }) => {
           type="url"
           name="imgUrl"
           value={values.imgUrl}
-          onChange={handleCustomChange}
+          onChange={handleSafeChange}
           onBlur={handleBlur}
           className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
             focus:ring-2 focus:ring-blue-500 focus:border-transparent 
             bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
           placeholder="https://..."
         />
+        {renderWarning('imgUrl')}
         {touched.imgUrl && errors.imgUrl && (
           <p className="text-red-500 text-sm mt-1">{errors.imgUrl}</p>
         )}
@@ -116,7 +138,6 @@ const BlogMetadataForm = ({ formData, formik }) => {
           name="author"
           value={values.author}
           disabled
-          // onBlur={formik.onBlur}
           className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
             bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-300"
         />

@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 
 export default function UrlChecker({
-  enurl = 'enurl',
+  enurl = 'slug' ,
   errors,
   touched,
   setFieldValue,
@@ -17,17 +17,17 @@ export default function UrlChecker({
 
   const handleChange = (e) => {
     const value = e.target.value.toLowerCase().replace(/\s+/g, '-');
-    setFieldValue('enurl', value);
+    setFieldValue('slug', value);
   };
 
   useEffect(() => {
-    if (!enurl) {
+    if (!slug) {
       setUrlExists(false);
       setErrorMsg('');
       return;
     }
 
-    if (!validSlugRegex.test(enurl)) {
+    if (!validSlugRegex.test(slug)) {
       setErrorMsg('Only lowercase letters, numbers, and hyphens are allowed.');
       setUrlExists(false);
       return;
@@ -43,7 +43,7 @@ export default function UrlChecker({
         const res = await fetch('/api/available-blog-sync', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({  slug: enurl }),
+          body: JSON.stringify({  slug: slug }),
         });
 
 
@@ -59,7 +59,7 @@ export default function UrlChecker({
     }, 600);
 
     return () => clearTimeout(debounceRef.current);
-  }, [enurl]);
+  }, [slug]);
 
   return (
     <div className="w-full">
@@ -71,15 +71,15 @@ export default function UrlChecker({
         <input
           type="text"
           value={enurl}
-          name="enurl"
+          name="slug"
           onChange={handleChange}
-          onBlur={handleBlur}
+          onBlur={handleBlur} //
           placeholder="gemini-multimodal-edge"
           className={`w-full px-4 py-2 pr-12 border rounded-lg focus:ring-2 focus:border-transparent transition-all duration-300 
             bg-white dark:bg-gray-700 text-gray-900 dark:text-white 
             placeholder-gray-500 dark:placeholder-gray-400 text-sm sm:text-base
             ${
-              touched.enurl && errors.enurl
+              touched.slug && errors.slug
                 ? 'border-red-400 dark:border-red-500 focus:ring-red-500'
                 : errorMsg
                 ? 'border-red-400 dark:border-red-500 focus:ring-red-500'
@@ -87,7 +87,7 @@ export default function UrlChecker({
                 ? 'border-blue-400 dark:border-blue-300 focus:ring-blue-400'
                 : urlExists
                 ? 'border-red-400 dark:border-red-500 focus:ring-red-500'
-                : enurl
+                : slug
                 ? 'border-green-400 dark:border-green-500 focus:ring-green-500'
                 : 'border-gray-300 dark:border-gray-600 focus:ring-blue-500'
             }`}
@@ -118,7 +118,7 @@ export default function UrlChecker({
             </div>
           )}
 
-          {!isCheckingUrl && enurl && !urlExists && !errorMsg && (
+          {!isCheckingUrl && slug && !urlExists && !errorMsg && (
             <div className="text-green-500 dark:text-green-400 animate-pulse">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -137,7 +137,7 @@ export default function UrlChecker({
             </div>
           )}
 
-          {!isCheckingUrl && enurl && (urlExists || errorMsg) && (
+          {!isCheckingUrl && slug && (urlExists || errorMsg) && (
             <div className="text-red-500 dark:text-red-400">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -159,8 +159,8 @@ export default function UrlChecker({
       </div>
 
       <div className="mt-1 min-h-[1.25rem]">
-        {touched.enurl && errors.enurl ? (
-          <p className="text-sm text-red-600 font-medium">{errors.enurl}</p>
+        {touched.slug && errors.slug ? (
+          <p className="text-sm text-red-600 font-medium">{errors.slug}</p>
         ) : errorMsg ? (
           <p className="text-sm text-red-600 dark:text-red-400 font-medium">
             {errorMsg}
@@ -169,11 +169,11 @@ export default function UrlChecker({
           <p className="text-sm text-blue-600 dark:text-blue-400">
             Checking availability...
           </p>
-        ) : !isCheckingUrl && enurl && !urlExists ? (
+        ) : !isCheckingUrl && slug && !urlExists ? (
           <p className="text-sm text-green-600 dark:text-green-400 font-medium flex items-center gap-1">
             ✅ This URL is available!
           </p>
-        ) : !isCheckingUrl && enurl && urlExists ? (
+        ) : !isCheckingUrl && slug && urlExists ? (
           <p className="text-sm text-red-600 dark:text-red-400 font-medium flex items-center gap-1">
             ⚠️ This URL is already taken.
           </p>

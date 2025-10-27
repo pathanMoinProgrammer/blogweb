@@ -1,11 +1,3 @@
-import matter from 'gray-matter';
-import fs from 'fs';
-import { notFound } from 'next/navigation';
-import { unified } from 'unified';
-import remarkParse from 'remark-parse';
-import remarkRehype from 'remark-rehype';
-import rehypeFormat from 'rehype-format';
-import rehypeStringify from 'rehype-stringify';
 import Link from 'next/link';
 import { slugReadRef } from '@/firebase/firebaseAdminRefs';
 
@@ -14,28 +6,25 @@ const page = async ({ params }) => {
   const rowDataRef = await slugReadRef(slug).get();
   let data = {};
 
-  const filepath = `Blogs/${locale}/${slug}.md`;
   if (rowDataRef.docs.length > 0) {
     rowDataRef.docs.forEach((gData) => (data = gData.data()));
   }
-  
-  const htmlContent = data.content;
 
   return (
     <div className="min-h-screen bg-background">
       <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <header className="mb-12">
           <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6 leading-tight text-center">
-            {data.title}
+            {data?.title}
           </h1>
           <p className="text-xl text-muted-foreground mb-8 text-center max-w-3xl mx-auto">
-            {data.description}
+            {data?.description}
           </p>
           <div className="flex flex-wrap justify-center items-center gap-2 text-sm text-muted-foreground mb-8">
-            <span className="font-medium">By {data.author}</span>
+            <span className="font-medium">By {data?.author}</span>
             <span>•</span>
             <time>
-              {data.updatedAt.toDate().toLocaleString('en-IN', {
+              {data?.updatedAt?.toDate().toLocaleString('en-IN', {
                 day: '2-digit',
                 month: '2-digit',
                 year: 'numeric',
@@ -45,11 +34,11 @@ const page = async ({ params }) => {
               })}
             </time>
           </div>
-          {data.imgUrl && (
+          {data?.imgUrl && (
             <div className="mb-8">
               <img
-                src={data.imgUrl}
-                alt={data.title}
+                src={data?.imgUrl}
+                alt={data?.title}
                 className="w-full h-auto max-h-[500px] object-cover rounded-xl shadow-2xl"
               />
             </div>
@@ -57,10 +46,12 @@ const page = async ({ params }) => {
         </header>
 
         <section className="bg-card rounded-xl shadow-lg p-8 md:p-12 mb-12">
-          <div
-            className="prose-content"
-            dangerouslySetInnerHTML={{ __html: htmlContent }}
-          />
+          {data?.content && (
+            <div
+              className="prose-content"
+              dangerouslySetInnerHTML={{ __html: data?.content }}
+            />
+          )}
         </section>
 
         <footer className="text-center">

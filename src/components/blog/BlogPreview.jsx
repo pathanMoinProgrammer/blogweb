@@ -4,8 +4,10 @@ import { useState } from 'react';
 import Lottie from 'lottie-react';
 import checkmarkAnim from '../../components/Checkmark.json';
 
-export default function BlogPreview({ HtmContent, editor }) {
-  // console.log(HtmContent, "HtmContent in preview");
+export default function BlogPreview({ HtmContent,  editor }) {
+
+
+
   const [isCopying, setIsCopying] = useState(false);
 
   const handleCopy = async () => {
@@ -26,6 +28,8 @@ export default function BlogPreview({ HtmContent, editor }) {
       console.error('Copy failed:', error);
     }
   };
+
+  
 
   return (
     <div className="flex flex-col w-full h-screen border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">

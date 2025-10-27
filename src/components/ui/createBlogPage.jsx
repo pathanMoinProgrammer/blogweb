@@ -17,12 +17,17 @@ const CreateBlogPage = ({
   locale,
   notifyMessage,
   setNotifiMessage,
+  languages,
+  isFullscreen,
+  setIsFullscreen,
+  type
+  
 }) => {
   return (
-    <div onSubmit={formik.handleSubmit} className='relative' >
+    <div onSubmit={formik.handleSubmit} className="relative p-[1px] max-[840px]:py-[25px]">
       <Notification
         message={
-          notifyMessage || error?.message || 'Operation was Successfull !'
+          notifyMessage ||  'Operation was Successfull !'
         }
         isVisible={showNotification}
         onClose={() => setShowNotification(false)}
@@ -31,12 +36,17 @@ const CreateBlogPage = ({
         formData={formData}
         formik={formik}
         setNotifiMessage={setNotifiMessage}
+        isFullscreen={isFullscreen}
+        setIsFullscreen={setIsFullscreen}
+        
       />
       <div className="max-[1300px]:hidden">
         <BlogMetadataForm
           formData={formData}
           formik={formik}
           setNotifiMessage={setNotifiMessage}
+          isFullscreen={isFullscreen}
+          setIsFullscreen={setIsFullscreen}
         />
       </div>
       <ActionButton
@@ -46,6 +56,8 @@ const CreateBlogPage = ({
         refArray={refArray}
         locale={locale}
         setNotifiMessage={setNotifiMessage}
+        languages={languages}
+        type={type}
       />
     </div>
   );
