@@ -20,7 +20,9 @@ export default function CreateBlogContx() {
     languages,
     isFullscreen,
     setIsFullscreen,
-    type
+    type,
+    inputRefs,
+    handleFocusField
   } = useCreateBlogPage();
 
   if (!isMounted) {
@@ -48,6 +50,8 @@ export default function CreateBlogContx() {
       isFullscreen={isFullscreen}
       setIsFullscreen={setIsFullscreen}
       type={type}
+      inputRefs={inputRefs}
+      handleFocusField={handleFocusField}
     />
   );
 }

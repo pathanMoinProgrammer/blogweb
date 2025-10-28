@@ -9,49 +9,52 @@ export const useSafeInputHandler = (setFieldValue) => {
   const [slugError, setSlugError] = useState('');
   const [fieldOffensiveWords, setFieldOffensiveWords] = useState({});
 
-leoProfanity.removeWord('tit'); 
-leoProfanity.add(['tits']); 
+  leoProfanity.removeWord('tit');
+  leoProfanity.add(['tits']);
 
   const handleSafeChange = useCallback(
-  (e) => {
-    const { name, value } = e.target;
+    (e) => {
+      const { name, value } = e.target;
 
-    const words = value.split(/[^a-zA-Z0-9]+/).filter(Boolean);
-    const detectedWords = words.filter((word) =>
-      leoProfanity.check(word.toLowerCase())
-    );
+      console.log('if errors');
 
-    const hasProfanity = detectedWords.length > 0;
+      const words = value.split(/[^a-zA-Z0-9]+/).filter(Boolean);
+      const detectedWords = words.filter((word) =>
+        leoProfanity.check(word.toLowerCase()),
+      );
 
-    let cleanedValue = value;
-    while (leoProfanity.check(cleanedValue)) {
-      cleanedValue = leoProfanity.clean(cleanedValue);
-    }
+      const hasProfanity = detectedWords.length > 0;
 
-    setFieldOffensiveWords((prev) => ({
-      ...prev,
-      [name]: detectedWords,
-    }));
-
-    if (name === 'slug') {
-      if (hasProfanity) {
-        setSlugError(
-          `⚠️ Please remove inappropriate words from slug: ${detectedWords.join(', ')}`
-        );
-        return;
+      let cleanedValue = value;
+      while (leoProfanity.check(cleanedValue)) {
+        cleanedValue = leoProfanity.clean(cleanedValue);
       }
 
-      const { value: formattedSlug, error } = formatSlug(cleanedValue);
-      setFieldValue(name, formattedSlug);
-      setSlugError(error || '');
-    } else {
-      setFieldValue(name, cleanedValue);
-      setSlugError('');
-    }
-  },
-  [setFieldValue]
-);
+      setFieldOffensiveWords((prev) => ({
+        ...prev,
+        [name]: detectedWords,
+      }));
 
+      if (name === 'slug') {
+        if (hasProfanity) {
+          setSlugError(
+            `⚠️ Please remove inappropriate words from slug: ${detectedWords.join(
+              ', ',
+            )}`,
+          );
+          return;
+        }
+
+        const { value: formattedSlug, error } = formatSlug(cleanedValue);
+        setFieldValue(name, formattedSlug);
+        setSlugError(error || '');
+      } else {
+        setFieldValue(name, cleanedValue);
+        setSlugError('');
+      }
+    },
+    [setFieldValue],
+  );
 
   const renderWarning = useCallback(
     (fieldName) => {
@@ -71,20 +74,17 @@ leoProfanity.add(['tits']);
   return { handleSafeChange, slugError, renderWarning };
 };
 
-
-
-
-
-
 export const getOffensiveWords = (text) => {
   if (!text) return [];
   const badWords = leoProfanity.list();
   const pattern = new RegExp(
-    `\\b(${badWords.map(w => w.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')).join('|')})\\b`,
-    'gi'
+    `\\b(${badWords
+      .map((w) => w.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'))
+      .join('|')})\\b`,
+    'gi',
   );
   const matches = text.match(pattern);
-  return matches ? [...new Set(matches.map(w => w.toLowerCase()))] : [];
+  return matches ? [...new Set(matches.map((w) => w.toLowerCase()))] : [];
 };
 
 export const maskOffensiveWords = (text) => {
@@ -96,8 +96,10 @@ export const highlightOffensiveWordsInHtml = (html) => {
   if (!html) return html;
   const badWords = leoProfanity.list();
   const pattern = new RegExp(
-    `\\b(${badWords.map(w => w.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')).join('|')})\\b`,
-    'gi'
+    `\\b(${badWords
+      .map((w) => w.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'))
+      .join('|')})\\b`,
+    'gi',
   );
   return html.replace(pattern, (match) => {
     const masked = '*'.repeat(match.length);

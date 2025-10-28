@@ -2,7 +2,7 @@ import React from 'react';
 import { CreateNewAdminBlog } from './createNewAdminBlog';
 import Link from 'next/link';
 import { Plus } from 'lucide-react';
-import DeleteButton from './deleteAdminPost';
+import DeleteButton from './bothDeleteablePost';
 
 const MyProfile = ({ locale, blogs, ids }) => {
   return (
@@ -20,6 +20,7 @@ const MyProfile = ({ locale, blogs, ids }) => {
             <thead>
               <tr className="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 uppercase text-xs font-semibold tracking-wider">
                 <th className="py-4 px-6">Title</th>
+                <th className="py-4 px-6">Image</th>
                 <th className="py-4 px-6">Description</th>
                 <th className="py-4 px-6 text-center">Languages</th>
 
@@ -38,7 +39,14 @@ const MyProfile = ({ locale, blogs, ids }) => {
                       ? `${blog.title.slice(0, 15)}...`
                       : blog.title || 'Blog Post'}
                   </td>
-                  <td className="py-4 px-6">
+                  <td className=" font-medium text-gray-900  dark:text-white whitespace-nowrap">
+                    {blog.imgUrl !== 'NA' ? (
+                      <img width={80} src={blog.imgUrl} className='rounded' />
+                    ) : (
+                      'NA'
+                    )}
+                  </td>
+                  <td className="py-4 px-6 ">
                     <p className="line-clamp-2 text-gray-600 dark:text-gray-300">
                       {blog.description.length > 25
                         ? `${blog.description.slice(0, 15)}...`
@@ -81,12 +89,15 @@ const MyProfile = ({ locale, blogs, ids }) => {
                       hour12: true,
                     })}
                   </td>
-                  <td className="flex justify-center  ">
-                    <span className="">
+                  <td
+                    className={`flex justify-center relative items-center h-[100%] py-5 `}
+                  >
+                    <span >
                       <DeleteButton
                         mode="admin"
                         postid={blog?.id}
                         languages={blog?.languages}
+
                       />
                     </span>
                   </td>
@@ -101,4 +112,3 @@ const MyProfile = ({ locale, blogs, ids }) => {
 };
 
 export default MyProfile;
-

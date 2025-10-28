@@ -1,10 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { arrayUnion } from 'firebase/firestore';
 import { postDocRef, timestamp } from '@/firebase/firebaseRefs';
 import { useCreateDoc } from '@/hooks/fireatoreHooks/useCreateDoc';
 import { useReadDoc } from '@/hooks/fireatoreHooks/useReadDoc';
-import { useMemo } from 'react';
 import { useFormik } from 'formik';
 import { blogSchema } from '../../components/yupValidSchema';
 
@@ -21,7 +20,10 @@ export default function useCreateBlogPage() {
     type: '',
   });
   const [showNotification, setShowNotification] = useState(false);
-  const [notifyMessage, setNotifiMessage] = useState(null);
+  const [notifyMessage, setNotifiMessage] = useState({
+    type: 'success',
+    message: [],
+  });
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [type, setType] = useState('');
 
@@ -32,6 +34,14 @@ export default function useCreateBlogPage() {
   const locale = params?.locale;
   const postid = params?.postid?.[0];
   const url = `${locale}slug`;
+
+  const inputRefs = {
+    blogName: useRef(null),
+    title:useRef(null),
+    slug: useRef(null),
+    description: useRef(null),
+    imgUrl: useRef(null),
+  };
 
   const { parentRef, childRef } = useMemo(() => {
     if (!postid || !locale) return { parentRef: null, childRef: null };
@@ -149,18 +159,26 @@ export default function useCreateBlogPage() {
     enableReinitialize: true,
     onSubmit: async (values) => {
       if (values.type == 'publish') {
+        setType('publish');
         await handleCreateBlog({ ...values, type: 'publish' });
         setType('publish');
         localStorage.removeItem('blogDraft');
-        setNotifiMessage('Your Blog was Published ✅ Successfully!!');
+        setNotifiMessage({
+          type: 'success',
+          message: ['Your Blog was Published ✅ Successfully!!'],
+        });
         setTimeout(() => {
           setShowNotification(true);
         }, 0);
       } else if (values.type == 'draft') {
         scheduleSaveDraft({ ...values, type: 'draft' });
+        setType('draft');
         await handleCreateBlog({ ...values, type: 'draft' });
         setType('draft');
-        setNotifiMessage('Your Blog was Saved to Draft ✅ Successfully');
+        setNotifiMessage({
+          type: 'success',
+          message: ['Your Blog was Saved to Draft ✅ Successfully'],
+        });
         setTimeout(() => {
           setShowNotification(true);
         }, 0);
@@ -175,6 +193,10 @@ export default function useCreateBlogPage() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
+
+  const handleFocusField = (fieldName) => {
+    inputRefs[fieldName].current.focus();
+  };
 
   return {
     loading,
@@ -195,5 +217,7 @@ export default function useCreateBlogPage() {
     isFullscreen,
     setIsFullscreen,
     type,
+    inputRefs,
+    handleFocusField,
   };
 }

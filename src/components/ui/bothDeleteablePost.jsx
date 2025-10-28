@@ -7,7 +7,7 @@ import { useDeleteDoc } from '@/hooks/fireatoreHooks/useDeleteDoc';
 import { useDeleteLogic } from '@/hooks/costumHooks/useDeleteBoth';
 
 const DeleteButton = ({
-  mode = 'client', 
+  mode = 'client',
   postid,
   languages,
   refArray,
@@ -28,23 +28,26 @@ const DeleteButton = ({
   });
 
   return (
-    <div className='w-[100%]'>
-      <Button
-        variant={mode === 'admin' ? 'destructive' : 'outline'}
-        size={mode === 'admin' ? 'sm' : 'lg'}
+    <div className={`w-[100%] `}>
+      <button
+        variant={mode == 'client' ? 'outline' : 'destructive'}
+        size={mode == 'client' ? 'lg' : 'sm'}
         className={`${
           loading ? 'opacity-70 cursor-wait' : 'cursor-pointer'
-        } bg-red-500/80 text-white hover:bg-red-600 dark:bg-red-500/60 transition-all py-5.4 duration-300  w-full  flex items-center gap-2 rounded-md`}
+        } bg-red-500/80  py-3 text-white font-bold border-b-2 min-h-12 rounded-[4px] min-w-[70px] gap-2 hover:bg-red-600 dark:bg-red-500/60  border-[#5d5959]  dark:border-gray-700 transition-all  duration-300  
+         ${(mode = 'client' ? '' : ' absolute right-2 top-2')}
+       
+         
+        max-[840px]:w-[25%] w-[40px]  justify-center  flex items-center  `}
         onClick={() => setConfirm(true)}
         disabled={loading}
       >
         {loading ? (
-          <Loader2 className="w-4 h-4 animate-spin" />
+          <Loader2 className="w-4 h-5 animate-spin" />
         ) : (
-          <Trash className="w-4 h-4" />
+          <Trash className="w-5 h-5" />
         )}
-        <span className=" sm:inline">Delete</span>
-      </Button>
+      </button>
 
       {confirm && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">

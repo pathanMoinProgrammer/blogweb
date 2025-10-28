@@ -4,23 +4,29 @@ import { useSafeInputHandler } from '@/hooks/costumHooks/blogMetaDataChecker';
 
 leoProfanity.loadDictionary();
 
-const BlogMetadataForm = ({ formik, isFullscreen, setIsFullscreen }) => {
+const BlogMetadataForm = ({
+  formik,
+  isFullscreen,
+  setIsFullscreen,
+  inputRefs,
+}) => {
   const { values, errors, touched, setFieldValue, handleBlur } = formik;
   const { handleSafeChange, slugError, renderWarning } =
     useSafeInputHandler(setFieldValue);
 
   return (
-    <div className="w-full mt-5 min-[1000px]:h-screen space-y-4 p-6 rounded-lg border border-gray-200 dark:border-gray-700 bg-blue-50/30 dark:bg-gray-800">
+    <div className="w-full min-h-[900px]  space-y-4 p-6  border-1 border-gray-300  dark:border-gray-700 bg-slate-50 dark:bg-gray-800">
       <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
         Blog Information
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-[1400px]:[&>*>*]:text-[13px] max-[1544px]:[&>*>*]:text-[12px] [&>*]:text-[14px]">
         <div>
-          <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-white">
+          <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-white ">
             Blog Name <span className="text-purple-500">*</span>
           </label>
           <input
+            ref={inputRefs.blogName}
             type="text"
             name="blogName"
             value={values.blogName}
@@ -42,6 +48,7 @@ const BlogMetadataForm = ({ formik, isFullscreen, setIsFullscreen }) => {
             Blog Slug <span className="text-purple-500">*</span>
           </label>
           <input
+            ref={inputRefs.slug}
             type="text"
             name="slug"
             value={values.slug}
@@ -66,32 +73,12 @@ const BlogMetadataForm = ({ formik, isFullscreen, setIsFullscreen }) => {
         </div>
       </div>
 
-      <div>
-        <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-white">
-          Blog Title <span className="text-purple-500">*</span>
-        </label>
-        <input
-          type="text"
-          name="title"
-          value={values.title}
-          onChange={handleSafeChange}
-          onBlur={handleBlur}
-          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
-            focus:ring-2 focus:ring-blue-500 focus:border-transparent 
-            bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-          placeholder="Gemini's Edge in Multimodal AI"
-        />
-        {renderWarning('title')}
-        {touched.title && errors.title && (
-          <p className="text-red-500 text-sm mt-1">{errors.title}</p>
-        )}
-      </div>
-
-      <div>
+      <div className="max-[1400px]:[&>*]:text-[13px] max-[1544px]:[&>*]:text-[12px] [&>*]:text-[14px]">
         <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-white">
           Description <span className="text-purple-500">*</span>
         </label>
         <textarea
+          ref={inputRefs.description}
           name="description"
           value={values.description}
           onChange={handleSafeChange}
@@ -108,11 +95,12 @@ const BlogMetadataForm = ({ formik, isFullscreen, setIsFullscreen }) => {
         )}
       </div>
 
-      <div>
+      <div className="max-[1400px]:[&>*]:text-[13px] max-[1544px]:[&>*]:text-[12px] [&>*]:text-[14px]">
         <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-white">
           Image URL <span className="text-purple-500">*</span>
         </label>
         <input
+          ref={inputRefs.imgUrl}
           type="url"
           name="imgUrl"
           value={values.imgUrl}
@@ -129,7 +117,7 @@ const BlogMetadataForm = ({ formik, isFullscreen, setIsFullscreen }) => {
         )}
       </div>
 
-      <div>
+      <div className="max-[1400px]:[&>*]:text-[13px] max-[1544px]:[&>*]:text-[12px] [&>*]:text-[14px]">
         <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-white">
           Author
         </label>
