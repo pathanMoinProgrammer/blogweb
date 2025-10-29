@@ -74,7 +74,10 @@ const BlogMetadataForm = ({
           )}
         </div>
       </div>
-       <div className='w-full'>
+       <div className='w-full min-[1300px]:hidden'>
+         <label className="w-full text-sm font-semibold mb-2 text-gray-700 dark:text-white">
+          Blog Title <span className="text-purple-500">*</span>
+        </label>
           <BlogTitle formik={formik} inputRefs={inputRefs}/>
         </div>
 
