@@ -1,6 +1,7 @@
 'use client';
 import leoProfanity from 'leo-profanity';
 import { useSafeInputHandler } from '@/hooks/costumHooks/blogMetaDataChecker';
+import BlogTitle from '../ui/blogTitle';
 
 leoProfanity.loadDictionary();
 
@@ -42,6 +43,7 @@ const BlogMetadataForm = ({
             <p className="text-red-500 text-sm mt-1">{errors.blogName}</p>
           )}
         </div>
+       
 
         <div>
           <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-white">
@@ -72,6 +74,9 @@ const BlogMetadataForm = ({
           )}
         </div>
       </div>
+       <div className='w-full'>
+          <BlogTitle formik={formik} inputRefs={inputRefs}/>
+        </div>
 
       <div className="max-[1400px]:[&>*]:text-[13px] max-[1544px]:[&>*]:text-[12px] [&>*]:text-[14px]">
         <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-white">

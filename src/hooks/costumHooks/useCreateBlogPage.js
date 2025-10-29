@@ -28,6 +28,13 @@ export default function useCreateBlogPage() {
   const [type, setType] = useState('');
 
   const [isMounted, setIsMounted] = useState(false);
+  const [reactions, setReactions] = useState({
+    angry: 0,
+    fire: 0,
+    laugh: 0,
+    like: 0,
+    love: 0,
+  });
   const { loading, error, setDataWithLang } = useCreateDoc();
   const params = useParams();
   const router = useRouter();
@@ -80,6 +87,9 @@ export default function useCreateBlogPage() {
         ...prev,
         ...d,
       }));
+      if (typeof data?.reactions !== undefined) {
+        setReactions(data?.reactions);
+      }
     }
   }, [data]);
 
@@ -145,13 +155,7 @@ export default function useCreateBlogPage() {
         slug: values.slug,
         lang: locale,
         updatedAt: timestamp(),
-        reactions: {
-          angry: 0,
-          fire: 0,
-          laugh: 0,
-          like: 0,
-          love: 0,
-        },
+        reactions: reactions,
       });
     } catch (err) {
       console.error('Error creating blog:', err);

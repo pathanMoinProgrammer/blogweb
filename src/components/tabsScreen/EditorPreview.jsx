@@ -20,6 +20,7 @@ export default function EditorPreviewTabs({
   type,
   setShowNotification,
   showNotification,
+  inputRefs,
 }) {
   const { HtmContent } = formik.values;
 
@@ -95,6 +96,7 @@ export default function EditorPreviewTabs({
               formik={formik}
               isFullscreen={isFullscreen}
               setIsFullscreen={setIsFullscreen}
+              inputRefs={inputRefs}
             />
           </Tabs.Content>
           <Tabs.Content value="preview" className="p-4 lg:p-6 overflow-auto">

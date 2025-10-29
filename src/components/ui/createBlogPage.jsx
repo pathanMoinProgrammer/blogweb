@@ -97,6 +97,7 @@ const CreateBlogPage = ({
           type={type}
           setShowNotification={setShowNotification}
           showNotification={showNotification}
+          inputRefs={inputRefs}
         />
       </div>
     </form>
