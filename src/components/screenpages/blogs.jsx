@@ -1,7 +1,5 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import fs from 'fs';
-import matter from 'gray-matter';
 import { getTranslations } from '../traslator';
 import { langPostQuery } from '@/firebase/firebaseAdminRefs';
 

@@ -27,6 +27,7 @@ export const useReadDoc = ({
       });
       return;
     }
+    
 
     setState((prev) => ({ ...prev, loading: true }));
 

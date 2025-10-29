@@ -1,4 +1,4 @@
-import { setDoc } from 'firebase/firestore';
+import { increment, setDoc } from 'firebase/firestore';
 
 const { postColRef } = require('@/firebase/firebaseRefs');
 const { useState, useEffect } = require('react');
@@ -22,11 +22,15 @@ export const useCreateDoc = () => {
   };
 
   const setDataWithLang = async (ref, data) => {
-    // console.log('dataaa', data);
+    console.log('dataaa', data);
     try {
       setState((prev) => ({ ...prev, loading: true }));
 
-      await setDoc(ref, data, { merge: true });
+      await setDoc(
+        ref,
+        data,
+        { merge: true },
+      );
 
       setState((prev) => ({ ...prev, loading: false, data: ref.id }));
     } catch (error) {

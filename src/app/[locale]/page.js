@@ -1,9 +1,9 @@
 import { BlogSection } from '@/components/screenpages/blogs';
 import TopComponentHome from '@/components/screenpages/TopComponentHome';
-import { Button } from '@/components/ui/button';
 import { routing } from '../../i18n/routing';
 import { redirect } from 'next/navigation';
-// import { useTranslations } from 'next-intl';
+import { getOrSetRandomUID } from '@/lib/randomId';
+import BlogPage from './blogpost/page';
 
 export default async function HomePage({ params }) {
 
@@ -17,7 +17,7 @@ export default async function HomePage({ params }) {
   return (
     <main className="min-h-screen  bg-gradient-to-br from-background to-muted font-sans">
       <TopComponentHome params={locale} />
-      <BlogSection params={params} />
+      <BlogPage params={params} />
     </main>
   );
 }

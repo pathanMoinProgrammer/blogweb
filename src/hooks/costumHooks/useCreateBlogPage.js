@@ -37,7 +37,7 @@ export default function useCreateBlogPage() {
 
   const inputRefs = {
     blogName: useRef(null),
-    title:useRef(null),
+    title: useRef(null),
     slug: useRef(null),
     description: useRef(null),
     imgUrl: useRef(null),
@@ -145,6 +145,13 @@ export default function useCreateBlogPage() {
         slug: values.slug,
         lang: locale,
         updatedAt: timestamp(),
+        reactions: {
+          angry: 0,
+          fire: 0,
+          laugh: 0,
+          like: 0,
+          love: 0,
+        },
       });
     } catch (err) {
       console.error('Error creating blog:', err);
