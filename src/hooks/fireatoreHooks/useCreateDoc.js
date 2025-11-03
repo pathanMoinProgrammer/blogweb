@@ -22,7 +22,6 @@ export const useCreateDoc = () => {
   };
 
   const setDataWithLang = async (ref, data) => {
-    console.log('dataaa', data);
     try {
       setState((prev) => ({ ...prev, loading: true }));
 

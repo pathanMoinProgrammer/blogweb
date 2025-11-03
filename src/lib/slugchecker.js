@@ -1,6 +1,3 @@
-
-
-
 export function formatSlug(input) {
   if (!input) return { value: '', error: '' };
 

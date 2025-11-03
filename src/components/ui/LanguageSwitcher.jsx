@@ -6,51 +6,41 @@ import {
   SelectTrigger,
   SelectValue,
 } from './select';
-import { usePathname, useRouter } from 'next/navigation';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
 export default function LanguageSwitcher({ posts }) {
   const router = useRouter();
+  const params = useParams();
   const pathname = usePathname();
+  const [langs, setLangs] = useState([]);
+  const languages = [
+    { code: 'en', label: 'English  (en)' },
+    { code: 'hi', label: 'हिन्दी  (hi)' },
+    { code: 'pt', label: 'Português  (pt)' },
+    { code: 'zh', label: '中文  (zh)' },
+    { code: 'pt-BR', label: 'Português (Brasil)  (pt-BR)' },
+    { code: 'es', label: 'Español  (es)' },
+  ];
+
+  const [, locale, ...rest] = pathname.split('/');
+  const restUrl = rest.join('/');
 
   const pathSegments = pathname.split('/');
-  const currentLocale = pathSegments[1] || 'en';
+  const currentLocale = pathSegments[1];
   const [selectedLocale, setSelectedLocale] = useState(currentLocale);
 
   useEffect(() => {
     setSelectedLocale(currentLocale);
   }, [currentLocale]);
 
-  const languages = [
-    { code: 'en', label: 'English' },
-    { code: 'hi', label: 'Hindi' },
-  ];
-
   const handleLocaleChange = async (newLocale) => {
-    setSelectedLocale(newLocale);
-
-    const pathSegments = pathname.split('/');
-
-    if (pathSegments[2] === 'blogpost' && pathSegments[3]) {
-      const currentSlug = pathSegments[3];
-
-      try {
-        const response = await fetch(
-          `/api/get-translated-slug?slug=${currentSlug}&locale=${currentLocale}&targetLocale=${newLocale}`,
-        );
-        const data = await response.json();
-
-        if (data.translatedSlug) {
-          router.push(`/${newLocale}/blogpost/${data.translatedSlug}`);
-          return;
-        }
-      } catch (error) {
-        console.error('Error getting translated slug:', error);
-      }
+    if (params?.slug && params?.slug !== undefined) {
+      router.push(`/${newLocale}/blogpost`);
+    } else {
+      router.push(`/${newLocale}/${restUrl}`);
+      setSelectedLocale(newLocale);
     }
-    pathSegments[1] = newLocale;
-    const newPath = pathSegments.join('/');
-    router.push(newPath);
   };
 
   return (

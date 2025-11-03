@@ -16,8 +16,6 @@ export const useSafeInputHandler = (setFieldValue) => {
     (e) => {
       const { name, value } = e.target;
 
-      console.log('if errors');
-
       const words = value.split(/[^a-zA-Z0-9]+/).filter(Boolean);
       const detectedWords = words.filter((word) =>
         leoProfanity.check(word.toLowerCase()),

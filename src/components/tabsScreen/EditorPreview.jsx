@@ -21,13 +21,15 @@ export default function EditorPreviewTabs({
   setShowNotification,
   showNotification,
   inputRefs,
+  metadataT,
+  editorT,
 }) {
   const { HtmContent } = formik.values;
 
   return (
     <>
       <section className="w-full min-h-[400px] mt-5 max-[1300px]:mt-10 dark:bg-gray-800 ">
-        <div className="absolute top-2 right-0">
+        <div className="absolute top-2 right-0 w-[30%] max-[1200px]:w-[35%] max-[1100px]:w-[30%] max-[1000px]:w-[40%] max-[575px]:w-[50%] max-[400px]:w-[60%] px-5">
           <ActionButton
             loading={loading}
             formik={formik}
@@ -85,6 +87,9 @@ export default function EditorPreviewTabs({
               storageKey="myBlogPost"
               formData={formData}
               formik={formik}
+              editorT={editorT}
+              name = 'editor'
+
             />
           </Tabs.Content>
           <Tabs.Content
@@ -97,6 +102,7 @@ export default function EditorPreviewTabs({
               isFullscreen={isFullscreen}
               setIsFullscreen={setIsFullscreen}
               inputRefs={inputRefs}
+              metadataT={metadataT}
             />
           </Tabs.Content>
           <Tabs.Content value="preview" className="p-4 lg:p-6 overflow-auto">

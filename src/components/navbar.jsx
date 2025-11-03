@@ -79,7 +79,7 @@ export default function Navbar() {
               onClick={() => handleNavigation(`/${locale}/my-profile`)}
               className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium p-0 h-auto hover:bg-transparent"
             >
-              {'My Blogs'}
+               {t?.myBlogs || 'My Blogs'}
             </Button>
 
             <LanguageSwitcher />
@@ -173,7 +173,7 @@ export default function Navbar() {
                     }}
                     className="justify-start py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700 h-auto"
                   >
-                    {'My Blogs'}
+                    {t?.myBlogs || 'My Blogs'}
                   </Button>
                 </div>
               </SheetContent>

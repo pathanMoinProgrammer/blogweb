@@ -1,0 +1,88 @@
+{
+  "language": "es",
+  "Homepage": {
+    "tagline1": "Un",
+    "tagline2": "Blog Web Gratuito",
+    "tagline3": "para la Comunidad",
+    "tagline4": "Usuarios de Earn 11",
+    "tagline5": "Gratis para Leer y Dar Feedback",
+    "tagline6": "para Earn 11 y",
+    "tagline7": "Otras Aplicaciones"
+  },
+  "BlogPage": {
+    "TopBlogs": "Blogs Principales",
+    "Discover": "Descubre los artículos más populares de nuestra comunidad de escritores y expertos.",
+    "readmore": "Leer más ➡️",
+    "ourblogs": "Nuestros Últimos Blogs"
+  },
+  "blogAdmin": {
+    "title": "Panel de Administración de Blogs",
+    "tableHeaders": {
+      "title": "Título",
+      "image": "Imagen",
+      "description": "Descripción",
+      "languages": "Idiomas",
+      "updatedAt": "Actualizado el",
+      "actions": "Acciones"
+    },
+    "fallbackTexts": {
+      "blogPost": "Entrada de Blog",
+      "blogDescription": "Descripción del Blog",
+      "noImage": "N/A"
+    },
+     "createNewBlog": "Crear Nuevo Blog",
+     "loading": "Cargando..."
+  },
+  "client": {
+    "Navbar": {
+      "ourblogs": "Nuestros Blogs",
+      "home": "Inicio",
+      "about": "Acerca de",
+      "blog": "Blog",
+      "contact": "Contacto",
+      "signIn": "Iniciar Sesión",
+      "logout": "Cerrar Sesión",
+      "myBlogs": "Mis Blogs"
+    },
+    "createBlogPage": {
+      "notification": {},
+      "metadata": {
+        "BlogTitle": "Título del Blog",
+        "title": "Información del Blog",
+        "blogName": {
+          "label": "Nombre del Blog",
+          "required": "*",
+          "placeholder": "p. ej., AI Frontier Blog"
+        },
+        "slug": {
+          "label": "Slug del Blog",
+          "required": "*",
+          "placeholder": "p. ej., ai-frontier-blog"
+        },
+        "blogTitle": {
+          "label": "Título del Blog",
+          "required": "*"
+        },
+        "description": {
+          "label": "Descripción",
+          "required": "*",
+          "placeholder": "Breve descripción de tu publicación..."
+        },
+        "imageUrl": {
+          "label": "URL de la Imagen",
+          "required": "*",
+          "placeholder": "https://..."
+        },
+        "author": {
+          "label": "Autor"
+        },
+        "imagePreview": {
+          "clickToFullscreen": "Haz clic para ver en pantalla completa"
+        }
+      },
+      "editor": {
+        "loading": "Cargando editor..."
+      }
+    }
+  }
+}

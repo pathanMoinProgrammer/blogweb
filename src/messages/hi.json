@@ -1,27 +1,88 @@
 {
-    "language": "hi",
-    "Homepage": {
-        "tagline1": "एक",
-        "tagline2": "फ्री ब्लॉग वेब",
-        "tagline3": "समुदाय के लिए",
-        "tagline4": "Earn 11 के यूजर्स के लिए",
-        "tagline5": "पढ़ने और फीडबैक देने के लिए मुफ्त",
-        "tagline6": "Earn 11 और",
-        "tagline7": "अन्य एप्लिकेशन्स के लिए"
+  "language": "hi",
+  "Homepage": {
+    "tagline1": "एक",
+    "tagline2": "मुफ्त ब्लॉग वेब",
+    "tagline3": "समुदाय के लिए",
+    "tagline4": "अर्न 11 के उपयोगकर्ताओं के लिए",
+    "tagline5": "पढ़ने और फीडबैक देने के लिए मुफ्त",
+    "tagline6": "अर्न 11 और",
+    "tagline7": "अन्य एप्लिकेशन के लिए"
+  },
+  "BlogPage": {
+    "TopBlogs": "शीर्ष ब्लॉग",
+    "Discover": "हमारे लेखकों और विशेषज्ञों के समुदाय से सबसे लोकप्रिय लेख खोजें।",
+    "readmore": "और पढ़ें ➡️",
+    "ourblogs": "हमारे नवीनतम ब्लॉग"
+  },
+  "blogAdmin": {
+    "title": "ब्लॉग एडमिन डैशबोर्ड",
+    "tableHeaders": {
+      "title": "शीर्षक",
+      "image": "छवि",
+      "description": "विवरण",
+      "languages": "भाषाएँ",
+      "updatedAt": "अपडेट किया गया",
+      "actions": "कार्रवाइयाँ"
     },
-    "BlogPage": {
-        "TopBlogs": "टॉप ब्लॉग्स",
-        "Discover": "हमारे लेखक और विशेषज्ञों के समुदाय से सबसे लोकप्रिय आर्टिकल्स खोजें।"
+    "fallbackTexts": {
+      "blogPost": "ब्लॉग पोस्ट",
+      "blogDescription": "ब्लॉग विवरण",
+      "noImage": "उपलब्ध नहीं"
     },
-    "client": {
-        "Navbar": {
-            "ourblogs": "हमारे ब्लॉग",
-            "home": "होम",
-            "about": "हमारे बारे में",
-            "blog": "ब्लॉग",
-            "contact": "संपर्क करें",
-            "signIn": "साइन इन करें",
-            "logout": "लॉग आउट"
+    "createNewBlog": "नया ब्लॉग बनाएँ" ,
+    "loading": "लोड हो रहा है..." 
+  },
+  "client": {
+    "Navbar": {
+      "ourblogs": "हमारे ब्लॉग",
+      "home": "होम",
+      "about": "हमारे बारे में",
+      "blog": "ब्लॉग",
+      "contact": "संपर्क",
+      "signIn": "साइन इन",
+      "logout": "लॉगआउट",
+      "myBlogs": "मेरे ब्लॉग"
+    },
+    "createBlogPage": {
+      "notification": {},
+      "metadata": {
+        "BlogTitle": "ब्लॉग शीर्षक",
+        "title": "ब्लॉग जानकारी",
+        "blogName": {
+          "label": "ब्लॉग का नाम",
+          "required": "*",
+          "placeholder": "उदाहरण: AI फ्रंटियर ब्लॉग"
+        },
+        "slug": {
+          "label": "ब्लॉग स्लग",
+          "required": "*",
+          "placeholder": "उदाहरण: ai-frontier-blog"
+        },
+        "blogTitle": {
+          "label": "ब्लॉग शीर्षक",
+          "required": "*"
+        },
+        "description": {
+          "label": "विवरण",
+          "required": "*",
+          "placeholder": "अपने ब्लॉग पोस्ट का संक्षिप्त विवरण..."
+        },
+        "imageUrl": {
+          "label": "छवि URL",
+          "required": "*",
+          "placeholder": "https://..."
+        },
+        "author": {
+          "label": "लेखक"
+        },
+        "imagePreview": {
+          "clickToFullscreen": "पूर्ण स्क्रीन देखने के लिए क्लिक करें"
         }
+      },
+      "editor": {
+        "loading": "एडिटर लोड हो रहा है..."
+      }
     }
+  }
 }

@@ -1,34 +1,3 @@
-// import { NextResponse } from 'next/server';
-// import { randomUUID } from 'crypto';
-
-// export async function GET() {
-//   const response = NextResponse.next();
-//   const cookieHeader = response.headers.get('cookie') || '';
-//   const existingId = cookieHeader
-//     .split('; ')
-//     .find((row) => row.startsWith('anonId='))
-//     ?.split('=')[1];
-
-//   if (existingId) {
-//     return NextResponse.json({ anonId: existingId });
-//   }
-
-//   const anonId = randomUUID();
-
-//   const res = NextResponse.json({ anonId });
-//   res.cookies.set('anonId', anonId, {
-//     path: '/',
-//     maxAge: 60 * 60 * 24 * 365,
-//     httpOnly: false,
-//     secure: process.env.NODE_ENV === 'production',
-//     sameSite: 'lax',
-//   });
-
-//   return res;
-// }
-
-
-
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { randomUUID } from 'crypto';
@@ -51,13 +20,12 @@ function getOrCreateReactionData() {
     }
   }
 
-  // ensure every emoji key exists
   EMOJIS.forEach((emoji) => {
     if (!Array.isArray(data[emoji])) data[emoji] = [];
   });
 
   data.anonId = anonId;
-  
+
   return data;
 }
 
@@ -85,19 +53,20 @@ export async function POST(req) {
   console.log(emoji, slug, 'slugged');
 
   if (!EMOJIS.includes(emoji) || !slug) {
-    return NextResponse.json({ error: 'Invalid emoji or slug' }, { status: 400 });
+    return NextResponse.json(
+      { error: 'Invalid emoji or slug' },
+      { status: 400 },
+    );
   }
 
   const data = getOrCreateReactionData();
 
-  // remove slug from all other emoji arrays
   for (const e of EMOJIS) {
     if (e !== emoji) {
       data[e] = data[e].filter((s) => s !== slug);
     }
   }
 
-  // toggle: if already selected, remove; else add
   if (data[emoji].includes(slug)) {
     data[emoji] = data[emoji].filter((s) => s !== slug);
   } else {

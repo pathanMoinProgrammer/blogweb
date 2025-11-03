@@ -1,14 +1,9 @@
 import { isArray } from 'jodit/esm/core/helpers';
 import { db } from './firebase';
 import {
-  setDoc,
-  addDoc,
   collection,
   doc,
   collectionGroup,
-  query,
-  where,
-  limit,
   Timestamp,
 } from 'firebase/firestore';
 

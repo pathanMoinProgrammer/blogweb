@@ -2,6 +2,7 @@
 import leoProfanity from 'leo-profanity';
 import { useSafeInputHandler } from '@/hooks/costumHooks/blogMetaDataChecker';
 import BlogTitle from '../ui/blogTitle';
+import { useGameTranslations } from '../traslatorclient';
 
 leoProfanity.loadDictionary();
 
@@ -9,6 +10,7 @@ const BlogMetadataForm = ({
   formik,
   isFullscreen,
   setIsFullscreen,
+  metadataT,
   inputRefs,
 }) => {
   const { values, errors, touched, setFieldValue, handleBlur } = formik;
@@ -16,18 +18,19 @@ const BlogMetadataForm = ({
     useSafeInputHandler(setFieldValue);
 
   return (
-    <div className="w-full min-h-[900px]  space-y-4 p-6  border-1 border-gray-300  dark:border-gray-700 bg-slate-50 dark:bg-gray-800">
+    <div className="w-full min-h-[900px]  space-y-4 p-6  border border-gray-300  dark:border-gray-700 bg-slate-50 dark:bg-gray-800">
       <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-        Blog Information
+        {metadataT?.title}
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-[1400px]:[&>*>*]:text-[13px] max-[1544px]:[&>*>*]:text-[12px] [&>*]:text-[14px]">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-[1400px]:[&>*>*]:text-[13px] max-[1544px]:[&>*>*]:text-[12px] *:text-[14px]">
         <div>
           <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-white ">
-            Blog Name <span className="text-purple-500">*</span>
+            {metadataT?.blogName?.label}{' '}
+            <span className="text-purple-500">*</span>
           </label>
           <input
-            ref={inputRefs.blogName}
+            ref={inputRefs.blogName[0]}
             type="text"
             name="blogName"
             value={values.blogName}
@@ -36,21 +39,20 @@ const BlogMetadataForm = ({
             className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
               focus:ring-2 focus:ring-blue-500 focus:border-transparent 
               bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-            placeholder="e.g., AI Frontier Blog"
+            placeholder={metadataT?.blogName?.placeholder}
           />
           {renderWarning('blogName')}
           {touched.blogName && errors.blogName && (
             <p className="text-red-500 text-sm mt-1">{errors.blogName}</p>
           )}
         </div>
-       
 
         <div>
           <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-white">
-            Blog Slug <span className="text-purple-500">*</span>
+            {metadataT?.slug?.label} <span className="text-purple-500">*</span>
           </label>
           <input
-            ref={inputRefs.slug}
+            ref={inputRefs.slug[0]}
             type="text"
             name="slug"
             value={values.slug}
@@ -64,7 +66,7 @@ const BlogMetadataForm = ({
                   ? 'border-red-500 focus:ring-red-500'
                   : 'border-gray-300 dark:border-gray-600 focus:ring-blue-500'
               }`}
-            placeholder="e.g., ai-frontier-blog"
+            placeholder={metadataT?.slug?.placeholder}
           />
           {slugError && (
             <p className="text-red-500 text-sm mt-1">{slugError}</p>
@@ -74,19 +76,27 @@ const BlogMetadataForm = ({
           )}
         </div>
       </div>
-       <div className='w-full min-[1300px]:hidden'>
-         <label className="w-full text-sm font-semibold mb-2 text-gray-700 dark:text-white">
-          Blog Title <span className="text-purple-500">*</span>
+      <div className="w-full min-[1300px]:hidden ">
+        <label className="w-full text-sm font-semibold mb-2 text-gray-700 dark:text-white">
+          {metadataT?.blogTitle?.label}{' '}
+          <span className="text-purple-500">*</span>
         </label>
-          <BlogTitle formik={formik} inputRefs={inputRefs}/>
-        </div>
+        <BlogTitle
+          formik={formik}
+          inputRefs={inputRefs}
+          metadataT={metadataT}
+          reff={inputRefs.title[1]}
+          name={'title'}
+        />
+      </div>
 
-      <div className="max-[1400px]:[&>*]:text-[13px] max-[1544px]:[&>*]:text-[12px] [&>*]:text-[14px]">
+      <div className="max-[1400px]:*:text-[13px] max-[1544px]:*:text-[12px] *:text-[14px]">
         <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-white">
-          Description <span className="text-purple-500">*</span>
+          {metadataT?.description?.label}{' '}
+          <span className="text-purple-500">*</span>
         </label>
         <textarea
-          ref={inputRefs.description}
+          ref={inputRefs.description[0]}
           name="description"
           value={values.description}
           onChange={handleSafeChange}
@@ -95,7 +105,7 @@ const BlogMetadataForm = ({
           className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
             focus:ring-2 focus:ring-blue-500 focus:border-transparent 
             bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-          placeholder="Brief description of your blog post..."
+          placeholder={metadataT?.description?.placeholder}
         />
         {renderWarning('description')}
         {touched.description && errors.description && (
@@ -103,12 +113,13 @@ const BlogMetadataForm = ({
         )}
       </div>
 
-      <div className="max-[1400px]:[&>*]:text-[13px] max-[1544px]:[&>*]:text-[12px] [&>*]:text-[14px]">
+      <div className="max-[1400px]:*:text-[13px] max-[1544px]:*:text-[12px] *:text-[14px]">
         <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-white">
-          Image URL <span className="text-purple-500">*</span>
+          {metadataT?.imageUrl?.label}{' '}
+          <span className="text-purple-500">*</span>
         </label>
         <input
-          ref={inputRefs.imgUrl}
+          ref={inputRefs.imgUrl[0]}
           type="url"
           name="imgUrl"
           value={values.imgUrl}
@@ -117,7 +128,7 @@ const BlogMetadataForm = ({
           className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
             focus:ring-2 focus:ring-blue-500 focus:border-transparent 
             bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-          placeholder="https://..."
+          placeholder={metadataT?.imageUrl?.placeholder}
         />
         {renderWarning('imgUrl')}
         {touched.imgUrl && errors.imgUrl && (
@@ -127,7 +138,7 @@ const BlogMetadataForm = ({
 
       <div className="max-[1400px]:[&>*]:text-[13px] max-[1544px]:[&>*]:text-[12px] [&>*]:text-[14px]">
         <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-white">
-          Author
+          {metadataT?.author?.label} <span className="text-purple-500">*</span>
         </label>
         <input
           type="text"
@@ -155,7 +166,7 @@ const BlogMetadataForm = ({
               rounded-lg flex items-center justify-center text-white 
               font-medium text-sm transition-opacity"
           >
-            Click to view fullscreen
+            {metadataT?.imagePreview?.clickToFullscreen}
           </div>
         </div>
       )}

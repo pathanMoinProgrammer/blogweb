@@ -1,0 +1,88 @@
+{
+  "language": "zh",
+  "Homepage": {
+    "tagline1": "一个",
+    "tagline2": "免费博客网站",
+    "tagline3": "为社区",
+    "tagline4": "Earn 11 用户",
+    "tagline5": "免费阅读并提供反馈",
+    "tagline6": "适用于 Earn 11 和",
+    "tagline7": "其他应用"
+  },
+  "BlogPage": {
+    "TopBlogs": "热门博客",
+    "Discover": "发现我们作家和专家社区中最受欢迎的文章。",
+    "readmore": "阅读更多 ➡️",
+    "ourblogs": "我们的最新博客"
+  },
+  "blogAdmin": {
+    "title": "博客管理面板",
+    "tableHeaders": {
+      "title": "标题",
+      "image": "图片",
+      "description": "描述",
+      "languages": "语言",
+      "updatedAt": "更新时间",
+      "actions": "操作"
+    },
+    "fallbackTexts": {
+      "blogPost": "博客文章",
+      "blogDescription": "博客描述",
+      "noImage": "无"
+    },
+    "createNewBlog": "创建新博客",
+    "loading": "加载中..."
+  },
+  "client": {
+    "Navbar": {
+      "ourblogs": "我们的博客",
+      "home": "首页",
+      "about": "关于",
+      "blog": "博客",
+      "contact": "联系",
+      "signIn": "登录",
+      "logout": "退出登录",
+      "myBlogs": "我的博客" 
+    },
+    "createBlogPage": {
+      "notification": {},
+      "metadata": {
+        "BlogTitle": "博客标题",
+        "title": "博客信息",
+        "blogName": {
+          "label": "博客名称",
+          "required": "*",
+          "placeholder": "例如：AI Frontier Blog"
+        },
+        "slug": {
+          "label": "博客别名",
+          "required": "*",
+          "placeholder": "例如：ai-frontier-blog"
+        },
+        "blogTitle": {
+          "label": "博客标题",
+          "required": "*"
+        },
+        "description": {
+          "label": "描述",
+          "required": "*",
+          "placeholder": "简要描述您的博客文章..."
+        },
+        "imageUrl": {
+          "label": "图片链接",
+          "required": "*",
+          "placeholder": "https://..."
+        },
+        "author": {
+          "label": "作者"
+        },
+        "imagePreview": {
+          "clickToFullscreen": "点击查看全屏"
+        }
+      },
+      "editor": {
+        "loading": "正在加载编辑器..."
+      }
+    }
+  }
+}

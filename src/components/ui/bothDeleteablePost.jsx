@@ -5,6 +5,7 @@ import { Trash, Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useDeleteDoc } from '@/hooks/fireatoreHooks/useDeleteDoc';
 import { useDeleteLogic } from '@/hooks/costumHooks/useDeleteBoth';
+import { refreshBlogsCache } from '../blog/blogpost';
 
 const DeleteButton = ({
   mode = 'client',
@@ -25,6 +26,7 @@ const DeleteButton = ({
     locale,
     router,
     deleteAllDoc,
+    refreshBlogsCache,
   });
 
   return (
@@ -34,11 +36,13 @@ const DeleteButton = ({
         size={mode == 'client' ? 'lg' : 'sm'}
         className={`${
           loading ? 'opacity-70 cursor-wait' : 'cursor-pointer'
-        } bg-red-500/80  py-3 text-white font-bold border-b-2 min-h-12 rounded-[4px] min-w-[70px] gap-2 hover:bg-red-600 dark:bg-red-500/60  border-[#5d5959]  dark:border-gray-700 transition-all  duration-300  
+        } bg-red-500/80  py-3 text-white font-bold border-b-2 min-h-12 rounded-[2.6px] ${
+          mode == 'client' ? 'w-[100%]  ' : ' w-[50%] mx-auto'
+        }  gap-2 hover:bg-red-600 dark:bg-red-500/60  border-[#5d5959]  dark:border-gray-700 transition-all  duration-300  
          ${(mode = 'client' ? '' : ' absolute right-2 top-2')}
        
          
-        max-[840px]:w-[25%] w-[40px]  justify-center  flex items-center  `}
+         justify-center  flex items-center  `}
         onClick={() => setConfirm(true)}
         disabled={loading}
       >
@@ -51,7 +55,7 @@ const DeleteButton = ({
 
       {confirm && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 w-full max-w-sm">
+          <div className="bg-white dark:bg-gray-800 rounded-[2.6px] shadow-xl p-6 w-full max-w-sm">
             <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">
               Confirm Delete
             </h3>

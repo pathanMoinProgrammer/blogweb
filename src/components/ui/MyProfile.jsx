@@ -1,31 +1,35 @@
 import React from 'react';
 import { CreateNewAdminBlog } from './createNewAdminBlog';
 import Link from 'next/link';
-import { Plus } from 'lucide-react';
 import DeleteButton from './bothDeleteablePost';
+import ShowAvailavleLang from './ShowAvailavleLang';
+import { getTranslations } from '../traslator';
 
-const MyProfile = ({ locale, blogs, ids }) => {
+const MyProfile = async ({ locale, blogs, ids }) => {
+  const t = await getTranslations(locale, 'blogAdmin');
+  const tHeads = t?.tableHeaders;
+  const tFall = t?.fallbackTexts
+
   return (
-    <section className="py-12 px-6 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 min-h-screen">
-      <div className="max-w-7xl mx-auto">
+    <section className="py-12 px-6 bg-gradient-to-br from-gray-50 relative to-gray-100 dark:from-gray-900 dark:to-gray-800 min-h-screen">
+      <div className="max-w-7xl mx-auto ">
         <div className="flex justify-between items-center mb-10">
           <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight">
-            Blog Admin Dashboard
+            {t?.title}
           </h1>
 
-          <CreateNewAdminBlog locale={locale} />
+          <CreateNewAdminBlog locale={locale} t={t} />
         </div>
         <div className="overflow-x-auto rounded-xl shadow-lg bg-white dark:bg-gray-800">
           <table className="min-w-full text-left">
             <thead>
               <tr className="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 uppercase text-xs font-semibold tracking-wider">
-                <th className="py-4 px-6">Title</th>
-                <th className="py-4 px-6">Image</th>
-                <th className="py-4 px-6">Description</th>
-                <th className="py-4 px-6 text-center">Languages</th>
-
-                <th className="py-4 px-6 text-center">Updated At</th>
-                <th className="py-4 px-6 text-center">Actions</th>
+                <th className="py-4 px-6">{tHeads?.title}</th>
+                <th className="py-4 px-6">{tHeads?.image}</th>
+                <th className="py-4 px-6">{tHeads?.description}</th>
+                <th className="py-4 px-6 text-center">{tHeads?.languages}</th>
+                <th className="py-4 px-6 text-center">{tHeads?.updatedAt}</th>
+                <th className="py-4 px-6 text-center">{tHeads?.actions}</th>
               </tr>
             </thead>
             <tbody className="text-gray-600 dark:text-gray-300 text-sm divide-y divide-gray-200 dark:divide-gray-700">
@@ -37,20 +41,20 @@ const MyProfile = ({ locale, blogs, ids }) => {
                   <td className="py-4 px-6 font-medium text-gray-900 dark:text-white whitespace-nowrap">
                     {blog.title.length > 15
                       ? `${blog.title.slice(0, 15)}...`
-                      : blog.title || 'Blog Post'}
+                      : blog.title || tFall.blogPost}
                   </td>
                   <td className=" font-medium text-gray-900  dark:text-white whitespace-nowrap">
                     {blog.imgUrl !== 'NA' ? (
-                      <img width={80} src={blog.imgUrl} className='rounded' />
+                      <img width={80} src={blog.imgUrl} className="rounded" />
                     ) : (
-                      'NA'
+                      tFall.noImage
                     )}
                   </td>
                   <td className="py-4 px-6 ">
                     <p className="line-clamp-2 text-gray-600 dark:text-gray-300">
                       {blog.description.length > 25
                         ? `${blog.description.slice(0, 15)}...`
-                        : blog.description || 'Blog Description'}
+                        : blog.description || tFall?.blogDescription}
                     </p>
                   </td>
                   <td className="py-4 px-6 text-center">
@@ -72,11 +76,11 @@ const MyProfile = ({ locale, blogs, ids }) => {
                           {locale}
                         </span>
                       )}
-                      <Link
-                        href={`/${locale}/blogpost/create-new-blog/${blog.id}`}
-                      >
-                        <Plus className="w-5 h-6 " />
-                      </Link>
+                      <ShowAvailavleLang
+                        locale={locale}
+                        languages={blog.languages}
+                        postid={blog.id}
+                      />
                     </div>
                   </td>
                   <td className="py-4 px-6 text-center text-gray-500 dark:text-gray-400">
@@ -90,14 +94,13 @@ const MyProfile = ({ locale, blogs, ids }) => {
                     })}
                   </td>
                   <td
-                    className={`flex justify-center relative items-center h-[100%] py-5 `}
+                    className={`flex justify-center relative items-center  h-[100%] py-5  `}
                   >
-                    <span >
+                    <span className="w-full ">
                       <DeleteButton
                         mode="admin"
                         postid={blog?.id}
                         languages={blog?.languages}
-
                       />
                     </span>
                   </td>

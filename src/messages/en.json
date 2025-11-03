@@ -1,27 +1,91 @@
 {
-    "language": "en",
-    "Homepage": {
-        "tagline1": "A",
-        "tagline2": "Free Blog Web",
-        "tagline3": "for Community",
-        "tagline4": "Users Of Earn 11",
-        "tagline5": "Free to Read and Give Feedback",
-        "tagline6": "for Earn 11 and",
-        "tagline7": "Other Applications"
+  "language": "en",
+  "Homepage": {
+    "tagline1": "A",
+    "tagline2": "Free Blog Web",
+    "tagline3": "for Community",
+    "tagline4": "Users Of Earn 11",
+    "tagline5": "Free to Read and Give Feedback",
+    "tagline6": "for Earn 11 and",
+    "tagline7": "Other Applications"
+  },
+  "BlogPage": {
+    "TopBlogs": "Top Blogs",
+    "Discover": "Discover the most popular articles from our community of writers andexperts.",
+    "readmore": "Read More ➡️",
+    "ourblogs": "Our Latest Blogs"
+  },
+  "blogAdmin": {
+    "title": "Blog Admin Dashboard",
+    "tableHeaders": {
+      "title": "Title",
+      "image": "Image",
+      "description": "Description",
+      "languages": "Languages",
+      "updatedAt": "Updated At",
+      "actions": "Actions"
     },
-    "BlogPage": {
-        "TopBlogs": "Top Blogs",
-        "Discover": "Discover the most popular articles from our community of writers andexperts."
+    "fallbackTexts": {
+      "blogPost": "Blog Post",
+      "blogDescription": "Blog Description",
+      "noImage": "NA"
     },
-    "client":{
-        "Navbar":{
-            "ourblogs": "Our Blogs",
-            "home" : "Home",
-            "about" : "About",
-            "blog": "Blog",
-            "contact": "Contact",
-            "signIn" : "Sign In",
-            "logout" : "LogOut"
+    "createNewBlog": "Create New Blog",
+    "loading": "Loading..."
+  },
+
+  "client": {
+    "Navbar": {
+      "ourblogs": "Our Blogs",
+      "home": "Home",
+      "about": "About",
+      "blog": "Blog",
+      "contact": "Contact",
+      "signIn": "Sign In",
+      "logout": "LogOut",
+      "myBlogs": "My Blogs"
+    },
+
+    "createBlogPage": {
+      "notification": {},
+      "metadata": {
+        "BlogTitle": "Blog Title ",
+        "title": "Blog Information",
+        "blogName": {
+          "label": "Blog Name",
+          "required": "*",
+          "placeholder": "e.g., AI Frontier Blog"
+        },
+        "slug": {
+          "label": "Blog Slug",
+          "required": "*",
+          "placeholder": "e.g., ai-frontier-blog"
+        },
+        "blogTitle": {
+          "label": "Blog Title",
+          "required": "*",
+          "placeholder": "e.g., Future of Ai or.. Bubble ?"
+        },
+        "description": {
+          "label": "Description",
+          "required": "*",
+          "placeholder": "Brief description of your blog post..."
+        },
+        "imageUrl": {
+          "label": "Image URL",
+          "required": "*",
+          "placeholder": "https://..."
+        },
+        "author": {
+          "label": "Author"
+        },
+        "imagePreview": {
+          "clickToFullscreen": "Click to view fullscreen"
         }
+      },
+      "editor": {
+        "loading": "Loading editor..."
+      }
     }
+  }
 }

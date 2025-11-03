@@ -1,7 +1,5 @@
 'use client';
-
 import { useState, useEffect } from 'react';
-
 
 export function useGameTranslations({ lang }) {
   
@@ -16,11 +14,10 @@ export function useGameTranslations({ lang }) {
         setLoading(true);
         const messages = (await import(`../messages/${lang}.json`)).default;
         if (!messages.client) {
-          throw new Error(`No games found in translations for locale "${lang}"`);
+          throw new Error(
+            `No games found in translations for locale "${lang}"`,
+          );
         }
-        // if (!messages.client.ChimpTest) {
-        //   throw new Error(`ChimpTest translations not found in locale "${lang}"`);
-        // }
         setTranslations(messages.client);
         setLanguage(messages.language);
       } catch (err) {
@@ -28,10 +25,8 @@ export function useGameTranslations({ lang }) {
         setError(err.message);
       } finally {
         setLoading(false);
-        // console.log(`[useGameTranslations] Loading complete, loading: false`);
       }
     }
-
     if (lang) {
       fetchTranslations();
     } else {

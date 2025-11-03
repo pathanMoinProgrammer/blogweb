@@ -128,14 +128,15 @@ export default function Notification({
       {visiblemessage.map((msg, index) => (
         <div
           key={msg.id}
-          onClick={() => {
+          onClick={async () => {
             if (msg.text) {
               // Extract field name (before ":")
               const match = msg.text.match(/⚠️\s*(\w+):/);
               const fieldName = match ? match[1] : null;
               if (fieldName) {
-                console.log(fieldName, "fieldName")
-                handleFocusField(fieldName);
+                console.log(fieldName, 'fieldName');
+                const dataCame = await handleFocusField(fieldName);
+                console.log(dataCame);
               }
             }
           }}

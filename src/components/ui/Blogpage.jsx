@@ -1,27 +1,17 @@
 import Link from 'next/link';
-import { langPostQuery } from '@/firebase/firebaseAdminRefs';
 import Reactions from '@/components/ui/ReactionBtns';
+import { getCachedLangPosts } from '../blog/blogpost';
 
-export default async function BlogPage({ params }) {
+export default async function BlogPage({ params, t }) {
   const param = await params;
   const locale = param.locale;
-  let blogs = [];
-  const indexedData = await langPostQuery(locale).get();
 
-  if (indexedData.docs.length > 0) {
-    indexedData.docs.forEach((gData) => {
-      blogs.push({ ...gData.data(), id: gData.ref.parent.parent.id });
-    });
-  }
+  const blogs = await getCachedLangPosts(locale);
 
 
   return (
     <section className="py-16 px-4 bg-gradient-to-b from-white to-gray-100 dark:from-gray-900 dark:to-gray-800 min-h-screen relative ">
       <div className="max-w-380 mx-auto ">
-        <h1 className="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white animate-fade-in">
-          Our Latest Blogs
-        </h1>
-
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {blogs?.map((blog, index) => (
             <div
@@ -51,15 +41,19 @@ export default async function BlogPage({ params }) {
                       </p>
                     </div>
 
-                    <button className="bg-blue-600 dark:bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors duration-300">
-                      Read More
+                    <button className="bg-blue-600 dark:bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 cursor-pointer transition-colors duration-300">
+                      {t.readmore}
                     </button>
                   </div>
                 </Link>
 
                 <div className="border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/40  py-3 flex items-center justify-center">
-
-                  <Reactions slug={blog.slug} postid={blog.id} locale={locale} reactionsArray={blog?.reactions} />
+                  <Reactions
+                    slug={blog.slug}
+                    postid={blog.id}
+                    locale={locale}
+                    reactionsArray={blog?.reactions}
+                  />
                 </div>
               </div>
             </div>
@@ -69,3 +63,4 @@ export default async function BlogPage({ params }) {
     </section>
   );
 }
+

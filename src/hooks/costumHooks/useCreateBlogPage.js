@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useMemo } from 'react';
+import React from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { arrayUnion } from 'firebase/firestore';
 import { postDocRef, timestamp } from '@/firebase/firebaseRefs';
@@ -6,6 +7,7 @@ import { useCreateDoc } from '@/hooks/fireatoreHooks/useCreateDoc';
 import { useReadDoc } from '@/hooks/fireatoreHooks/useReadDoc';
 import { useFormik } from 'formik';
 import { blogSchema } from '../../components/yupValidSchema';
+import { useGameTranslations } from '@/components/traslatorclient';
 
 export default function useCreateBlogPage() {
   const [formData, setFormData] = useState({
@@ -35,6 +37,7 @@ export default function useCreateBlogPage() {
     like: 0,
     love: 0,
   });
+
   const { loading, error, setDataWithLang } = useCreateDoc();
   const params = useParams();
   const router = useRouter();
@@ -42,13 +45,28 @@ export default function useCreateBlogPage() {
   const postid = params?.postid?.[0];
   const url = `${locale}slug`;
 
-  const inputRefs = {
-    blogName: useRef(null),
-    title: useRef(null),
-    slug: useRef(null),
-    description: useRef(null),
-    imgUrl: useRef(null),
-  };
+  const {
+    translations,
+    language,
+    error: translationError,
+  } = useGameTranslations({ lang: locale });
+
+  const t = translations?.createBlogPage;
+  const notifyT = t?.notification;
+  const metadataT = t?.metadata;
+  const editorT = t?.editor;
+
+  const inputRefs = React.useMemo(
+    () => ({
+      title: [React.createRef(), React.createRef()],
+      blogName: [React.createRef()],
+      slug: [React.createRef()],
+      description: [React.createRef()],
+      imgUrl: [React.createRef()],
+      editor:[React.createRef()]
+    }),
+    [],
+  );
 
   const { parentRef, childRef } = useMemo(() => {
     if (!postid || !locale) return { parentRef: null, childRef: null };
@@ -172,6 +190,7 @@ export default function useCreateBlogPage() {
       if (values.type == 'publish') {
         setType('publish');
         await handleCreateBlog({ ...values, type: 'publish' });
+
         setType('publish');
         localStorage.removeItem('blogDraft');
         setNotifiMessage({
@@ -183,6 +202,7 @@ export default function useCreateBlogPage() {
         }, 0);
       } else if (values.type == 'draft') {
         scheduleSaveDraft({ ...values, type: 'draft' });
+
         setType('draft');
         await handleCreateBlog({ ...values, type: 'draft' });
         setType('draft');
@@ -205,9 +225,26 @@ export default function useCreateBlogPage() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  // const handleFocusField = (fieldName) => {
+  //   inputRefs[fieldName].current.focus();
+  //   console.log('inpittt', fieldName);
+  // };
   const handleFocusField = (fieldName) => {
-    inputRefs[fieldName].current.focus();
+    const refs = inputRefs[fieldName];
+    if (Array.isArray(refs)) {
+      refs.forEach((ref) => ref.current?.focus());
+    } else {
+      refs?.current?.focus();
+    }
   };
+
+  // const ref = inputRefs[fieldName]?.current;
+  //   ref.focus();
+  //   ref.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  //   if (fieldName == 'title') {
+  //     console.log('its caled again');
+  //     inputRefs[`${fieldName}2`]?.current.focus();
+  //   }
 
   return {
     loading,
@@ -230,5 +267,9 @@ export default function useCreateBlogPage() {
     type,
     inputRefs,
     handleFocusField,
+    t,
+    notifyT,
+    metadataT,
+    editorT,
   };
 }

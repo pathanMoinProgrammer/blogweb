@@ -8,7 +8,7 @@ import { addDoc } from 'firebase/firestore';
 import { postColRef, timestamp } from '@/firebase/firebaseRefs';
 import { useRouter } from 'next/navigation';
 
-export const CreateNewAdminBlog = ({ locale }) => {
+export const CreateNewAdminBlog = ({ locale, t }) => {
   const [loading, setLoading] = useState(false);
   const [uid, setUid] = useState(null);
   const router = useRouter();
@@ -21,7 +21,6 @@ export const CreateNewAdminBlog = ({ locale }) => {
     hislug: '',
     imgUrl: 'NA',
     languages: [],
-    // name: '',
     title: 'untitled',
     updatedAt: timestamp(),
   };
@@ -47,12 +46,12 @@ export const CreateNewAdminBlog = ({ locale }) => {
       {loading ? (
         <div className=" w-33 justify-center flex items-center gap-1">
           <Loader2 className="w-5 h-5 animate-spin" />
-          <span>Loading...</span>
+          <span>{t?.loading}</span>
         </div>
       ) : (
         <div className="flex items-center gap-1 w-33">
           <Plus className="w-5 h-5" />
-          <span>Create New Blog</span>
+          <span>{t?.createNewBlog}</span>
         </div>
       )}
     </Button>
