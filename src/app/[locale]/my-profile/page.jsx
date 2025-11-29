@@ -1,27 +1,4 @@
-// import { posts } from '@/firebase/firebaseAdminRefs';
-// import MyProfile from '@/components/ui/MyProfile';
 
-// export default async function AdminBlogPage({ params }) {
-//   const param = await params;
-//   const locale = param.locale || 'en';
-//   let blogs = [];
-//   const ids = []
-
-//   const allPost = await posts.get();
-
-//   if (allPost.docs.length > 0) {
-//     allPost.docs.forEach((rowData) => {
-//       blogs.push({ ...rowData.data(), id: rowData.id });
-//       ids.push(rowData.id)
-//     });
-//   }
-
-//   return (
-//     <div className='w-full h-screen'>
-//       <MyProfile locale={locale} blogs={blogs} ids={ids}   />
-//     </div>
-//   );
-// }
 import { posts } from '@/firebase/firebaseAdminRefs';
 import MyProfile from '@/components/ui/MyProfile';
 import { Suspense } from 'react';

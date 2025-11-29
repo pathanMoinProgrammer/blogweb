@@ -1,204 +1,3 @@
-
-// 'use client';
-
-// import { useState, useEffect, useRef } from 'react';
-// import { Button } from '@/components/ui/button';
-// import {
-//   Tooltip,
-//   TooltipContent,
-//   TooltipTrigger,
-// } from '@/components/ui/tooltip';
-// import { motion } from 'framer-motion';
-// import { Heart, ThumbsUp, Flame, Laugh, Angry } from 'lucide-react';
-// import { useCreateDoc } from '@/hooks/fireatoreHooks/useCreateDoc';
-// import { postDocRef } from '@/firebase/firebaseRefs';
-// import { increment } from 'firebase/firestore';
-// import { refreshBlogsCache } from '../blog/blogpost';
-
-// const EMOJIS = ['love', 'like', 'fire', 'laugh', 'angry'];
-
-// export default function Reactions({ slug, postid, locale, reactionsArray }) {
-//   const { laugh, angry, fire, like, love } =
-//     reactionsArray !== undefined
-//       ? reactionsArray
-//       : {
-//           laugh: 0,
-//           angry: 0,
-//           fire: 0,
-//           like: 0,
-//           love:0,
-//         };
-//   const [reactionCount, setReactionCount] = useState({
-//     laugh: laugh || 0,
-//     angry: angry || 0,
-//     fire: fire || 0,
-//     like: like || 0,
-//     love: love || 0,
-//   });
-//   const [selected, setSelected] = useState(null);
-//   const [anonData, setAnonData] = useState(null);
-//   const [isUpdating, setIsUpdating] = useState(false);
-
-//   const { childRef } = postDocRef(postid, locale);
-//   const { setDataWithLang } = useCreateDoc();
-//   const debounceTimer = useRef(null);
-
-//   const emojis = [
-//     { icon: <Heart className="text-red-500" />, key: 'love', label: 'Love' },
-//     {
-//       icon: <ThumbsUp className="text-blue-500" />,
-//       key: 'like',
-//       label: 'Like',
-//     },
-//     { icon: <Flame className="text-orange-500" />, key: 'fire', label: 'Fire' },
-//     {
-//       icon: <Laugh className="text-yellow-500" />,
-//       key: 'laugh',
-//       label: 'Laugh',
-//     },
-//     { icon: <Angry className="text-red-700" />, key: 'angry', label: 'Angry' },
-//   ];
-
-//   const bgColors = {
-//     love: 'bg-red-200 text-red-600',
-//     like: 'bg-blue-200 text-blue-600',
-//     fire: 'bg-orange-200 text-orange-600',
-//     laugh: 'bg-yellow-200 text-yellow-700',
-//     angry: 'bg-red-200 text-red-700',
-//   };
-
-//   function getOrCreateReactionData() {
-//     let data = {};
-//     let stored = localStorage.getItem('reactionsData');
-//     let anonId = localStorage.getItem('anonId');
-
-//     if (!anonId) {
-//       anonId = crypto.randomUUID();
-//       localStorage.setItem('anonId', anonId);
-//     }
-
-//     if (stored) {
-//       try {
-//         data = JSON.parse(stored);
-//       } catch {
-//         data = {};
-//       }
-//     }
-
-//     EMOJIS.forEach((emoji) => {
-//       if (!Array.isArray(data[emoji])) data[emoji] = [];
-//     });
-
-//     data.anonId = anonId;
-//     return data;
-//   }
-
-//   function saveReactionData(data) {
-//     localStorage.setItem('reactionsData', JSON.stringify(data));
-//   }
-
-//   useEffect(() => {
-//     const data = getOrCreateReactionData();
-//     setAnonData(data);
-
-//     for (const key of EMOJIS) {
-//       if (Array.isArray(data[key]) && data[key].includes(slug)) {
-//         setSelected(key);
-//         break;
-//       }
-//     }
-//   }, [slug]);
-
-//   async function handleReaction(emoji) {
-//     if (isUpdating) return;
-//     setIsUpdating(true);
-
-//     const data = getOrCreateReactionData();
-//     let newSelected = selected;
-//     let newCounts = { ...reactionCount };
-
-//     if (selected === emoji) {
-//       newCounts[emoji] = Math.max(0, (newCounts[emoji] || 0) - 1);
-//       newSelected = null;
-//       data[emoji] = data[emoji].filter((s) => s !== slug);
-//     } else if (selected && selected !== emoji) {
-//       newCounts[selected] = Math.max(0, (newCounts[selected] || 0) - 1);
-//       newCounts[emoji] = (newCounts[emoji] || 0) + 1;
-//       data[selected] = data[selected].filter((s) => s !== slug);
-//       data[emoji].push(slug);
-//       newSelected = emoji;
-//     } else {
-//       newCounts[emoji] = (newCounts[emoji] || 0) + 1;
-//       data[emoji].push(slug);
-//       newSelected = emoji;
-//     }
-
-//     setReactionCount(newCounts);
-//     setSelected(newSelected);
-//     saveReactionData(data);
-//     setAnonData(data);
-
-//     if (debounceTimer.current) clearTimeout(debounceTimer.current);
-
-//     debounceTimer.current = setTimeout(async () => {
-//       try {
-//         const prevSelected = selected;
-//         const currSelected = newSelected;
-
-//         const updateData = {};
-//         if (prevSelected === currSelected) {
-//           updateData[emoji] = increment(-1);
-//         } else if (prevSelected && prevSelected !== currSelected) {
-//           updateData[prevSelected] = increment(-1);
-//           updateData[currSelected] = increment(1);
-//         } else {
-//           updateData[currSelected] = increment(1);
-//         }
-
-//         for (const key in updateData) {
-//           if (reactionCount[key] <= 0 && updateData[key]._operand < 0) {
-//             delete updateData[key];
-//           }
-//         }
-
-//         if (Object.keys(updateData).length > 0) {
-//           await setDataWithLang(childRef, { reactions: updateData });
-//         }
-//         refreshBlogsCache('blogs');
-//       } catch (err) {
-//         console.error('Reaction update failed', err);
-//       } finally {
-//         setIsUpdating(false);
-//       }
-//     }, 800);
-//   }
-
-//   return (
-//     <div className="flex gap-3 items-center justify-center sm:justify-start select-none">
-//       {emojis.map(({ icon, label, key }) => (
-//         <Tooltip key={key}>
-//           <TooltipTrigger asChild>
-//             <motion.div whileTap={{ scale: 1.15 }}>
-//               <Button
-//                 variant={selected === key ? 'default' : 'ghost'}
-//                 size="sm"
-//                 disabled={isUpdating}
-//                 onClick={() => handleReaction(key)}
-//                 className={`flex items-center gap-1 rounded-full transition-all duration-200 cursor-pointer px-3 py-1 sm:px-4 sm:py-2 sm:text-base ${
-//                   selected === key ? bgColors[key] : ''
-//                 }`}
-//               >
-//                 {icon} <span>{reactionCount[key]}</span>
-//               </Button>
-//             </motion.div>
-//           </TooltipTrigger>
-//           <TooltipContent>{label}</TooltipContent>
-//         </Tooltip>
-//       ))}
-//     </div>
-//   );
-// }
-
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
@@ -215,6 +14,98 @@ import { getFirestore, runTransaction } from 'firebase/firestore';
 import { refreshBlogsCache } from '../blog/blogpost';
 
 const EMOJIS = ['love', 'like', 'fire', 'laugh', 'angry'];
+const COOLDOWN_DURATION_MS = 2500;
+
+function normalizeReactionData(rawData = {}) {
+  const data = typeof rawData === 'object' && rawData !== null ? { ...rawData } : {};
+  const sanitizedLists = {};
+  const slugIndex = {};
+  let hadDuplicates = false;
+
+  EMOJIS.forEach((emoji) => {
+    sanitizedLists[emoji] = [];
+    const entries = Array.isArray(data[emoji]) ? data[emoji] : [];
+    entries.forEach((slugValue) => {
+      if (!slugValue) return;
+      if (slugIndex[slugValue]) {
+        hadDuplicates = true;
+        return;
+      }
+      slugIndex[slugValue] = emoji;
+      sanitizedLists[emoji].push(slugValue);
+    });
+  });
+
+  const storedIndex =
+    typeof data.slugIndex === 'object' && data.slugIndex !== null ? data.slugIndex : {};
+
+  Object.entries(storedIndex).forEach(([slugValue, emoji]) => {
+    if (!slugValue || !emoji) return;
+    if (!EMOJIS.includes(emoji)) return;
+    if (slugIndex[slugValue] && slugIndex[slugValue] !== emoji) {
+      hadDuplicates = true;
+      return;
+    }
+    if (!slugIndex[slugValue]) {
+      slugIndex[slugValue] = emoji;
+      sanitizedLists[emoji].push(slugValue);
+    }
+  });
+
+  const normalized = {
+    ...data,
+    slugIndex,
+  };
+
+  EMOJIS.forEach((emoji) => {
+    normalized[emoji] = sanitizedLists[emoji];
+  });
+
+  return { data: normalized, hadDuplicates };
+}
+
+function loadReactionDataWithMeta() {
+  if (typeof window === 'undefined') {
+    return {
+      data: {
+        laugh: [],
+        angry: [],
+        fire: [],
+        like: [],
+        love: [],
+        slugIndex: {},
+        anonId: null,
+      },
+      hadDuplicates: false,
+    };
+  }
+
+  let raw = {};
+  let stored = localStorage.getItem('reactionsData');
+  let anonId = localStorage.getItem('anonId');
+
+  if (!anonId) {
+    anonId = crypto.randomUUID();
+    localStorage.setItem('anonId', anonId);
+  }
+
+  if (stored) {
+    try {
+      raw = JSON.parse(stored);
+    } catch {
+      raw = {};
+    }
+  }
+
+  EMOJIS.forEach((emoji) => {
+    if (!Array.isArray(raw[emoji])) raw[emoji] = [];
+  });
+
+  const { data, hadDuplicates } = normalizeReactionData(raw);
+  data.anonId = anonId;
+
+  return { data, hadDuplicates };
+}
 
 export default function Reactions({ slug, postid, locale, reactionsArray = {} }) {
 
@@ -229,7 +120,9 @@ export default function Reactions({ slug, postid, locale, reactionsArray = {} })
   const [selected, setSelected] = useState(null);
   const [anonData, setAnonData] = useState(null);
   const [isUpdating, setIsUpdating] = useState(false);
+  const [isCooldown, setIsCooldown] = useState(false);
   const inFlightRef = useRef(false); 
+  const cooldownTimerRef = useRef(null);
 
   const { childRef } = postDocRef(postid, locale); 
   const db = getFirestore();
@@ -252,32 +145,12 @@ export default function Reactions({ slug, postid, locale, reactionsArray = {} })
 
 
   function getOrCreateReactionData() {
-    let data = {};
-    let stored = localStorage.getItem('reactionsData');
-    let anonId = localStorage.getItem('anonId');
-
-    if (!anonId) {
-      anonId = crypto.randomUUID();
-      localStorage.setItem('anonId', anonId);
-    }
-
-    if (stored) {
-      try {
-        data = JSON.parse(stored);
-      } catch {
-        data = {};
-      }
-    }
-
-    EMOJIS.forEach((emoji) => {
-      if (!Array.isArray(data[emoji])) data[emoji] = [];
-    });
-
-    data.anonId = anonId;
+    const { data } = loadReactionDataWithMeta();
     return data;
   }
 
   function saveReactionData(data) {
+    if (typeof window === 'undefined') return;
     try {
       localStorage.setItem('reactionsData', JSON.stringify(data));
     } catch (e) {
@@ -286,15 +159,38 @@ export default function Reactions({ slug, postid, locale, reactionsArray = {} })
   }
 
 
+  const startCooldown = (duration = COOLDOWN_DURATION_MS) => {
+    if (cooldownTimerRef.current) {
+      clearTimeout(cooldownTimerRef.current);
+    }
+    setIsCooldown(true);
+    cooldownTimerRef.current = setTimeout(() => {
+      setIsCooldown(false);
+      cooldownTimerRef.current = null;
+    }, duration);
+  };
+
   useEffect(() => {
-    const data = getOrCreateReactionData();
+    return () => {
+      if (cooldownTimerRef.current) {
+        clearTimeout(cooldownTimerRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    const { data, hadDuplicates } = loadReactionDataWithMeta();
     setAnonData(data);
 
-    for (const key of EMOJIS) {
-      if (Array.isArray(data[key]) && data[key].includes(slug)) {
-        setSelected(key);
-        break;
-      }
+    const storedSelection =
+      (data.slugIndex && data.slugIndex[slug]) ||
+      EMOJIS.find((key) => Array.isArray(data[key]) && data[key].includes(slug)) ||
+      null;
+    setSelected(storedSelection);
+
+    if (hadDuplicates) {
+      saveReactionData(data);
+      startCooldown(3000);
     }
 
     setReactionCount({
@@ -321,22 +217,25 @@ export default function Reactions({ slug, postid, locale, reactionsArray = {} })
   }
 
   async function handleReaction(emoji) {
-    if (isUpdating || inFlightRef.current) return;
+    if (isUpdating || inFlightRef.current || isCooldown) return;
     setIsUpdating(true);
     inFlightRef.current = true;
 
     try {
       const data = getOrCreateReactionData();
-      const prevSelected = selected;
-      let nextSelected = selected;
+      const prevSelected = (data.slugIndex && data.slugIndex[slug]) || null;
+      let nextSelected = prevSelected;
 
-      if (selected === emoji) {
+      if (prevSelected === emoji) {
         nextSelected = null;
+        if (data.slugIndex) delete data.slugIndex[slug];
         data[emoji] = data[emoji].filter((s) => s !== slug);
       } else {
-        if (selected) {
-          data[selected] = data[selected].filter((s) => s !== slug);
+        if (prevSelected) {
+          data[prevSelected] = data[prevSelected].filter((s) => s !== slug);
         }
+        data.slugIndex = data.slugIndex || {};
+        data.slugIndex[slug] = emoji;
         if (!data[emoji].includes(slug)) data[emoji].push(slug);
         nextSelected = emoji;
       }
@@ -479,7 +378,7 @@ export default function Reactions({ slug, postid, locale, reactionsArray = {} })
               <Button
                 variant={selected === key ? 'default' : 'ghost'}
                 size="sm"
-                disabled={isUpdating}
+                disabled={isUpdating || isCooldown}
                 onClick={() => handleReaction(key)}
                 className={`flex items-center gap-1 rounded-full transition-all duration-200 cursor-pointer px-3 py-1 sm:px-4 sm:py-2 sm:text-base ${
                   selected === key ? bgColors[key] : ''

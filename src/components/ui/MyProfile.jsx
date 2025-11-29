@@ -18,7 +18,7 @@ const MyProfile = async ({ locale, blogs, ids }) => {
             {t?.title}
           </h1>
 
-          <CreateNewAdminBlog locale={locale} t={t} />
+          {/* <CreateNewAdminBlog locale={locale} t={t} /> */}
         </div>
         <div className="overflow-x-auto rounded-xl shadow-lg bg-white dark:bg-gray-800">
           <table className="min-w-full text-left">

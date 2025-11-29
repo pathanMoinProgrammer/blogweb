@@ -5,7 +5,8 @@ import EditorPreviewTabs from '../tabsScreen/EditorPreview';
 import BlogMetadataForm from '../blog/BlogMetadataForm';
 import ActionButton from './actionButton';
 import BlogTitle from './blogTitle';
-import JoditEditor from '../blog/joditeditor';
+// import JoditEditor from '../blog/joditeditor';
+import TiptapEditor from '../blog/joditeditor';
 import { useSafeInputHandler } from '@/hooks/costumHooks/blogMetaDataChecker';
 import useCreateBlogPage from '@/hooks/costumHooks/useCreateBlogPage';
 
@@ -79,15 +80,24 @@ const CreateBlogPage = ({ editorT }) => {
         </div>
 
         <div className="flex gap-[20px] w-full min-h-[900px] ">
-          <div className="w-[77%] bg-red-600 max-[1400px]:w-[70%] max-[1544px]:w-[72%] ">
-            <JoditEditor
+          <div className="w-[77%]  max-[1400px]:w-[70%] max-[1544px]:w-[72%] h-screen">
+            {/* <JoditEditor
               storageKey="myBlogPost"
               formData={formData}
               formik={formik}
               editorT={editorT}
               editorRef={inputRefs.editor[0]}
-              name = 'editor'
+              name='editor'
+            /> */}
+
+            <TiptapEditor
+              formData={formData}
+              formik={formik}
+              editorT={editorT}
+              editorRef={inputRefs.editor[0]}
+              name='editor'
             />
+
           </div>
 
           <div className="max-[1300px]:hidden w-[23%] max-[1400px]:w-[30%] max-[1544px]:w-[28%] ">

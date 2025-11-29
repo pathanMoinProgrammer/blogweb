@@ -189,6 +189,7 @@ export default function useCreateBlogPage() {
     onSubmit: async (values) => {
       if (values.type == 'publish') {
         setType('publish');
+        console.log("its was dadadad", values)
         await handleCreateBlog({ ...values, type: 'publish' });
 
         setType('publish');

@@ -9,7 +9,7 @@ const SkeletonLoader = () => {
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-10">
           <div className="h-10 w-64 bg-gray-200 dark:bg-gray-700 rounded-lg"></div>
-          <div className="h-10 w-32 bg-gray-200 dark:bg-gray-700 rounded-lg"></div>
+          {/* <div className="h-10 w-32 bg-gray-200 dark:bg-gray-700 rounded-lg"></div> */}
         </div>
 
         <div className="overflow-x-auto rounded-xl shadow-lg bg-white dark:bg-gray-800">

@@ -61,7 +61,8 @@
         },
         "blogTitle": {
           "label": "Título del Blog",
-          "required": "*"
+          "required": "*",
+          "placeholder": "p. ej., ¿El futuro de la IA o Burbuja?"
         },
         "description": {
           "label": "Descripción",

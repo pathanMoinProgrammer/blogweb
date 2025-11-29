@@ -14,5 +14,5 @@ export default function CreateBlogContx() {
     );
   }
 
-  return <CreateBlogPage editorT={editorT} />;
+  return <CreateBlogPage editorT={editorT} />
 }

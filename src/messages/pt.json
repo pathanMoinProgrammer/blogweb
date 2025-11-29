@@ -61,7 +61,8 @@
         },
         "blogTitle": {
           "label": "Título do Blog",
-          "required": "*"
+          "required": "*",
+          "placeholder": "p. ex., O futuro da IA ou Bolha?"
         },
         "description": {
           "label": "Descrição",

@@ -61,7 +61,8 @@
         },
         "blogTitle": {
           "label": "ब्लॉग शीर्षक",
-          "required": "*"
+          "required": "*",
+          "placeholder": "उदाहरण के लिए, एआई का भविष्य या बबल?"
         },
         "description": {
           "label": "विवरण",

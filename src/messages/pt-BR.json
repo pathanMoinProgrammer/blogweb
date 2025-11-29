@@ -30,8 +30,8 @@
       "blogDescription": "Descrição do Blog",
       "noImage": "N/D"
     },
-     "createNewBlog": "Criar Novo Blog",
-     "loading": "Carregando..."
+    "createNewBlog": "Criar Novo Blog",
+    "loading": "Carregando..."
   },
   "client": {
     "Navbar": {
@@ -42,7 +42,7 @@
       "contact": "Contato",
       "signIn": "Entrar",
       "logout": "Sair",
-       "myBlogs": "Meus Blogs"
+      "myBlogs": "Meus Blogs"
     },
     "createBlogPage": {
       "notification": {},
@@ -61,7 +61,8 @@
         },
         "blogTitle": {
           "label": "Título do Blog",
-          "required": "*"
+          "required": "*",
+          "placeholder": "p. ex., O futuro da IA ou Bolha?"
         },
         "description": {
           "label": "Descrição",

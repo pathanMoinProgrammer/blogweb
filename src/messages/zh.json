@@ -61,7 +61,8 @@
         },
         "blogTitle": {
           "label": "博客标题",
-          "required": "*"
+          "required": "*",
+          "placeholder": "例如，人工智能的未来还是泡沫？"
         },
         "description": {
           "label": "描述",
