@@ -65,7 +65,7 @@ export default function Navbar() {
               onClick={() => handleNavigation(`/${locale}/blogpost`)}
               className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium p-0 h-auto hover:bg-transparent"
             >
-              {t?.blog || 'Blog'}
+              {t?.blog || 'Blogs'}
             </Button>
             <Button
               variant="ghost"
@@ -74,13 +74,13 @@ export default function Navbar() {
             >
               {t?.contact || 'Contact'}
             </Button>
-            <Button
+            {/* <Button
               variant="ghost"
               onClick={() => handleNavigation(`/${locale}/my-profile`)}
               className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium p-0 h-auto hover:bg-transparent"
             >
                {t?.myBlogs || 'My Blogs'}
-            </Button>
+            </Button> */}
 
             <LanguageSwitcher />
 
@@ -165,7 +165,7 @@ export default function Navbar() {
                   >
                     {t?.contact || 'Contact'}
                   </Button>
-                  <Button
+                  {/* <Button
                     variant="ghost"
                     onClick={() => {
                       handleNavigation(`/${locale}/my-profile`);
@@ -174,7 +174,7 @@ export default function Navbar() {
                     className="justify-start py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700 h-auto"
                   >
                     {t?.myBlogs || 'My Blogs'}
-                  </Button>
+                  </Button> */}
                 </div>
               </SheetContent>
             </Sheet>
