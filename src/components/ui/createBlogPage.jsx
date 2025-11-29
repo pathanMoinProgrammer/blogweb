@@ -39,7 +39,7 @@ const CreateBlogPage = ({ editorT }) => {
   return (
     <form
       onSubmit={formik.handleSubmit}
-      className="relative p-px max-[840px]:py-[25px] bg-[#f0eded]"
+      className="relative p-px max-[840px]:py-[25px] bg-[#f0eded]  dark:bg-[rgb(21,29,44)]"
     >
       <Notification
         messages={notifyMessage}

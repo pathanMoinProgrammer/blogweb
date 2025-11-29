@@ -21,6 +21,7 @@ const ActionButton = ({
       <section className="w-full    ">
         <div className=" ">
           <div className="flex justify-around relative z-10 min-[1300px]:gap-5  max-[1300px]:gap-2.5">
+            {postid !== undefined &&
             <button
               variant="outline"
               size="lg"
@@ -49,7 +50,7 @@ const ActionButton = ({
                   </span>
                 </>
               )}
-            </button>
+            </button>}
 
             {postid !== undefined && (
               <button
