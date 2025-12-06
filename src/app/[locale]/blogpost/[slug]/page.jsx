@@ -1,6 +1,18 @@
-// For Firebase Firestore blogs 
+// For Firebase Firestore blogs
 import Link from 'next/link';
 import { slugReadRef } from '@/firebase/firebaseAdminRefs';
+
+export async function generateMetadata({ params }) {
+  const { locale, slug } = await params;
+  // …fetch data if you want dynamic title…
+  return {
+    title: data?.title || 'ExploreTheBuzz',
+    description: data?.description || '',
+    alternates: {
+      canonical: `https://explorethebuzz.com/${locale}/blogpost/${slug}`,
+    },
+  };
+}
 
 const page = async ({ params }) => {
   const { locale, slug } = await params;
@@ -33,7 +45,8 @@ const page = async ({ params }) => {
                 minute: '2-digit',
                 hour12: true,
               })} */}
-              {data?.date} {" "} {data?.hhmm}{data.ampm}
+              {data?.date} {data?.hhmm}
+              {data.ampm}
             </time>
           </div>
           {data?.imgUrl && (
@@ -74,8 +87,34 @@ const page = async ({ params }) => {
                 d="M10 19l-7-7m0 0l7-7m-7 7h18"
               />
             </svg>
-            <span className='dark:text-white' >Back to Blogs</span>
+            <span className="dark:text-white">Back to Blogs</span>
           </Link>
+          <div className="flex justify-center gap-4 my-12">
+            <a
+              href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(
+                url,
+              )}&text=${data?.title}`}
+              className="p-3 bg-[#1DA1F2] text-white rounded-full"
+            >
+              Twitter
+            </a>
+            <a
+              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                url,
+              )}`}
+              className="p-3 bg-[#1877F2] text-white rounded-full"
+            >
+              Facebook
+            </a>
+            <a
+              href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(
+                url,
+              )}`}
+              className="p-3 bg-[#0A66C2] text-white rounded-full"
+            >
+              LinkedIn
+            </a>
+          </div>
         </footer>
       </article>
     </div>
@@ -84,15 +123,6 @@ const page = async ({ params }) => {
 };
 
 export default page;
-
-
-
-
-
-
-
-
-
 
 // For Markdwon Fs Read Blogs
 
@@ -109,11 +139,11 @@ export default page;
 
 // export async function generateStaticParams() {
 //   const basePath = path.join(process.cwd(), 'Blogs');
-  
+
 //   if (!fs.existsSync(basePath)) {
 //     return [];
 //   }
-  
+
 //   const entries = fs.readdirSync(basePath, { withFileTypes: true });
 //   const locales = entries
 //     .filter((entry) => entry.isDirectory() && !entry.name.startsWith('.'))
@@ -144,9 +174,9 @@ export default page;
 
 // export async function generateMetadata({ params }) {
 //   const { locale, slug } = await params;
-  
+
 //   const blogsDir = path.join(process.cwd(), `Blogs/${locale}`);
-  
+
 //   if (!fs.existsSync(blogsDir)) {
 //     return {
 //       title: 'Blog Post | ExploretheBuzz',
@@ -155,7 +185,7 @@ export default page;
 //   }
 
 //   const files = fs.readdirSync(blogsDir).filter((file) => file.endsWith('.md'));
-  
+
 //   for (const file of files) {
 //     const filePath = path.join(blogsDir, file);
 //     const raw = fs.readFileSync(filePath, 'utf-8');
@@ -164,7 +194,7 @@ export default page;
 //     if (data[`${locale}url`] === slug) {
 //       const url = `https://explorethebuzz.com/${locale}/blogpost/${slug}`;
 //       const imageUrl = data.img || 'https://explorethebuzz.com/og-image.png';
-      
+
 //       return {
 //         title: data.title || 'Blog Post | ExploretheBuzz',
 //         description: data.description || 'Read our insightful blog post on ExploretheBuzz',
@@ -210,7 +240,7 @@ export default page;
 //   const { locale, slug } = await params;
 
 //   const blogsDir = path.join(process.cwd(), `Blogs/${locale}`);
-  
+
 //   if (!fs.existsSync(blogsDir)) {
 //     notFound();
 //   }
@@ -338,6 +368,3 @@ export default page;
 //     </div>
 //   );
 // }
-
-
-
