@@ -23,6 +23,7 @@ export default async function HomePage({ params }) {
     <main className="min-h-screen  bg-gradient-to-br from-background to-muted font-sans">
       <TopComponentHome params={locale} />
       <BlogPage params={params} />
+      {/* <a href="https://www.seobility.net/en/seocheck/check?url=https%3A%2F%2Fexplorethebuzz.com%2Fen"><img src="https://app.seobility.net/widget/widget.png?url=https%3A%2F%2Fexplorethebuzz.com%2Fen" alt="Seobility Score for explorethebuzz.com" /></a> */}
     </main>
   );
 }

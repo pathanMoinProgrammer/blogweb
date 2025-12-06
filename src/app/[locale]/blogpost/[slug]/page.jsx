@@ -6,8 +6,8 @@ export async function generateMetadata({ params }) {
   const { locale, slug } = await params;
   // …fetch data if you want dynamic title…
   return {
-    title: data?.title || 'ExploreTheBuzz',
-    description: data?.description || '',
+    title:  'ExploreTheBuzz',
+    description: 'We Provide Quality and Benigifial Blogs To Our Users.',
     alternates: {
       canonical: `https://explorethebuzz.com/${locale}/blogpost/${slug}`,
     },
@@ -15,6 +15,7 @@ export async function generateMetadata({ params }) {
 }
 
 const page = async ({ params }) => {
+  let url = "https://explorethebuzz.com/"
   const { locale, slug } = await params;
   const rowDataRef = await slugReadRef(slug).get();
   let data = {};
@@ -22,6 +23,7 @@ const page = async ({ params }) => {
   if (rowDataRef.docs.length > 0) {
     rowDataRef.docs.forEach((gData) => (data = gData.data()));
   }
+  
 
   return (
     <div className="min-h-screen bg-background">
@@ -72,7 +74,7 @@ const page = async ({ params }) => {
         <footer className="text-center ">
           <Link
             href={`/${locale}`}
-            className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-3 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 dark:bg-[#53688f] bg-[#545483]"
+            className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-3 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 "
           >
             <svg
               className="w-5 h-5 dark:text-white"
