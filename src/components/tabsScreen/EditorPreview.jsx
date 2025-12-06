@@ -23,6 +23,8 @@ export default function EditorPreviewTabs({
   inputRefs,
   metadataT,
   editorT,
+  pendingImages,
+  setPendingImages,
 }) {
   const { HtmContent } = formik.values;
 
@@ -88,8 +90,11 @@ export default function EditorPreviewTabs({
               formData={formData}
               formik={formik}
               editorT={editorT}
-              name = 'editor'
-
+              name="editor"
+              pendingImages={pendingImages}
+              setPendingImages={setPendingImages}
+              setNotifiMessage={setNotifiMessage}
+              setShowNotification={setShowNotification}
             />
           </Tabs.Content>
           <Tabs.Content

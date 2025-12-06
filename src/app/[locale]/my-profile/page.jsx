@@ -1,8 +1,16 @@
-
 import { posts } from '@/firebase/firebaseAdminRefs';
 import MyProfile from '@/components/ui/MyProfile';
 import { Suspense } from 'react';
 import SkeletonLoader from '@/components/ui/adminLoader';
+
+export const metadata = {
+  title: 'My Profile | BlogWeb',
+  description: 'Manage your blog posts and profile on BlogWeb',
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 async function getBlogs() {
   const snapshot = await posts.get();

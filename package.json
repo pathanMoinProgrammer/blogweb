@@ -76,10 +76,13 @@
     "rehype-document": "^7.0.3",
     "rehype-format": "^5.0.1",
     "rehype-stringify": "^10.0.1",
+    "remark": "^15.0.1",
+    "remark-html": "^16.0.1",
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.2",
     "tailwind-merge": "^3.3.1",
     "unified": "^11.0.5",
+    "unist-util-visit": "^5.0.0",
     "vfile-reporter": "^8.1.1",
     "yup": "^1.7.1"
   },

@@ -160,7 +160,6 @@
 //   );
 // };
 
-
 // 'use client';
 // import { Button } from '@/components/ui/button';
 // import React from 'react';
@@ -171,7 +170,7 @@
 //       const res = await fetch('http://localhost:3001/healtht');
 //       if (!res.ok) throw new Error('Network response was not ok');
 
-//       const data = await res.json(); 
+//       const data = await res.json();
 //       console.log(data);
 //     } catch (err) {
 //       console.error('Fetch error:', err);
@@ -190,17 +189,61 @@
 
 // export default page;
 
+import React from 'react';
 
-
-
-import React from 'react'
+export const metadata = {
+  title: 'About BlogWeb | Tech & Innovation Blog Platform',
+  description:
+    'Learn about BlogWeb - your trusted source for insightful articles about AI, ChatGPT, Gemini, technology, and innovation.',
+  keywords: 'about, BlogWeb, technology blog, innovation, AI, chatGPT',
+  openGraph: {
+    title: 'About BlogWeb',
+    description:
+      'Learn about BlogWeb - your trusted source for technology and innovation blogs.',
+    url: 'https://explorethebuzz.com/about',
+  },
+};
 
 const page = () => {
   return (
-    <div>
-      Its about page
-    </div>
-  )
-}
+    <div className="min-h-screen bg-background">
+      <div className="max-w-4xl mx-auto px-4 py-16">
+        <h1 className="text-4xl md:text-5xl font-bold text-center mb-8">
+          About BlogWeb
+        </h1>
 
-export default page
+        <section className="prose prose-invert max-w-none">
+          <h2 className="text-2xl font-semibold mt-8 mb-4">Our Mission</h2>
+          <p className="text-lg text-muted-foreground mb-6">
+            BlogWeb is dedicated to providing high-quality, insightful articles
+            about technology, artificial intelligence, and innovation. We
+            believe in democratizing knowledge and making complex topics
+            accessible to everyone.
+          </p>
+
+          <h2 className="text-2xl font-semibold mt-8 mb-4">What We Cover</h2>
+          <p className="text-lg text-muted-foreground mb-6">
+            Our blog features expert insights on:
+          </p>
+          <ul className="list-disc list-inside text-lg text-muted-foreground mb-6 space-y-2">
+            <li>Artificial Intelligence and Machine Learning</li>
+            <li>ChatGPT and Large Language Models</li>
+            <li>Google Gemini and AI Technologies</li>
+            <li>Web Development and Modern Technologies</li>
+            <li>Tech Tutorials and How-To Guides</li>
+            <li>Industry News and Innovations</li>
+          </ul>
+
+          <h2 className="text-2xl font-semibold mt-8 mb-4">Our Vision</h2>
+          <p className="text-lg text-muted-foreground mb-6">
+            We aim to be the go-to resource for developers, tech enthusiasts,
+            and learners who want to stay updated with the latest trends in
+            technology and innovation.
+          </p>
+        </section>
+      </div>
+    </div>
+  );
+};
+
+export default page;

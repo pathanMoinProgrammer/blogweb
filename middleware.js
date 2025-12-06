@@ -24,3 +24,5 @@ export const config = {
     '/((?!api|trpc|_next|_vercel|.*\\..*).*)',
   ],
 };
+
+

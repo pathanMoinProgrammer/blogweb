@@ -50,7 +50,7 @@ export async function GET() {
 
 export async function POST(req) {
   const { emoji, slug } = await req.json();
-  console.log(emoji, slug, 'slugged');
+  // console.log(emoji, slug, 'slugged');
 
   if (!EMOJIS.includes(emoji) || !slug) {
     return NextResponse.json(

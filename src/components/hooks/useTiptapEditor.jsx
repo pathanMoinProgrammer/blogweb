@@ -1,4 +1,4 @@
-// // working code 
+// // working code
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
@@ -20,11 +20,9 @@ import TextAlign from '@tiptap/extension-text-align';
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import { lowlight } from 'lowlight/lib/common';
 
-
 const DEFAULT_CONTENT = '<p>Start writing your blog...</p>';
 
-export default function useTiptapEditor({formik}) {
-
+export default function useTiptapEditor({ formik }) {
   const editor = useEditor({
     immediatelyRender: false,
     extensions: [
@@ -53,9 +51,6 @@ export default function useTiptapEditor({formik}) {
     },
   });
 
-
- 
-
   const [customColor, setCustomColor] = useState('#000000');
   const [customBgColor, setCustomBgColor] = useState('#ffff00');
   const [activeTab, setActiveTab] = useState('editor');
@@ -77,36 +72,37 @@ export default function useTiptapEditor({formik}) {
   }, [editor, isHtmlMode]);
 
   useEffect(() => {
-  if (!editor || !formik?.setFieldValue) return;
-  
-  let isUpdating = false; // ✅ PREVENT LOOP
-  
-  const updateFormik = () => {
-    if (isUpdating) return; // ✅ SKIP if already updating
-    isUpdating = true;
-    
-    const html = editor.getHTML();
-    formik.setFieldValue('content', html);
-    formik.setFieldValue('HtmContent', html);
-    
-    setTimeout(() => { isUpdating = false; }, 10);
-  };
+    if (!editor || !formik?.setFieldValue) return;
 
-  editor.on('update', updateFormik); // ✅ ONLY 'update'
-  updateFormik();
+    let isUpdating = false; // ✅ PREVENT LOOP
 
-  return () => editor.off('update', updateFormik);
-}, [editor]);
+    const updateFormik = () => {
+      if (isUpdating) return; // ✅ SKIP if already updating
+      isUpdating = true;
 
-// ✅ ADD THIS useEffect AFTER your editor creation (line ~45)
-useEffect(() => {
-  if (!editor) return;
-  
-  // ✅ LOAD formik content OR default
-  const initialContent = formik?.values?.content || DEFAULT_CONTENT;
-  editor.commands.setContent(initialContent, false); // false = don't emit update
-}, [editor, formik?.values?.content]); // ✅ Only runs when content changes
+      const html = editor.getHTML();
+      formik.setFieldValue('content', html);
+      formik.setFieldValue('HtmContent', html);
 
+      setTimeout(() => {
+        isUpdating = false;
+      }, 10);
+    };
+
+    editor.on('update', updateFormik); // ✅ ONLY 'update'
+    updateFormik();
+
+    return () => editor.off('update', updateFormik);
+  }, [editor]);
+
+  // ✅ ADD THIS useEffect AFTER your editor creation (line ~45)
+  useEffect(() => {
+    if (!editor) return;
+
+    // ✅ LOAD formik content OR default
+    const initialContent = formik?.values?.content || DEFAULT_CONTENT;
+    editor.commands.setContent(initialContent, false); // false = don't emit update
+  }, [editor, formik?.values?.content]); // ✅ Only runs when content changes
 
   useEffect(() => {
     const handleResize = () => {
@@ -257,6 +253,7 @@ useEffect(() => {
     customColor,
     setCustomColor,
     customBgColor,
+    setIsHtmlMode,
     setCustomBgColor,
     setFieldValue: formik?.setFieldValue || null,
   };

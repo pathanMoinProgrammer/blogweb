@@ -134,9 +134,9 @@ export default function Notification({
               const match = msg.text.match(/⚠️\s*(\w+):/);
               const fieldName = match ? match[1] : null;
               if (fieldName) {
-                console.log(fieldName, 'fieldName');
+
                 const dataCame = await handleFocusField(fieldName);
-                console.log(dataCame);
+
               }
             }
           }}

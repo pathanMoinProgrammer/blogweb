@@ -18,4 +18,8 @@ export const blogSchema = Yup.object().shape({
     .url('Invalid image URL')
     .required('Image Url is required'),
   author: Yup.string().required('Author name required'),
+  date: Yup.date()
+    .max(new Date(), 'Future dates cannot be selected.')
+    .typeError('Please enter a valid date format.'),
+
 });

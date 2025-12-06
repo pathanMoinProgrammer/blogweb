@@ -3,6 +3,7 @@ import leoProfanity from 'leo-profanity';
 import { useSafeInputHandler } from '@/hooks/costumHooks/blogMetaDataChecker';
 import BlogTitle from '../ui/blogTitle';
 import { useGameTranslations } from '../traslatorclient';
+import { useEffect } from 'react';
 
 leoProfanity.loadDictionary();
 
@@ -16,6 +17,7 @@ const BlogMetadataForm = ({
   const { values, errors, touched, setFieldValue, handleBlur } = formik;
   const { handleSafeChange, slugError, renderWarning } =
     useSafeInputHandler(setFieldValue);
+  useEffect(() => {}, [touched.description, touched.time]);
 
   return (
     <div className="w-full min-h-[900px]  space-y-4 p-6  border border-gray-300  dark:border-gray-700 bg-slate-50 dark:bg-gray-800">
@@ -138,16 +140,107 @@ const BlogMetadataForm = ({
 
       <div className="max-[1400px]:[&>*]:text-[13px] max-[1544px]:[&>*]:text-[12px] [&>*]:text-[14px]">
         <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-white">
-          {metadataT?.author?.label} <span className="text-purple-500">*</span>
+          {metadataT?.author?.label} <span className="text-purple-500">*</span>{' '}
+          {'  '}(<span className="text-sm"> by</span>
+          {` ${values.author} `})
         </label>
-        <input
-          type="text"
-          name="author"
-          value={values.author}
-          disabled
-          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
-            bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-300"
-        />
+        <div className="flex">
+          {/* <span className='text-[13px] flex items-center mr-[6px]'>By</span> */}
+          <input
+            type="text"
+            name="author"
+            value={values.author}
+            onChange={handleSafeChange}
+            onBlur={handleBlur}
+            // disabled
+            // className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg
+            //   bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-300"
+            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
+           focus:ring-2 focus:ring-blue-500 focus:border-transparent 
+            bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+            placeholder={metadataT?.author?.label}
+          />
+        </div>
+          {touched.author && errors.author && (
+          <p className="text-red-500 text-sm mt-1">{errors.author}</p>
+        )}
+      </div>
+      <div className="space-y-4 max-[1400px]:[&>*]:text-[13px] max-[1544px]:[&>*]:text-[12px] [&>*]:text-[14px]">
+        {/* DATE */}
+        <div>
+          <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-white">
+            Date
+          </label>
+          <input
+            type="date"
+            name="date"
+            value={values.date}
+            onChange={handleSafeChange}
+            onBlur={handleBlur}
+            className="px-3 py-2 border rounded-lg bg-gray-100 dark:bg-gray-600
+                 text-gray-900 dark:text-gray-200 border-gray-300 dark:border-gray-500"
+          />
+          {touched.date && errors.date && (
+            <p className="text-red-500 text-sm mt-1">{errors.date}</p>
+          )}
+        </div>
+
+        {/* TIME */}
+        <div>
+          <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-white">
+            Time
+          </label>
+
+          <div className="flex items-center gap-3">
+            {/* HOUR */}
+            <select
+              name="hh"
+              value={values.hh}
+              onChange={handleSafeChange}
+              className="px-3 py-2 border rounded-lg bg-gray-100 dark:bg-gray-600
+         text-gray-900 dark:text-gray-200 border-gray-300 dark:border-gray-500"
+            >
+              {Array.from({ length: 12 }, (_, i) => {
+                const hour = i + 1;
+                const hourStr = String(hour).padStart(2, '0');
+                return (
+                  <option key={hourStr} value={hourStr}>
+                    {hourStr}
+                  </option>
+                );
+              })}
+            </select>
+
+            {/* MINUTE */}
+            <select
+              name="mm"
+              value={values.mm}
+              onChange={handleSafeChange}
+              className="px-3 py-2 border rounded-lg bg-gray-100 dark:bg-gray-600
+                   text-gray-900 dark:text-gray-200 border-gray-300 dark:border-gray-500"
+            >
+              {Array.from({ length: 60 }, (_, i) =>
+                String(i).padStart(2, '0'),
+              ).map((m) => (
+                <option key={m} value={m}>
+                  {m}
+                </option>
+              ))}
+            </select>
+
+            {/* AM / PM */}
+            <select
+              name="ampm"
+              value={values.ampm}
+              onChange={handleSafeChange}
+              className="px-3 py-2 border rounded-lg bg-gray-100 dark:bg-gray-600
+                   text-gray-900 dark:text-gray-200 border-gray-300 dark:border-gray-500"
+            >
+              <option value="AM">AM</option>
+              <option value="PM">PM</option>
+            </select>
+          </div>
+        </div>
       </div>
 
       {values.imgUrl && (

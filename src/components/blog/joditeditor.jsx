@@ -26,7 +26,7 @@ import {
 } from 'lucide-react';
 import MonacoEditor from '@monaco-editor/react';
 import useTiptapEditor from '@/components/hooks/useTiptapEditor';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function TiptapEditor(props) {
   const {
@@ -58,6 +58,7 @@ export default function TiptapEditor(props) {
     copyText,
     copyHTML,
     cutText,
+    setIsHtmlMode,
     customColor,
     setCustomColor,
     customBgColor,
@@ -72,10 +73,113 @@ export default function TiptapEditor(props) {
     );
   }
 
+  const { setPendingImages, setNotifiMessage, setShowNotification } = props;
+
+  const ImageUploadCustom = ({ setImageUrl, editor, setImagePopup }) => {
+    return (
+      <div className="space-y-2">
+        <label
+          htmlFor="image-upload"
+          className="flex flex-col items-center justify-center w-full h-20 border border-slate-300 rounded-lg cursor-pointer hover:bg-slate-50"
+        >
+          <Upload size={28} height={15} className="text-slate-500" />
+          <span className="mt-2 text-sm text-slate-600">
+            Click to upload image
+          </span>
+        </label>
+
+        <input
+          id="image-upload"
+          type="file"
+          accept="image/*"
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            const acceptable = ['gif', 'png', 'jpeg', 'webp'];
+            const filetype = file.type?.split('/')?.[1].toLocaleLowerCase();
+            if (!file) return;
+            if (file.size > 2 * 1024 * 1024) {
+              let message = 'Image size Must be 2 MB or less.';
+              setImagePopup(false);
+              setShowNotification(true);
+              setNotifiMessage({
+                type: 'error',
+                message: message,
+              });
+
+              setTimeout(() => {
+                setNotifiMessage({ type: '', message: [] });
+              }, 2000);
+              return;
+            }
+            //  else if (!acceptable.includes(filetype)) {
+            //   let message = 'Upoading File Should be Either Image or Gif';
+            //   setImagePopup(false);
+
+            //   setShowNotification(true);
+
+            //   setNotifiMessage({
+            //     type: 'error',
+            //     message: message,
+            //   });
+
+            //   setTimeout(() => {
+            //     setNotifiMessage({ type: '', message: [] });
+            //   }, 2000);
+            //   return;
+            // }
+
+            const localUrl = URL.createObjectURL(file);
+
+            setImageUrl(localUrl);
+            setImagePopup(false);
+
+            props.setPendingImages((prev) => [...prev, file]);
+
+            editor.chain().focus().setImage({ src: localUrl }).run();
+          }}
+          className="hidden"
+        />
+      </div>
+    );
+  };
 
   return (
     <div className="flex h-full w-full flex-col rounded-2xl border border-slate-200 bg-slate-50 shadow-sm">
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 bg-white px-4 py-3">
+        <div className="flex rounded-lg border border-slate-300 bg-slate-50 p-1">
+          <button
+            type="button"
+            onClick={() => {
+              if (isHtmlMode) {
+                editor.commands.setContent(htmlCode || DEFAULT_CONTENT, false);
+              }
+              setIsHtmlMode(false);
+            }}
+            className={`rounded-md px-4 py-2 text-sm font-medium transition-all ${
+              !isHtmlMode
+                ? 'bg-white text-indigo-700 shadow-sm'
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            Visual Editor
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              if (!isHtmlMode) {
+                setHtmlCode(editor.getHTML());
+              }
+              setIsHtmlMode(true);
+            }}
+            className={`rounded-md px-4 py-2 text-sm font-medium transition-all ${
+              isHtmlMode
+                ? 'bg-white text-indigo-700 shadow-sm'
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            HTML Code
+          </button>
+        </div>
         <div className="flex flex-wrap items-center gap-2">
           <ToolbarBadge label="Actions" />
           <button
@@ -164,7 +268,7 @@ export default function TiptapEditor(props) {
               <button
                 type="button"
                 onClick={() => setShowHeadings((prev) => !prev)}
-                className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-indigo-50"
+                className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white  px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-indigo-50"
               >
                 {editor.isActive('heading')
                   ? `H${editor.getAttributes('heading').level}`
@@ -176,7 +280,7 @@ export default function TiptapEditor(props) {
                 />
               </button>
               {showHeadings && (
-                <div className="absolute left-0 top-full z-30 mt-2 w-52 max-h-64 overflow-y-auto rounded-xl border border-slate-200 bg-white p-2 shadow-2xl">
+                <div className="absolute left-0 top-full z-30 mt-2 w-52 max-h-64 dark:bg-[#444a51] overflow-y-auto rounded-xl border border-slate-200 bg-white p-2 shadow-2xl">
                   {headingOptions.map((heading) => (
                     <button
                       key={heading.level}
@@ -192,7 +296,7 @@ export default function TiptapEditor(props) {
                       className={`w-full rounded-lg px-3 py-2 text-left text-sm font-medium transition ${
                         editor.isActive('heading', { level: heading.level })
                           ? 'bg-indigo-100 text-indigo-700'
-                          : 'hover:bg-slate-50'
+                          : 'hover:bg-slate-50 hover:text-black'
                       }`}
                     >
                       {heading.label}
@@ -204,7 +308,7 @@ export default function TiptapEditor(props) {
                       editor.chain().focus().setParagraph().run();
                       setShowHeadings(false);
                     }}
-                    className="mt-1 w-full rounded-lg px-3 py-2 text-left text-sm text-slate-600 transition hover:bg-slate-50"
+                    className="mt-1 w-full rounded-lg px-3 py-2 text-left text-sm text-slate-600 dark:text-white  transition hover:bg-slate-50 hover:text-black"
                   >
                     Paragraph
                   </button>
@@ -273,18 +377,7 @@ export default function TiptapEditor(props) {
           </ToolbarGroup>
 
           <ToolbarGroup label="Colors">
-            {/* <div className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-2 py-1">
-              <input
-                type="color"
-                value={customColor}
-                onChange={(e) => {
-                  setCustomColor(e.target.value);
-                  editor.chain().focus().setColor(e.target.value).run();
-                }}
-                className="h-7 w-7 cursor-pointer rounded border border-slate-200"
-              />
-              <span className="text-xs font-semibold text-slate-600">Text</span>
-            </div> */}
+            
             <div className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-2 py-1">
               <input
                 type="color"
@@ -318,6 +411,7 @@ export default function TiptapEditor(props) {
             >
               <ImageIcon className="h-4 w-4" />
             </ToolbarButton>
+
             <label className="flex cursor-pointer items-center rounded-lg border border-slate-200 bg-white px-3 py-2 text-slate-600 transition hover:bg-indigo-50">
               <Upload className="h-4 w-4" />
               <input
@@ -327,6 +421,7 @@ export default function TiptapEditor(props) {
                 onChange={handleFileUpload}
               />
             </label>
+            <label className="cursor-pointer"></label>
             <ToolbarButton
               onClick={() => setVideoPopup(true)}
               title="Insert YouTube video"
@@ -455,7 +550,20 @@ export default function TiptapEditor(props) {
           onChange={setImageUrl}
           onClose={() => setImagePopup(false)}
           onConfirm={handleAddImage}
+          tabs={2}
           placeholder="https://example.com/image.jpg"
+          comps={[
+            {
+              label: 'Upload Image',
+              component: (
+                <ImageUploadCustom
+                  setImageUrl={setImageUrl}
+                  editor={editor}
+                  setImagePopup={setImagePopup}
+                />
+              ),
+            },
+          ]}
         />
       )}
 
@@ -519,10 +627,13 @@ const PopupCard = ({
   onClose,
   onConfirm,
   placeholder,
-}) => (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
-    <div className="w-full max-w-sm rounded-2xl border border-white/30 bg-white/95 p-6 shadow-2xl backdrop-blur-xl">
-      <h3 className="mb-4 text-lg font-semibold text-slate-800">{title}</h3>
+  tabs = 1,
+  comps = [],
+}) => {
+  const [activeTab, setActiveTab] = useState(0);
+
+  const defaultTab = (
+    <div className="space-y-4">
       <input
         type="text"
         value={value}
@@ -530,22 +641,61 @@ const PopupCard = ({
         placeholder={placeholder}
         className="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-slate-700 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
       />
-      <div className="mt-5 flex justify-end gap-2">
-        <button
-          type="button"
-          onClick={onClose}
-          className="rounded-lg border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100"
-        >
-          Cancel
-        </button>
-        <button
-          type="button"
-          onClick={onConfirm}
-          className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow hover:bg-indigo-700"
-        >
-          Insert
-        </button>
+    </div>
+  );
+
+  const allTabs =
+    tabs === 1 ? ['Add Link'] : ['Add Link', ...comps.map((c) => c.label)];
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4 space-y-2 ">
+      <div className="w-full max-w-sm rounded-2xl border border-white/30 bg-white/95 p-6  shadow-2xl backdrop-blur-xl">
+        {tabs <= 1 && (
+          <h3 className="mb-4 text-lg font-semibold text-slate-800">{title}</h3>
+        )}
+        {/* TAB HEADERS */}
+        {tabs > 1 && (
+          <div className="flex mb-4 border-b">
+            {allTabs.map((tab, index) => (
+              <div key={index}>
+                <button
+                  type="button" // Add type="button" here
+                  className={`px-4 py-2 text-sm font-medium transition ${
+                    activeTab == index
+                      ? 'border-b-2 border-indigo-600 text-indigo-600'
+                      : 'text-slate-500 hover:text-indigo-500'
+                  }`}
+                  onClick={() => setActiveTab(index)}
+                >
+                  {tab}
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* TAB CONTENT */}
+        {activeTab === 0 ? defaultTab : comps[activeTab - 1]?.component ?? null}
+
+        {/* ACTION BUTTONS */}
+        <div className="mt-5 flex justify-end gap-2">
+          <button
+            type="button" // Add type="button" here
+            onClick={onClose}
+            className="rounded-lg border border-slate-200 px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="button" // Add type="button" here
+            onClick={onConfirm}
+            className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow hover:bg-indigo-700"
+          >
+            Insert
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};

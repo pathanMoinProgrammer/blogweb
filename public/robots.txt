@@ -1,0 +1,60 @@
+# ExploretheBuzz Robots.txt - SEO & AdSense Optimized
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /my-profile/
+Disallow: /*?*sort=
+Disallow: /*?*filter=
+Disallow: /_next/
+Disallow: /404
+Disallow: /500
+
+# Google Crawlers - Full Access
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Googlebot-News
+Allow: /
+
+# Google AdSense Bot - Critical for Approval
+User-agent: AdsBot-Google
+Allow: /
+
+User-agent: AdsBot-Google-Mobile
+Allow: /
+
+User-agent: Mediapartners-Google
+Allow: /
+
+# Bing Crawler
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Social Media Crawlers
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+# Sitemaps
+Sitemap: https://explorethebuzz.com/sitemap.xml
+Sitemap: https://explorethebuzz.com/en/sitemap.xml
+Sitemap: https://explorethebuzz.com/hi/sitemap.xml
+Sitemap: https://explorethebuzz.com/es/sitemap.xml
+Sitemap: https://explorethebuzz.com/pt/sitemap.xml
+Sitemap: https://explorethebuzz.com/zh/sitemap.xml
+
+# Host
+Host: https://explorethebuzz.com

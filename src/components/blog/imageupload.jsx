@@ -14,8 +14,8 @@ function ImageUploader({ imgUrl, setImgUrl }) {
       setErrorMsg('Only JPG, PNG, or WEBP files allowed.');
       return;
     }
-    if (file.size > 10 * 1024 * 1024) {
-      setErrorMsg('Image too large (max 10 MB).');
+    if (file.size > 2 * 1024 * 1024) {
+      setErrorMsg('Image too large (max 2 MB).');
       return;
     }
 
@@ -51,14 +51,12 @@ function ImageUploader({ imgUrl, setImgUrl }) {
 
   return (
     <div className="h-[100%]  flex flex-col bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
-      {/* Header */}
       <div className=" top-0 bg-gray-50 dark:bg-gray-800 px-6 py-4 border-b border-gray-200 dark:border-gray-700 z-10">
         <label className=" text-sm font-semibold text-gray-700 dark:text-white">
           🖼️ Cover Image
         </label>
       </div>
 
-      {/* Drop Zone */}
       <div className="flex-1 p-6 overflow-y-auto">
         <div
           onDrop={onDrop}
@@ -113,7 +111,7 @@ function ImageUploader({ imgUrl, setImgUrl }) {
                 />
               </svg>
               <p className="text-gray-700 dark:text-gray-300 font-medium">Click or drag image</p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">PNG, JPG, WEBP (max 10 MB)</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">PNG, JPG, WEBP (max 2 MB)</p>
             </div>
           )}
         </div>

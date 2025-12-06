@@ -40,37 +40,37 @@ export default function Navbar() {
           <Button
             variant="ghost"
             onClick={() => handleNavigation(`/${locale}`)}
-            className="text-2xl font-bold text-blue-500 dark:text-white tracking-tight p-0 h-auto hover:bg-transparent cursor-pointer"
+            className="text-2xl font-bold text-blue-500 dark:text-white tracking-tight p-0 h-auto hover:bg-transparent cursor-pointer dark:hover:bg-slate-500/50 p-2"
           >
             {t?.ourblogs || 'Our Blogs'}
           </Button>
 
-          <div className="flex items-center gap-8 ml-6  [&>*]:cursor-pointer">
+          <div className="flex items-center gap-8 ml-6  [&>*]:cursor-pointer  [&>*]:p-2">
             <Button
               variant="ghost"
               onClick={() => handleNavigation(`/${locale}`)}
-              className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium p-0 h-auto hover:bg-transparent"
+              className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium p-0 h-auto hover:bg-transparent dark:hover:bg-slate-500/50"
             >
               {t?.home || 'Home'}
             </Button>
             <Button
               variant="ghost"
               onClick={() => handleNavigation(`/${locale}/about`)}
-              className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium p-0 h-auto hover:bg-transparent"
+              className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium p-0 h-auto hover:bg-transparent dark:hover:bg-slate-500/50"
             >
               {t?.about || 'About'}
             </Button>
             <Button
               variant="ghost"
               onClick={() => handleNavigation(`/${locale}/blogpost`)}
-              className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium p-0 h-auto hover:bg-transparent"
+              className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium p-0 h-auto hover:bg-transparent dark:hover:bg-slate-500/50"
             >
               {t?.blog || 'Blogs'}
             </Button>
             <Button
               variant="ghost"
               onClick={() => handleNavigation(`/${locale}/contact`)}
-              className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium p-0 h-auto hover:bg-transparent"
+              className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium p-0 h-auto hover:bg-transparent dark:hover:bg-slate-500/50"
             >
               {t?.contact || 'Contact'}
             </Button>

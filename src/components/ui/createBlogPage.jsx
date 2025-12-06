@@ -29,7 +29,8 @@ const CreateBlogPage = ({ editorT }) => {
     type,
     inputRefs,
     handleFocusField,
-
+    pendingImages,
+    setPendingImages,
     t,
     notifyT,
     metadataT,
@@ -60,7 +61,6 @@ const CreateBlogPage = ({ editorT }) => {
             metadataT={metadataT}
             reff={inputRefs.title[0]}
             name={'title2'}
-
           />
 
           <div className="max-[1300px]:hidden w-[23%] max-[1400px]:w-[30%] max-[1544px]:w-[28%]">
@@ -95,9 +95,12 @@ const CreateBlogPage = ({ editorT }) => {
               formik={formik}
               editorT={editorT}
               editorRef={inputRefs.editor[0]}
-              name='editor'
+              name="editor"
+              pendingImages={pendingImages}
+              setPendingImages={setPendingImages}
+              setNotifiMessage={setNotifiMessage}
+              setShowNotification={setShowNotification}
             />
-
           </div>
 
           <div className="max-[1300px]:hidden w-[23%] max-[1400px]:w-[30%] max-[1544px]:w-[28%] ">
@@ -131,6 +134,8 @@ const CreateBlogPage = ({ editorT }) => {
           inputRefs={inputRefs}
           metadataT={metadataT}
           editorT={editorT}
+          pendingImages={pendingImages}
+          setPendingImages={setPendingImages}
         />
       </div>
     </form>
