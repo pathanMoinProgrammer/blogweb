@@ -12,7 +12,8 @@ import {
   websiteJsonLd,
 } from '@/lib/seoMetadata';
 
-const ADSENSE_PUB_ID = process.env.NEXT_PUBLIC_ADSENSE_ID || 'ca-pub-xxxxxxxxxxxxxxxx';
+const ADSENSE_PUB_ID =
+  process.env.NEXT_PUBLIC_ADSENSE_ID || 'ca-pub-xxxxxxxxxxxxxxxx';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -83,14 +84,26 @@ export default function RootLayout({ children, params }) {
         <meta name="google-adsense-account" content={ADSENSE_PUB_ID} />
 
         {/* Language Alternates - all supported locales */}
+        {/* Replace the whole block with this correct version */}
         {routing.locales.map((loc) => (
           <link
             key={loc}
             rel="alternate"
             hrefLang={loc}
-            href={`https://explorethebuzz.com/${loc}`}
+            href={`https://www.explorethebuzz.com/${loc === 'en' ? '' : loc}`}
           />
         ))}
+        <link
+          rel="alternate"
+          hrefLang="x-default"
+          href="https://www.explorethebuzz.com"
+        />
+        <link
+          rel="canonical"
+          href={`https://www.explorethebuzz.com${
+            typeof window === 'undefined' ? '' : window.location.pathname
+          }`}
+        />
         <link
           rel="alternate"
           hrefLang="x-default"
@@ -148,7 +161,6 @@ export default function RootLayout({ children, params }) {
             </Script>
           </>
         )}
-
       </body>
     </html>
   );

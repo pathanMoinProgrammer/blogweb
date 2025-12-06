@@ -2,28 +2,43 @@
 import Link from 'next/link';
 import { slugReadRef } from '@/firebase/firebaseAdminRefs';
 
+
 export async function generateMetadata({ params }) {
   const { locale, slug } = await params;
-  // …fetch data if you want dynamic title…
+  const rowDataRef = await slugReadRef(slug).get();
+  let data = {};
+  if (rowDataRef.docs.length > 0) {
+    rowDataRef.docs.forEach((doc) => (data = doc.data()));
+  }
+
   return {
-    title:  'ExploreTheBuzz',
-    description: 'We Provide Quality and Benigifial Blogs To Our Users.',
+    title: data?.title || 'ExploreTheBuzz',
+    description:
+      data?.description || 'Read the latest AI and web development blogs',
     alternates: {
-      canonical: `https://explorethebuzz.com/${locale}/blogpost/${slug}`,
+      canonical: `https://www.explorethebuzz.com/${locale}/blogpost/${slug}`,
+    },
+    openGraph: {
+      title: data?.title,
+      description: data?.description,
+      images: data?.imgUrl ? [data.imgUrl] : [],
+      url: `https://www.explorethebuzz.com/${locale}/blogpost/${slug}`,
+      type: 'article',
     },
   };
 }
 
 const page = async ({ params }) => {
-  let url = "https://explorethebuzz.com/"
+  let url = 'https://explorethebuzz.com/';
+
   const { locale, slug } = await params;
+  const currentUrl = `https://www.explorethebuzz.com/${locale}/blogpost/${slug}`;
   const rowDataRef = await slugReadRef(slug).get();
   let data = {};
 
   if (rowDataRef.docs.length > 0) {
     rowDataRef.docs.forEach((gData) => (data = gData.data()));
   }
-  
 
   return (
     <div className="min-h-screen bg-background">
@@ -91,28 +106,37 @@ const page = async ({ params }) => {
             </svg>
             <span className="dark:text-white">Back to Blogs</span>
           </Link>
-          <div className="flex justify-center gap-4 my-12">
+          <div className="flex justify-center gap-6 my-12">
             <a
               href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(
-                url,
-              )}&text=${data?.title}`}
-              className="p-3 bg-[#1DA1F2] text-white rounded-full"
+                currentUrl,
+              )}&text=${encodeURIComponent(data?.title || '')}`}
+              target="_blank"
+              rel="noopener"
+              className="p-4 bg-[#1DA1F2] text-white rounded-full hover:scale-110 transition"
+              style={{ color: 'white' }}
             >
               Twitter
             </a>
             <a
               href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-                url,
+                currentUrl,
               )}`}
-              className="p-3 bg-[#1877F2] text-white rounded-full"
+              target="_blank"
+              rel="noopener"
+              className="p-4 bg-[#1877F2] text-white rounded-full hover:scale-110 transition"
+              style={{ color: 'white' }}
             >
               Facebook
             </a>
             <a
               href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(
-                url,
-              )}`}
-              className="p-3 bg-[#0A66C2] text-white rounded-full"
+                currentUrl,
+              )}&title=${encodeURIComponent(data?.title || '')}`}
+              target="_blank"
+              rel="noopener"
+              className="p-4 bg-[#0A66C2] text-white rounded-full hover:scale-110 transition"
+              style={{ color: 'white' }}
             >
               LinkedIn
             </a>
