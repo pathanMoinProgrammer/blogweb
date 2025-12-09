@@ -59,7 +59,7 @@ export default function useCreateBlogPage() {
     HtmContent: '',
     author: 'admin',
     type: '',
-    timetoread: "5 minute",
+    timetoread: '5 minute',
     date: getFormattedDateTime('date'),
     hh: getFormattedDateTime('hh-mm').split('-')?.[0],
     mm: getFormattedDateTime('hh-mm').split('-')?.[1],
@@ -258,7 +258,7 @@ export default function useCreateBlogPage() {
 
     for (let i = 0; i < pendingImages.length; i++) {
       const f = pendingImages[i];
-          if (!f) continue;
+      if (!f) continue;
 
       const type = f?.type?.split('/')?.[1]?.toLocaleLowerCase();
 
@@ -287,43 +287,104 @@ export default function useCreateBlogPage() {
     validateOnBlur: true,
     validateOnChange: false,
     enableReinitialize: true,
+    // onSubmit: async (values) => {
+    //   if (!values.type) return;
+    //   if (values.type == 'publish') {
+    //     setType('publish');
+    //     let urls;
+    //     if (pendingImages.length > 0) {
+    //       urls = await uploadImages(values.slug);
+    //     }
+    //     uploadThumbnail(values.slug);
+    //     await handleCreateBlog({
+    //       ...values,
+    //       type: 'publish',
+    //       imagesUploaded: urls?.length >= 0 ? urls?.length : 0,
+    //     });
+
+    //     setType('publish');
+    //     localStorage.removeItem('blogDraft');
+    //     setNotifiMessage({
+    //       type: 'success',
+    //       message: ['Your Blog was Published ✅ Successfully!!'],
+    //     });
+    //     setTimeout(() => {
+    //       setShowNotification(true);
+    //     }, 0);
+    //   } else if (values.type == 'draft') {
+    //     scheduleSaveDraft({ ...values, type: 'draft' });
+
+    //     setType('draft');
+    //     await handleCreateBlog({ ...values, type: 'draft' });
+    //     setType('draft');
+    //     setNotifiMessage({
+    //       type: 'success',
+    //       message: ['Your Blog was Saved to Draft ✅ Successfully'],
+    //     });
+    //     setTimeout(() => {
+    //       setShowNotification(true);
+    //     }, 0);
+    //   }
+    // },
     onSubmit: async (values) => {
       if (!values.type) return;
-      if (values.type == 'publish') {
-        setType('publish');
-        let urls;
-        if (pendingImages.length > 0) {
-          urls = await uploadImages(values.slug);
+
+      try {
+        if (values.type === 'publish') {
+          setType('publish');
+
+          const imageUploadPromise =
+            pendingImages.length > 0
+              ? uploadImages(values.slug)
+              : Promise.resolve([]);
+
+          const thumbnailUploadPromise = uploadThumbnail(values.slug);
+
+          const [uploadedImageUrls, thumbnailUrl] = await Promise.all([
+            imageUploadPromise,
+            thumbnailUploadPromise,
+          ]);
+
+          await handleCreateBlog({
+            ...values,
+            type: 'publish',
+            imagesUploaded: uploadedImageUrls?.length || 0,
+            thumbnailUrl: thumbnailUrl || null,
+          });
+
+          // clear draft
+          localStorage.removeItem('blogDraft');
+
+          setNotifiMessage({
+            type: 'success',
+            message: ['Your Blog was Published ✅ Successfully!!'],
+          });
+
+          setTimeout(() => setShowNotification(true), 0);
         }
-        uploadThumbnail(values.slug);
-        await handleCreateBlog({
-          ...values,
-          type: 'publish',
-          imagesUploaded: urls?.length >= 0 ? urls?.length : 0,
+
+        // ---- SAVE AS DRAFT ----
+        else if (values.type === 'draft') {
+          scheduleSaveDraft({ ...values, type: 'draft' });
+
+          await handleCreateBlog({ ...values, type: 'draft' });
+
+          setNotifiMessage({
+            type: 'success',
+            message: ['Your Blog was Saved to Draft ✅ Successfully'],
+          });
+
+          setTimeout(() => setShowNotification(true), 0);
+        }
+      } catch (err) {
+        console.error('⚠ Serious: Blog submission failed:', err);
+
+        setNotifiMessage({
+          type: 'error',
+          message: ['⚠ Serious: Failed to publish blog. Check console.'],
         });
 
-        setType('publish');
-        localStorage.removeItem('blogDraft');
-        setNotifiMessage({
-          type: 'success',
-          message: ['Your Blog was Published ✅ Successfully!!'],
-        });
-        setTimeout(() => {
-          setShowNotification(true);
-        }, 0);
-      } else if (values.type == 'draft') {
-        scheduleSaveDraft({ ...values, type: 'draft' });
-
-        setType('draft');
-        await handleCreateBlog({ ...values, type: 'draft' });
-        setType('draft');
-        setNotifiMessage({
-          type: 'success',
-          message: ['Your Blog was Saved to Draft ✅ Successfully'],
-        });
-        setTimeout(() => {
-          setShowNotification(true);
-        }, 0);
+        setTimeout(() => setShowNotification(true), 0);
       }
     },
   });

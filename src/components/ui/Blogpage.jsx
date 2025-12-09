@@ -90,7 +90,7 @@ export default async function BlogPage({ params, t }) {
             >
               <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden flex flex-col h-full">
                 {/* IMAGE SECTION */}
-                    {console.log(blog.imgUrl, 'blog img url')}
+                    {/* {console.log(blog.imgUrl, 'blog img url')} */}
                 <div className="relative h-48 w-full overflow-hidden">
                   <Link href={`/${locale}/blogpost/${blog.slug}`}>
                     <img
