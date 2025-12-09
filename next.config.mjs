@@ -16,7 +16,7 @@ const nextConfig = {
   // Ensure Next infers this repository's root (helps locate next-intl config)
   outputFileTracingRoot: resolve(__dirname),
   // Bundle splitting + tree-shaking
-  swcMinify: true,
+  // swcMinify: true,
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
