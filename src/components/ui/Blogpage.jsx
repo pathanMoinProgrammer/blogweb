@@ -90,6 +90,7 @@ export default async function BlogPage({ params, t }) {
             >
               <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden flex flex-col h-full">
                 {/* IMAGE SECTION */}
+                    {console.log(blog.imgUrl, 'blog img url')}
                 <div className="relative h-48 w-full overflow-hidden">
                   <Link href={`/${locale}/blogpost/${blog.slug}`}>
                     <img
@@ -126,7 +127,7 @@ export default async function BlogPage({ params, t }) {
                     <Link
                       href={`/${locale}/blogpost/${blog.slug}`}
                       className="block bg-blue-600 dark:bg-blue-500 w-max dark:text-white text-blacl font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors"
-                      style={{color:"white"}}
+                      style={{ color: 'white' }}
                     >
                       {t.readmore}
                     </Link>
