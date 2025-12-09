@@ -59,6 +59,7 @@ export default function useCreateBlogPage() {
     HtmContent: '',
     author: 'admin',
     type: '',
+    timetoread: "5 minute",
     date: getFormattedDateTime('date'),
     hh: getFormattedDateTime('hh-mm').split('-')?.[0],
     mm: getFormattedDateTime('hh-mm').split('-')?.[1],
@@ -73,6 +74,8 @@ export default function useCreateBlogPage() {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [type, setType] = useState('');
   const [pendingImages, setPendingImages] = useState([]);
+  const [thumbnailFile, setThumbnailFile] = useState(null);
+  const [thumbPreview, setThumbPreview] = useState(null);
   const [isMounted, setIsMounted] = useState(false);
   const [reactions, setReactions] = useState({
     angry: 0,
@@ -206,8 +209,8 @@ export default function useCreateBlogPage() {
     try {
       await setDataWithLang(parentRef, {
         ...values,
-        HtmContent: `${values?.content?.split(0, 20)}...`,
-        content: `${values?.content?.split(0, 20)}...`,
+        HtmContent: `${values?.content.slice(0, 20)}...`,
+        content: `${values?.content?.slice(0, 20)}...`,
         languages: arrayUnion(locale),
         [url]: values.slug,
         slug: arrayUnion(values.slug),
@@ -228,17 +231,41 @@ export default function useCreateBlogPage() {
     }
   };
 
+  const uploadThumbnail = async (slug) => {
+    if (!thumbnailFile) return null;
+
+    const formDataSend = new FormData();
+    formDataSend.append('file', thumbnailFile);
+    formDataSend.append('slug', slug);
+
+    const res = await fetch('/api/upload-thumbnail', {
+      method: 'POST',
+      body: formDataSend,
+    });
+
+    const data = await res.json();
+
+    if (data?.url) {
+      return data.url;
+    } else {
+      console.error('Thumbnail upload failed:', data);
+      return null;
+    }
+  };
+
   const uploadImages = async (slug) => {
     const uploadedUrls = [];
 
     for (let i = 0; i < pendingImages.length; i++) {
       const f = pendingImages[i];
+          if (!f) continue;
 
       const type = f?.type?.split('/')?.[1]?.toLocaleLowerCase();
 
       const formDataSend = new FormData();
       formDataSend.append('file', f);
       formDataSend.append('slug', slug);
+      formDataSend.append('name', f.name.split('.')[0]);
       formDataSend.append('index', i);
       formDataSend.append('type', type);
 
@@ -246,11 +273,12 @@ export default function useCreateBlogPage() {
         method: 'POST',
         body: formDataSend,
       });
+      console.log('Upload response for image', i, res);
 
       const data = await res.json();
       uploadedUrls.push(data.url);
-      return uploadedUrls;
     }
+    return uploadedUrls;
   };
 
   const formik = useFormik({
@@ -263,12 +291,15 @@ export default function useCreateBlogPage() {
       if (!values.type) return;
       if (values.type == 'publish') {
         setType('publish');
-        const urls = await uploadImages(values.slug);
-
+        let urls;
+        if (pendingImages.length > 0) {
+          urls = await uploadImages(values.slug);
+        }
+        uploadThumbnail(values.slug);
         await handleCreateBlog({
           ...values,
           type: 'publish',
-          imagesUploaded: urls.length >= 0 ? urls.length : 0,
+          imagesUploaded: urls?.length >= 0 ? urls?.length : 0,
         });
 
         setType('publish');
@@ -337,6 +368,10 @@ export default function useCreateBlogPage() {
     handleFocusField,
     pendingImages,
     setPendingImages,
+    thumbnailFile,
+    setThumbnailFile,
+    thumbPreview,
+    setThumbPreview,
     t,
     notifyT,
     metadataT,

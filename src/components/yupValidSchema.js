@@ -15,7 +15,7 @@ export const blogSchema = Yup.object().shape({
     .min(20, 'Description should be at least 20 characters')
     .required('Description is required'),
   imgUrl: Yup.string()
-    .url('Invalid image URL')
+    // .url('Invalid image URL')
     .required('Image Url is required'),
   author: Yup.string().required('Author name required'),
   date: Yup.date()

@@ -10,6 +10,7 @@ import TiptapEditor from '../blog/joditeditor';
 import { useSafeInputHandler } from '@/hooks/costumHooks/blogMetaDataChecker';
 import useCreateBlogPage from '@/hooks/costumHooks/useCreateBlogPage';
 
+
 const CreateBlogPage = ({ editorT }) => {
   const {
     error,
@@ -31,6 +32,10 @@ const CreateBlogPage = ({ editorT }) => {
     handleFocusField,
     pendingImages,
     setPendingImages,
+    thumbnailFile,
+    setThumbnailFile,
+    thumbPreview,
+    setThumbPreview,
     t,
     notifyT,
     metadataT,
@@ -112,13 +117,19 @@ const CreateBlogPage = ({ editorT }) => {
               setIsFullscreen={setIsFullscreen}
               inputRefs={inputRefs}
               metadataT={metadataT}
+
+              imgUrl={formData.imgUrl}
+
+              setThumbnailFile={setThumbnailFile}
+              thumbPreview={thumbPreview} setThumbPreview={setThumbPreview}
             />
+            
           </div>
         </div>
       </div>
       <div className="min-[1300px]:hidden ">
         <EditorPreviewTabs
-          formData={formData}
+          c
           formik={formik}
           setNotifiMessage={setNotifiMessage}
           isFullscreen={isFullscreen}

@@ -73,7 +73,8 @@ export default function TiptapEditor(props) {
     );
   }
 
-  const { setPendingImages, setNotifiMessage, setShowNotification } = props;
+  const { setPendingImages, setNotifiMessage, setShowNotification, formData } =
+    props;
 
   const ImageUploadCustom = ({ setImageUrl, editor, setImagePopup }) => {
     return (
@@ -92,18 +93,56 @@ export default function TiptapEditor(props) {
           id="image-upload"
           type="file"
           accept="image/*"
+          // onChange={(e) => {
+          //   const file = e.target.files?.[0];
+          //   const acceptable = ['gif', 'png', 'jpeg', 'webp'];
+          //   const filetype = file.type?.split('/')?.[1].toLocaleLowerCase();
+          //   if (!file) return;
+          //   if (file.size > 2 * 1024 * 1024) {
+          //     let message = 'Image size Must be 2 MB or less.';
+          //     setImagePopup(false);
+          //     setShowNotification(true);
+          //     setNotifiMessage({
+          //       type: 'error',
+          //       message: message,
+          //     });
+
+          //     setTimeout(() => {
+          //       setNotifiMessage({ type: '', message: [] });
+          //     }, 2000);
+          //     return;
+          //   }
+
+          //   const localUrl = URL.createObjectURL(file);
+          //   function sanitizeName(str) {
+          //     return str
+          //       .toLowerCase()
+          //       .trim()
+          //       .replace(/[^a-z0-9-_]/g, '-')
+          //       .replace(/-+/g, '-');
+          //   }
+          //   let path = `/uploads/${formData?.slug}/${sanitizeName(file.name.split('.')[0])}.${filetype}`
+          //   setImageUrl(path);
+          //   setImagePopup(false);
+
+          //   props.setPendingImages((prev) => [...prev, file]);
+
+          //   editor.chain().focus().setImage({ src: path }).run();
+          // }}
           onChange={(e) => {
             const file = e.target.files?.[0];
-            const acceptable = ['gif', 'png', 'jpeg', 'webp'];
-            const filetype = file.type?.split('/')?.[1].toLocaleLowerCase();
             if (!file) return;
+
+            const acceptable = ['gif', 'png', 'jpeg', 'webp'];
+            const filetype = file.type?.split('/')[1]?.toLowerCase();
+            if (!acceptable.includes(filetype)) return;
+
             if (file.size > 2 * 1024 * 1024) {
-              let message = 'Image size Must be 2 MB or less.';
               setImagePopup(false);
               setShowNotification(true);
               setNotifiMessage({
                 type: 'error',
-                message: message,
+                message: 'Image size Must be 2 MB or less.',
               });
 
               setTimeout(() => {
@@ -111,31 +150,44 @@ export default function TiptapEditor(props) {
               }, 2000);
               return;
             }
-            //  else if (!acceptable.includes(filetype)) {
-            //   let message = 'Upoading File Should be Either Image or Gif';
-            //   setImagePopup(false);
+            function sanitizeName(str) {
+              return str
+                .toLowerCase()
+                .trim()
+                .replace(/[^a-z0-9-_]/g, '-')
+                .replace(/-+/g, '-');
+            }
 
-            //   setShowNotification(true);
+            let baseName = sanitizeName(file.name.split('.')[0]);
 
-            //   setNotifiMessage({
-            //     type: 'error',
-            //     message: message,
-            //   });
+            let finalName = `${baseName}.${filetype}`;
 
-            //   setTimeout(() => {
-            //     setNotifiMessage({ type: '', message: [] });
-            //   }, 2000);
-            //   return;
-            // }
+            const pending = props.pendingImages || [];
+            const existingNames = pending.map(
+              (f) =>
+                sanitizeName(f.name.split('.')[0]) + '.' + f.type.split('/')[1],
+            );
 
-            const localUrl = URL.createObjectURL(file);
+            let counter = 1;
+            while (existingNames.includes(finalName)) {
+              finalName = `${baseName} (${counter}).${filetype}`;
+              counter++;
+            }
 
-            setImageUrl(localUrl);
+            const path = `/uploads/${
+              formData.slug !== '' ? formData.slug : props?.formik?.values?.slug
+            }/${finalName}`;
+
+            setImageUrl(path);
             setImagePopup(false);
 
-            props.setPendingImages((prev) => [...prev, file]);
+            const renamedFile = new File([file], finalName, {
+              type: file.type,
+            });
 
-            editor.chain().focus().setImage({ src: localUrl }).run();
+            props.setPendingImages((prev) => [...prev, renamedFile]);
+
+            editor.chain().focus().setImage({ src: path }).run();
           }}
           className="hidden"
         />
@@ -377,7 +429,6 @@ export default function TiptapEditor(props) {
           </ToolbarGroup>
 
           <ToolbarGroup label="Colors">
-            
             <div className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-2 py-1">
               <input
                 type="color"

@@ -53,31 +53,106 @@
 //   }
 // }
 
+// import { writeFile, mkdir } from "fs/promises";
+// import path from "path";
+
+// export async function POST(req) {
+//   try {
+//     const data = await req.formData();
+//     const file = data.get("file"); // single file
+//     const slug = data.get("slug");
+//     const index = data.get("index");
+//     const type = data.get("type");
+
+//     if (!file) {
+//       return new Response(JSON.stringify({ error: "No file received" }), {
+//         status: 400,
+//       });
+//     }
+
+//     const bytes = await file.arrayBuffer();
+//     const buffer = Buffer.from(bytes);
+
+//     const uploadDir = path.join(process.cwd(), "public/uploads", slug);
+//     await mkdir(uploadDir, { recursive: true });
+
+//     const filePath = path.join(uploadDir, `image-${index}.${type}`);
+//     await writeFile(filePath, buffer);
+
+//     return new Response(
+//       JSON.stringify({
+//         url: `/uploads/${slug}/image-${index}.${type}`,
+//       }),
+//       { status: 200 }
+//     );
+//   } catch (error) {
+//     console.error("UPLOAD ERROR:", error);
+//     return new Response(JSON.stringify({ url: null }), { status: 500 });
+//   }
+// }
 
 
 
-import { writeFile, mkdir } from "fs/promises";
+
+
+import { writeFile, mkdir, readdir } from "fs/promises";
 import path from "path";
 
+// Remove special chars + spaces
+function sanitizeName(str) {
+  return str
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9-_]/g, "-") // keep only a-z 0-9 - _
+    .replace(/-+/g, "-");
+}
+
 export async function POST(req) {
-  const data = await req.formData();
-  const file = data.get("file");
-  const slug = data.get("slug");
-  const index = data.get("index");
-  const type = data.get("type")
+  try {
+    const data = await req.formData();
+    const file = data.get("file");
+    let slug = data.get("slug");
+    let name = data.get("name");
+    const index = data.get("index");
+    const type = data.get("type")?.toLowerCase();
 
-  const bytes = await file.arrayBuffer();
-  const buffer = Buffer.from(bytes);
+    if (!file) {
+      return new Response(JSON.stringify({ error: "No file received" }), { status: 400 });
+    }
 
-  const uploadDir = path.join(process.cwd(), "public/uploads", slug);
+    name = sanitizeName(name); // sanitize folder
 
-  await mkdir(uploadDir, { recursive: true });
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
 
-  const filePath = path.join(uploadDir, `image-${index}.${type}`);
-  await writeFile(filePath, buffer);
+    const uploadDir = path.join(process.cwd(), "public/uploads", slug);
+    await mkdir(uploadDir, { recursive: true });
 
-  return new Response(
-    JSON.stringify({ url: `/uploads/${slug}/image-${index}.${type}` }),
-    { status: 200 }
-  );
+    // Base filename
+    let filename = `${name}.${type}`;
+    let filePath = path.join(uploadDir, filename);
+
+    // If exists → generate new name: image-0 (1).jpg
+    const existingFiles = await readdir(uploadDir);
+    let counter = 1;
+
+    while (existingFiles.includes(filename)) {
+      filename = `image-${index} (${counter}).${type}`;
+      filePath = path.join(uploadDir, filename);
+      counter++;
+    }
+
+    await writeFile(filePath, buffer);
+
+    return new Response(
+      JSON.stringify({
+        url: `/uploads/${slug}/${filename}`,
+      }),
+      { status: 200 }
+    );
+
+  } catch (err) {
+    console.error("UPLOAD ERROR:", err);
+    return new Response(JSON.stringify({ url: null }), { status: 500 });
+  }
 }

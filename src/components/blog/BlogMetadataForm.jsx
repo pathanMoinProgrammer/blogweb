@@ -4,6 +4,7 @@ import { useSafeInputHandler } from '@/hooks/costumHooks/blogMetaDataChecker';
 import BlogTitle from '../ui/blogTitle';
 import { useGameTranslations } from '../traslatorclient';
 import { useEffect } from 'react';
+import ImageUploader from './imageupload';
 
 leoProfanity.loadDictionary();
 
@@ -11,6 +12,9 @@ const BlogMetadataForm = ({
   formik,
   isFullscreen,
   setIsFullscreen,
+  setThumbnailFile,
+  thumbPreview,
+  setThumbPreview,
   metadataT,
   inputRefs,
 }) => {
@@ -114,6 +118,27 @@ const BlogMetadataForm = ({
           <p className="text-red-500 text-sm mt-1">{errors.description}</p>
         )}
       </div>
+      <div className="max-[1400px]:*:text-[13px] max-[1544px]:*:text-[12px] *:text-[14px]">
+        <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-white">
+          {"Times To Read"}{' '}
+          <span className="text-purple-500">*</span>
+        </label>
+        <input
+          type='text'
+          name="timetoread"
+          value={values.timetoread}
+          onChange={handleSafeChange}
+          onBlur={handleBlur}
+          className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
+            focus:ring-2 focus:ring-blue-500 focus:border-transparent 
+            bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+          placeholder={ "e.g., 5 minute"}
+        />
+        {renderWarning('description')}
+        {/* {touched.description && errors.description && (
+          <p className="text-red-500 text-sm mt-1">{errors.description}</p>
+        )} */}
+      </div>
 
       <div className="max-[1400px]:*:text-[13px] max-[1544px]:*:text-[12px] *:text-[14px]">
         <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-white">
@@ -161,7 +186,7 @@ const BlogMetadataForm = ({
             placeholder={metadataT?.author?.label}
           />
         </div>
-          {touched.author && errors.author && (
+        {touched.author && errors.author && (
           <p className="text-red-500 text-sm mt-1">{errors.author}</p>
         )}
       </div>
@@ -243,7 +268,7 @@ const BlogMetadataForm = ({
         </div>
       </div>
 
-      {values.imgUrl && (
+      {/* {values.imgUrl && (
         <div
           className="mt-3 h-[30%] relative group cursor-pointer"
           onClick={() => setIsFullscreen(true)}
@@ -262,7 +287,14 @@ const BlogMetadataForm = ({
             {metadataT?.imagePreview?.clickToFullscreen}
           </div>
         </div>
-      )}
+      )} */}
+
+      <ImageUploader
+        setThumbnailFile={setThumbnailFile}
+        thumbPreview={thumbPreview}
+        formik={formik}
+        setThumbPreview={setThumbPreview}
+      />
 
       {isFullscreen && (
         <div
