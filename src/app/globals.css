@@ -125,7 +125,7 @@
 }
 
 .prose-content {
-  @apply max-w-4xl mx-auto;
+  @apply max-w-7xl mx-auto;
   font-size: 1rem;
   line-height: 1.65;
   color: oklch(0.25 0 0);

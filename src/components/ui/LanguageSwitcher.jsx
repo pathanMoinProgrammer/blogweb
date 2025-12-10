@@ -8,20 +8,13 @@ import {
 } from './select';
 import { useParams, usePathname, useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import { languages } from '@/lib/availableLangs';
 
 export default function LanguageSwitcher({ posts }) {
   const router = useRouter();
   const params = useParams();
   const pathname = usePathname();
   const [langs, setLangs] = useState([]);
-  const languages = [
-    { code: 'en', label: 'English  (en)' },
-    { code: 'hi', label: 'हिन्दी  (hi)' },
-    { code: 'pt', label: 'Português  (pt)' },
-    { code: 'zh', label: '中文  (zh)' },
-    { code: 'pt-BR', label: 'Português (Brasil)  (pt-BR)' },
-    { code: 'es', label: 'Español  (es)' },
-  ];
 
   const [, locale, ...rest] = pathname.split('/');
   const restUrl = rest.join('/');

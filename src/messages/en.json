@@ -13,7 +13,8 @@
     "TopBlogs": "Top Blogs",
     "Discover": "Discover the most popular articles from our community of writers andexperts.",
     "readmore": "Read More ",
-    "ourblogs": "Our Latest Blogs"
+    "ourblogs": "Our Latest Blogs",
+    "noBlogs": "No blogs available for language English."
   },
   "blogAdmin": {
     "title": "Blog Admin Dashboard",

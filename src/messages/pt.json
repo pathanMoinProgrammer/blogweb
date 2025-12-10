@@ -13,7 +13,8 @@
     "TopBlogs": "Blogs Principais",
     "Discover": "Descubra os artigos mais populares da nossa comunidade de escritores e especialistas.",
     "readmore": "Ler mais ",
-    "ourblogs": "Os Nossos Últimos Blogs"
+    "ourblogs": "Os Nossos Últimos Blogs",
+    "noBlogs": "Não há blogs disponíveis para o idioma português."
   },
   "blogAdmin": {
     "title": "Painel de Administração de Blogs",

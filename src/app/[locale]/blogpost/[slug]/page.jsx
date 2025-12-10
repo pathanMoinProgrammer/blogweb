@@ -77,7 +77,7 @@ const page = async ({ params }) => {
           )}
         </header>
 
-        <section className="bg-card rounded-xl shadow-lg p-1 md:p-12 mb-12">
+        <section className="bg-card rounded-xl shadow-lg p-1  mb-12">
           {data?.content && (
             <div
               className="prose-content"
