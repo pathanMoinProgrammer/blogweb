@@ -76,22 +76,41 @@ export default function RootLayout({ children, params }) {
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
-  <meta name="google-adsense-account" content={ADSENSE_PUB_ID} />
+        <meta name="google-adsense-account" content={ADSENSE_PUB_ID} />
 
-  {/* Correct hreflang + self-referential */}
-  {routing.locales.map((loc) => (
-    <link
-      key={loc}
-      rel="alternate"
-      hrefLang={loc}
-      href={`https://www.explorethebuzz.com/${loc === 'en' ? '' : loc}`}
-    />
-  ))}
-  <link rel="alternate" hrefLang="x-default" href="https://www.explorethebuzz.com" />
+        {/* Correct hreflang setup */}
+        {routing.locales.map((loc) => (
+          <link
+            key={loc}
+            rel="alternate"
+            hrefLang={loc}
+            href={`https://www.explorethebuzz.com/${loc === 'en' ? '' : loc}`}
+          />
+        ))}
+        <link
+          rel="alternate"
+          hrefLang="x-default"
+          href="https://www.explorethebuzz.com"
+        />
 
-  <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
-  <link rel="preconnect" href="https://googleads.g.doubleclick.net" />
-</head>
+        <link
+          rel="preconnect"
+          href="https://pagead2.googlesyndication.com"
+        />
+        <link
+          rel="preconnect"
+          href="https://googleads.g.doubleclick.net"
+        />
+
+        {/* --- AdSense Script (Correct Position) --- */}
+        <Script
+          async
+          strategy="afterInteractive"
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_PUB_ID}`}
+          crossOrigin="anonymous"
+        />
+      </head>
+
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
@@ -108,7 +127,7 @@ export default function RootLayout({ children, params }) {
           </NextIntlClientProvider>
         </ThemeProvider>
 
-        {/* Google Analytics - loads after page is interactive */}
+        {/* Google Analytics */}
         {process.env.NEXT_PUBLIC_GA_ID && (
           <>
             <Script
