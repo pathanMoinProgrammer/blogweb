@@ -23,7 +23,7 @@ export default function ContactPage() {
             want to hear it.
           </p>
           <p className="text-2xl font-bold text-primary mt-8">
-            contact@explorethebuzz.com
+    explorethebuz@gmail.com
           </p>
           <p>
             Average response time: <strong>under 24 hours</strong> (often same
@@ -60,7 +60,7 @@ export default function ContactPage() {
           </p>
 
           <p className="text-2xl font-bold text-primary">
-            Email us at: contact@explorethebuzz.com
+            Email us at: explorethebuz@gmail.com
           </p>
 
           <p>

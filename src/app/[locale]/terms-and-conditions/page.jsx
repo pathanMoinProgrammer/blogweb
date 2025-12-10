@@ -87,7 +87,7 @@ export default function TermsPage() {
           </p>
 
           <p className="text-sm italic">
-            Questions? Reach out: contact@explorethebuzz.com
+            Questions? Reach out: explorethebuz@gmail.com
           </p>
         </div>
       </div>

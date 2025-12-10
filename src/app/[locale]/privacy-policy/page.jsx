@@ -106,7 +106,7 @@ export default function PrivacyPolicy() {
           </p>
 
           <p className="text-sm italic">
-            Questions? Email: contact@explorethebuzz.com
+            Questions? Email: explorethebuz@gmail.com
           </p>
         </div>
       </div>
