@@ -3,7 +3,7 @@
 # Follow these steps to complete your SEO setup
 
 echo "====================================="
-echo "BlogWeb SEO Configuration Guide"
+echo "explorethebuzz SEO Configuration Guide"
 echo "====================================="
 echo ""
 

@@ -18,7 +18,7 @@ export async function GET(request) {
       blogs.push({
         title: data.title,
         description: data.description || data.excerpt || '',
-        author: data.author || 'BlogWeb Team',
+        author: data.author || 'explorethebuzz Team',
         pubDate:
           data.createdAt?.toDate?.()?.toUTCString?.() ||
           new Date().toUTCString(),

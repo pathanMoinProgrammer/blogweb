@@ -449,7 +449,7 @@
 
 .dark .prose-content hr {
   height: 6px;
-  background: linear-gradient(90deg, oklch(0.35 0.1 162), oklch(0.55 0.15 162), oklch(0.35 0.1 162));
+  background: linear-gradient(90deg, oklch(57.787% 0.08777 163.396), oklch(61.903% 0.07375 210.959), oklch(64.045% 0.11734 161.251));
   box-shadow: 0 2px 6px rgba(255, 255, 255, 0.1);
 }
 

@@ -4,8 +4,8 @@ import { Suspense } from 'react';
 import SkeletonLoader from '@/components/ui/adminLoader';
 
 export const metadata = {
-  title: 'My Profile | BlogWeb',
-  description: 'Manage your blog posts and profile on BlogWeb',
+  title: 'My Profile | ExploreTheBuzz',
+  description: 'Manage your blog posts and profile on ExploreTheBuzz.',
   robots: {
     index: false,
     follow: false,

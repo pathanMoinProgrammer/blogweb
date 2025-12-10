@@ -75,60 +75,25 @@ export default function RootLayout({ children, params }) {
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
-        {/* Google AdSense - Required for approval */}
-        {/* <script
-          async
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_PUB_ID}`}
-          crossOrigin="anonymous"
-        /> */}
-        <meta name="google-adsense-account" content={ADSENSE_PUB_ID} />
+  <meta name="google-adsense-account" content={ADSENSE_PUB_ID} />
 
-        {/* Language Alternates - all supported locales */}
-        {/* Replace the whole block with this correct version */}
-        {routing.locales.map((loc) => (
-          <link
-            key={loc}
-            rel="alternate"
-            hrefLang={loc}
-            href={`https://www.explorethebuzz.com/${loc === 'en' ? '' : loc}`}
-          />
-        ))}
-        <link
-          rel="alternate"
-          hrefLang="x-default"
-          href="https://www.explorethebuzz.com"
-        />
-        <link
-          rel="canonical"
-          href={`https://www.explorethebuzz.com${
-            typeof window === 'undefined' ? '' : window.location.pathname
-          }`}
-        />
-        <link
-          rel="alternate"
-          hrefLang="x-default"
-          href="https://explorethebuzz.com"
-        />
+  {/* Correct hreflang + self-referential */}
+  {routing.locales.map((loc) => (
+    <link
+      key={loc}
+      rel="alternate"
+      hrefLang={loc}
+      href={`https://www.explorethebuzz.com/${loc === 'en' ? '' : loc}`}
+    />
+  ))}
+  <link rel="alternate" hrefLang="x-default" href="https://www.explorethebuzz.com" />
 
-        {/* Preconnect for performance */}
-        <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
-        <link rel="preconnect" href="https://googleads.g.doubleclick.net" />
-        <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+  {/* Let Next.js handle canonical automatically — DO NOT hardcode */}
+  {/* Remove your manual <link rel="canonical"> — it's causing conflicts */}
 
-        {/* JSON-LD Structured Data */}
-        {/* <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationJsonLd),
-          }}
-        /> */}
-        {/* <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(websiteJsonLd),
-          }}
-        /> */}
-      </head>
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+  <link rel="preconnect" href="https://googleads.g.doubleclick.net" />
+</head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

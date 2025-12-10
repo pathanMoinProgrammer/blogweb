@@ -1,30 +1,30 @@
 /**
  * SEO Configuration and Best Practices
- * This file documents all SEO improvements made to the BlogWeb project
+ * This file documents all SEO improvements made to the explorethebuzz project
  */
 
 export const SEO_CONFIG = {
   // Site Information
-  SITE_NAME: 'BlogWeb',
+  SITE_NAME: 'ExploreTheBuzz',
   SITE_URL: 'https://explorethebuzz.com',
   SITE_TITLE: 'ExploreTheBuzz - Your Source for Tech & Innovation Blogs',
   SITE_DESCRIPTION:
     'Discover insightful articles about AI, ChatGPT, Gemini, technology, and innovation. Read expert blog posts and tutorials.',
 
   // Locales
-  LOCALES: ['en', 'hi'],
+  LOCALES: ['en', 'hi', 'es', 'fr', 'de'],
   DEFAULT_LOCALE: 'en',
 
   // Contact Information
-  CONTACT_EMAIL: 'info@explorethebuzz.com',
-  AUTHOR: 'BlogWeb Team',
+  CONTACT_EMAIL: 'mindmeritsapp@gmail.com',
+  AUTHOR: 'ExploreTheBuzz Team',
 
   // Social Media
   SOCIAL_LINKS: {
-    twitter: 'https://twitter.com/blogweb',
-    facebook: 'https://facebook.com/blogweb',
-    linkedin: 'https://linkedin.com/company/blogweb',
-    github: 'https://github.com/blogweb',
+    twitter: 'https://twitter.com/mindmerits',
+    facebook: 'https://facebook.com/mindmerits',
+    linkedin: 'https://linkedin.com/company/mindmerits',
+    github: 'https://github.com/mindmerits',
   },
 
   // AdSense & Analytics (Update with actual IDs)

@@ -1,8 +1,8 @@
-# BlogWeb SEO - Quick Reference Guide
+# explorethebuzz SEO - Quick Reference Guide
 
 ## 🚀 What Was Done
 
-Your BlogWeb project now has **enterprise-grade SEO optimization** including:
+Your explorethebuzz project now has **enterprise-grade SEO optimization** including:
 
 ### Meta Tags & Headers
 

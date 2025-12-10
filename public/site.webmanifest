@@ -1,7 +1,7 @@
 {
-  "name": "BlogWeb - Your Source for Tech & Innovation Blogs",
-  "short_name": "BlogWeb",
-  "description": "Discover insightful articles about AI, ChatGPT, Gemini, technology, and innovation. Read expert blog posts and tutorials.",
+  "name": "ExploreTheBuzz - Your Source for Tech & Innovation Blogs",
+  "short_name": "ExploreTheBuzz",
+  "description": "Discover insightful articles about AI Automate, technology, and innovation, Crypto Currency & Scame Awareness. Read expert blog posts and tutorials.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
