@@ -9,10 +9,10 @@ export default async function Page({ params }) {
   return (
     <section className="py-16 px-4 bg-linear-to-b from-white to-gray-100 dark:from-gray-900 dark:to-gray-800 min-h-screen relative">
       <div className="max-w-380 mx-auto">
-        <h1 className="text-3xl md:text-5xl font-bold text-center mb-12 text-gray-900 dark:text-white">
+       <h1 className="text-3xl md:text-5xl font-bold text-center mb-12 text-gray-900 dark:text-white">
           {t.ourblogs || 'Latest Technology, AI & Innovation Blogs'}
         </h1>
-        <p className="text-xl md:text-2xl  text-muted-foreground  mx-auto mb-10 leading-relaxed">
+        {/* <p className="text-xl md:text-2xl  text-muted-foreground  mx-auto mb-10 leading-relaxed">
           ExploreTheBuzz is the growing blog website for developers & Traders
           who want to stay ahead in artificial intelligence automation, Deep
           Knowledge of Crypto Currency. Every Tuesday , we publish
@@ -32,7 +32,7 @@ export default async function Page({ params }) {
           <br />
           If you’re tired of shallow listicles and want content that saves you
           hours of debugging — you’re in the right place.
-        </p>
+        </p> */}
 
         <Suspense
           fallback={
