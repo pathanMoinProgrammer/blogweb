@@ -14,7 +14,7 @@ import {
 import FirebaseAnalytics from '@/components/FirebaseAnalytics';
 
 const ADSENSE_PUB_ID =
-  process.env.NEXT_PUBLIC_ADSENSE_ID || 'ca-pub-xxxxxxxxxxxxxxxx';
+  process.env.NEXT_PUBLIC_ADSENSE_ID;
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -76,9 +76,10 @@ export default function RootLayout({ children, params }) {
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
+        {/* Google AdSense Account Verification Meta */}
         <meta name="google-adsense-account" content={ADSENSE_PUB_ID} />
 
-        {/* Correct hreflang setup */}
+        {/* Hreflang setup */}
         {routing.locales.map((loc) => (
           <link
             key={loc}
@@ -93,16 +94,10 @@ export default function RootLayout({ children, params }) {
           href="https://www.explorethebuzz.com"
         />
 
-        <link
-          rel="preconnect"
-          href="https://pagead2.googlesyndication.com"
-        />
-        <link
-          rel="preconnect"
-          href="https://googleads.g.doubleclick.net"
-        />
+        <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+        <link rel="preconnect" href="https://googleads.g.doubleclick.net" />
 
-        {/* --- AdSense Script (Correct Position) --- */}
+        {/* AdSense Script */}
         <Script
           async
           strategy="afterInteractive"
