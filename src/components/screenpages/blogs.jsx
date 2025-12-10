@@ -18,9 +18,9 @@ export async function BlogSection({ params }) {
     <section className="py-16 px-4 bg-background">
       <div className="max-w-[80%] mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white md:text-4xl">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white md:text-4xl">
             {t.TopBlogs}
-          </h2>
+          </h1>
           <p className="mt-4 text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
             {t.Discover}
           </p>
@@ -44,9 +44,9 @@ export async function BlogSection({ params }) {
                       <time className="text-sm text-indigo-600 dark:text-indigo-400 font-medium">
                         {blog.date}
                       </time>
-                      <h3 className="mt-2 text-xl font-semibold text-gray-900 dark:text-white line-clamp-2">
+                      <strong className="mt-2 text-xl font-semibold text-gray-900 dark:text-white line-clamp-2">
                         {blog.title?.slice(0, 25)}...
-                      </h3>
+                      </strong>
                       <p className="mt-3 text-gray-600 dark:text-gray-400 line-clamp-3">
                         {(blog.excerpt || blog.description)?.slice(0, 50)}
                         {(blog.excerpt || blog.description)?.length > 50 &&

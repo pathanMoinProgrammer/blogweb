@@ -25,9 +25,9 @@ const BlogMetadataForm = ({
 
   return (
     <div className="w-full min-h-[900px]  space-y-4 p-6  border border-gray-300  dark:border-gray-700 bg-slate-50 dark:bg-gray-800">
-      <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+      <h1 className="text-xl font-semibold text-gray-900 dark:text-white">
         {metadataT?.title}
-      </h2>
+      </h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-[1400px]:[&>*>*]:text-[13px] max-[1544px]:[&>*>*]:text-[12px] *:text-[14px]">
         <div>
