@@ -11,6 +11,7 @@ import {
   organizationJsonLd,
   websiteJsonLd,
 } from '@/lib/seoMetadata';
+import FirebaseAnalytics from '@/components/FirebaseAnalytics';
 
 const ADSENSE_PUB_ID =
   process.env.NEXT_PUBLIC_ADSENSE_ID || 'ca-pub-xxxxxxxxxxxxxxxx';
@@ -88,9 +89,6 @@ export default function RootLayout({ children, params }) {
   ))}
   <link rel="alternate" hrefLang="x-default" href="https://www.explorethebuzz.com" />
 
-  {/* Let Next.js handle canonical automatically — DO NOT hardcode */}
-  {/* Remove your manual <link rel="canonical"> — it's causing conflicts */}
-
   <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
   <link rel="preconnect" href="https://googleads.g.doubleclick.net" />
 </head>
@@ -105,6 +103,7 @@ export default function RootLayout({ children, params }) {
         >
           <NextIntlClientProvider>
             <Navbar />
+            <FirebaseAnalytics />
             {children}
           </NextIntlClientProvider>
         </ThemeProvider>

@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.explorethebuzz.com/es
+
+# Sitemaps
+Sitemap: https://www.explorethebuzz.com/es/sitemap.xml
