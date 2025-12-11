@@ -1,28 +1,70 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { routing } from '../../i18n/routing';
 import { redirect } from 'next/navigation';
 import BlogPage from './blogpost/page';
 import { getTranslations } from '@/components/traslator';
-import TopComponentHome from '@/components/screenpages/TopComponentHome';
 
 export const dynamic = 'force-static';
 export const revalidate = 300;
-export const currentDomain = 'https://www.explorethebuzz.com';
-
+export const currentDomain = 'https://explorethebuzz.com';
 export const metadata = {
-  title: 'ExploreTheBuzz – AI, ChatGPT & Next.js Blogs',
+  title: {
+    default: 'ExploreTheBuzz – Crypto, AI Automation & Scam Awareness Blogs',
+    template: '%s | ExploreTheBuzz',
+  },
   description:
-    'In-depth tutorials on AI, ChatGPT, Gemini, Next.js 14, React, Tailwind CSS, and Firebase. New articles weekly.',
+    'Latest 2025 guides on cryptocurrency earning, AI trading bots, play-to-earn games that actually pay, scam detection, and secure Next.js development.',
+  keywords:
+    'crypto earning 2025, AI trading bot, play to earn games, crypto scams, Next.js tutorial, AI automation, blockchain developer blog',
+  authors: [{ name: 'ExploreTheBuzz Team' }],
+  creator: 'ExploreTheBuzz',
+  publisher: 'ExploreTheBuzz',
+  metadataBase: new URL('https://explorethebuzz.com'),
   alternates: {
-    canonical: 'https://www.explorethebuzz.com',
+    canonical: '/', 
+    languages: Object.fromEntries(
+      routing.locales.map((loc) => [loc, `/${loc}`])
+    ),
+  },
+  openGraph: {
+    title: 'ExploreTheBuzz – Crypto, AI & Scam Awareness Blogs',
+    description:
+      'Real guides on earning with crypto safely, building AI trading systems, spotting scams, and modern web development.',
+    url: 'https://explorethebuzz.com',
+    siteName: 'ExploreTheBuzz',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'ExploreTheBuzz – Crypto & AI Blogs',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ExploreTheBuzz',
+    description: 'Crypto earning, AI automation, scam awareness & Next.js blogs',
+    images: ['/og-image.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 
 export default async function HomePage({ params }) {
   const { locale } = await params;
   if (!routing.locales.includes(locale)) redirect('/en');
-  // const t = await getTranslations(locale, ['Homepage', 'Common']);
   const tRow = await getTranslations(locale, 'Homepage');
   const t = tRow.landingBottom || {};
   const t2 = await getTranslations(locale, 'Homepage');
@@ -149,23 +191,20 @@ export default async function HomePage({ params }) {
       <section>
         <section className="container px-4 py-10 mx-auto lg:h-128 lg:space-x-8 lg:flex lg:items-center">
           <div className="w-full text-center lg:text-left lg:w-1/2 lg:-mt-8">
-            <h2 className="text-3xl leading-snug text-gray-800 dark:text-gray-200 md:text-4xl">
+            <h1 className="text-3xl leading-snug text-gray-800 dark:text-gray-200 md:text-4xl">
               {t2?.tagline1}{' '}
-              <span className="font-semibold">{t2?.tagline2}</span>{' '}
+              <span className="font-semibold">{t2?.tagline2}</span>{' '}<br className="hidden lg:block" />
               {t2?.tagline3} <br className="hidden lg:block" /> {t2?.tagline4}{' '}
-              {/* <span className="font-semibold underline decoration-primary">
-              Tailwind CSS
-            </span> */}
-            </h2>
+            </h1>
             <p className="mt-4 text-lg text-gray-500 dark:text-gray-300">
-              {t2?.tagline5} <br className="hidden lg:block" /> {t2?.tagline6}{' '}
+              {t2?.tagline5} <br className="hidden lg:block" /> 
               <a
                 href="https://appsnap.app/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="underline"
               >
-                {t2?.tagline7}
+                {t2?.tagline6}
               </a>
             </p>
             <div className="mt-6 bg-transparent border rounded-lg dark:border-gray-700 lg:w-2/3 focus-within:border-primary focus-within:ring focus-within:ring-primary dark:focus-within:border-primary focus-within:ring-opacity-20"></div>
@@ -183,7 +222,6 @@ export default async function HomePage({ params }) {
         <div className=" px-1">
           <BlogPage params={params} />
         </div>
-        {/* Bottom Section: Continued Educational Content */}
         <section className="container mx-auto px-4 py-8">
           <div className="text-left text-muted-foreground space-y-4 text-sm md:text-base leading-relaxed">
             <p

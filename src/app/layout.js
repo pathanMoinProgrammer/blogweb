@@ -109,6 +109,7 @@ export default function RootLayout({ children, params }) {
 
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning
       >
         <ThemeProvider
           attribute="class"
