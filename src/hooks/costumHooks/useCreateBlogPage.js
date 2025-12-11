@@ -287,45 +287,7 @@ export default function useCreateBlogPage() {
     validateOnBlur: true,
     validateOnChange: false,
     enableReinitialize: true,
-    // onSubmit: async (values) => {
-    //   if (!values.type) return;
-    //   if (values.type == 'publish') {
-    //     setType('publish');
-    //     let urls;
-    //     if (pendingImages.length > 0) {
-    //       urls = await uploadImages(values.slug);
-    //     }
-    //     uploadThumbnail(values.slug);
-    //     await handleCreateBlog({
-    //       ...values,
-    //       type: 'publish',
-    //       imagesUploaded: urls?.length >= 0 ? urls?.length : 0,
-    //     });
 
-    //     setType('publish');
-    //     localStorage.removeItem('blogDraft');
-    //     setNotifiMessage({
-    //       type: 'success',
-    //       message: ['Your Blog was Published ✅ Successfully!!'],
-    //     });
-    //     setTimeout(() => {
-    //       setShowNotification(true);
-    //     }, 0);
-    //   } else if (values.type == 'draft') {
-    //     scheduleSaveDraft({ ...values, type: 'draft' });
-
-    //     setType('draft');
-    //     await handleCreateBlog({ ...values, type: 'draft' });
-    //     setType('draft');
-    //     setNotifiMessage({
-    //       type: 'success',
-    //       message: ['Your Blog was Saved to Draft ✅ Successfully'],
-    //     });
-    //     setTimeout(() => {
-    //       setShowNotification(true);
-    //     }, 0);
-    //   }
-    // },
     onSubmit: async (values) => {
       if (!values.type) return;
 

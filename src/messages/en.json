@@ -7,7 +7,33 @@
     "tagline4": "Users Of Earn 11",
     "tagline5": "Free to Read and Give Feedback",
     "tagline6": "for Earn 11 and",
-    "tagline7": "Other Applications"
+    "tagline7": "Other Applications",
+    "landingBottom": {
+      "educationalContent": {
+        "p1": "We emphasize <strong>legal, sustainable earning methods</strong> because we’ve seen too many developers lose money—or worse, violate regulations—by jumping into gray-area schemes. Our guides on play-to-earn ecosystems only cover games with proven payouts, clear terms, and real user earnings. We also explain how to report crypto income properly to stay compliant with IRS and global tax standards.",
+        "p2": "Additionally, we’re exploring how <strong>AI can automate and enhance trading strategies</strong> — not through “get-rich-quick bots,” but through transparent, backtested systems. We teach how to:",
+        "list": [
+          "Use AI to analyze on-chain data and social sentiment",
+          "Build alert systems for wallet movements or protocol changes",
+          "Integrate secure exchange APIs with proper rate limiting and 2FA",
+          "Deploy trading logic on serverless platforms without exposing keys"
+        ],
+        "p3": "All code examples are open, tested in staging environments, and include disclaimers about financial risk. We never guarantee profits — only educational value.",
+        "p4": "Our <strong>AI Automation, Latest Cryptocurrency, and Scam Awareness</strong> blogs follow the same philosophy. Whether it’s optimizing Core Web Vitals, building secure crypto purchasing systems, or creating safe AI automations, we focus on real-world patterns that scale in production. We never guarantee you'll make money — but we do promise you’ll gain deep, practical knowledge in AI automation, cryptocurrency, and scam detection so you can operate confidently and safely in the market."
+      },
+      "closing": {
+        "p1": "Ultimately, <strong>ExploreTheBuzz exists to empower developers and Traders with clarity in a noisy tech landscape</strong>. We avoid hype, disclose limitations, and update content as tools evolve. Our goal isn’t virality — it’s becoming your trusted technical companion as you build the next generation of intelligent, secure, and user-respecting applications.",
+        "p2": "New articles drop every <strong>Tuesday</strong>. Each one is crafted to save you hours of debugging, research, and risk — so you can focus on what matters: building."
+      },
+      "footerLinks": {
+        "home": "Home",
+        "allBlogs": "All Blogs",
+        "about": "About",
+        "contact": "Contact",
+        "privacy": "Privacy Policy",
+        "sitemap": "Sitemap"
+      }
+    }
   },
   "BlogPage": {
     "TopBlogs": "Top Blogs",
@@ -254,7 +280,7 @@
     "disclaimer": "Legal Disclaimer: This Privacy Policy constitutes a legally binding agreement between you and ExploreTheBuzz. By using our Site, you acknowledge that you have read, understood, and agreed to be bound by this Privacy Policy. If you do not agree, please discontinue use of our Site immediately.",
     "copyright": "© 2025 ExploreTheBuzz. All rights reserved."
   },
-"contact": {
+  "contact": {
     "meta": {
       "title": "Contact Us – ExploreTheBuzz | Get in Touch for Support & Collaboration",
       "description": "Have questions, feedback, or collaboration ideas? Contact ExploreTheBuzz for quick support, guest post submissions, bug reports, and technical inquiries. We reply within 24 hours.",

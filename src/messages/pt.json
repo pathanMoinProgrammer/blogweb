@@ -7,7 +7,33 @@
     "tagline4": "Utilizadores do Earn 11",
     "tagline5": "Grátis para Ler e Dar Feedback",
     "tagline6": "para Earn 11 e",
-    "tagline7": "Outras Aplicações"
+    "tagline7": "Outras Aplicações",
+    "landingBottom": {
+      "educationalContent": {
+        "p1": "Enfatizamos <strong>métodos de ganho legais e sustentáveis</strong> porque já vimos muitos desenvolvedores perderem dinheiro — ou pior, violarem regulamentações — ao pularem em esquemas cinzentos. Nossos guias sobre ecossistemas play-to-earn cobrem apenas jogos com pagamentos comprovados, termos claros e ganhos reais de usuários. Também explicamos como declarar renda cripto corretamente para ficar em conformidade com o IRS e padrões fiscais globais.",
+        "p2": "Além disso, estamos explorando como <strong>a IA pode automatizar e melhorar estratégias de trading</strong> — não com “bots de enriquecimento rápido”, mas com sistemas transparentes e backtestados. Ensinamos como:",
+        "list": [
+          "Usar IA para analisar dados on-chain e sentimento social",
+          "Construir sistemas de alerta para movimentações de carteiras ou mudanças de protocolo",
+          "Integrar APIs de exchanges seguras com rate limiting e 2FA",
+          "Deployar lógica de trading em plataformas serverless sem expor chaves"
+        ],
+        "p3": "Todos os exemplos de código são abertos, testados em ambientes de staging e incluem isenções sobre risco financeiro. Nunca garantimos lucros — apenas valor educacional.",
+        "p4": "Nossos blogs sobre <strong>Automação com IA, Criptomoedas Atualizadas e Conscientização sobre Golpes</strong> seguem a mesma filosofia. Seja otimizando Core Web Vitals, implementando sistemas seguros de compra de criptomoedas ou criando automações de IA confiáveis, focamos sempre em padrões reais que escalam em produção. Nunca garantimos que você vai ganhar dinheiro — mas garantimos que você terá conhecimento profundo e prático em automação com IA, criptomoedas e detecção de golpes, para que possa atuar com confiança e segurança no mercado."
+      },
+      "closing": {
+        "p1": "No final das contas, <strong>a ExploreTheBuzz existe para empoderar desenvolvedores e traders com clareza em um cenário tecnológico barulhento</strong>. Evitamos hype, revelamos limitações e atualizamos conteúdo conforme as ferramentas evoluem. Nosso objetivo não é viralidade — é ser seu companheiro técnico confiável enquanto você constrói a próxima geração de aplicações inteligentes, seguras e que respeitam o usuário.",
+        "p2": "Novos artigos toda <strong>terça-feira</strong>. Cada um é feito para te economizar horas de debug, pesquisa e risco — para que você foque no que importa: construir."
+      },
+      "footerLinks": {
+        "home": "Início",
+        "allBlogs": "Todos os Blogs",
+        "about": "Sobre",
+        "contact": "Contato",
+        "privacy": "Política de Privacidade",
+        "sitemap": "Mapa do Site"
+      }
+    }
   },
   "BlogPage": {
     "TopBlogs": "Blogs Principais",

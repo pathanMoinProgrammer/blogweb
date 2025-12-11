@@ -22,7 +22,9 @@ export const metadata = {
 export default async function HomePage({ params }) {
   const { locale } = await params;
   if (!routing.locales.includes(locale)) redirect('/en');
-  const t = await getTranslations(locale, ['Homepage', 'Common']);
+  // const t = await getTranslations(locale, ['Homepage', 'Common']);
+  const tRow = await getTranslations(locale, 'Homepage');
+  const t = tRow.landingBottom || {};
   const t2 = await getTranslations(locale, 'Homepage');
 
   return (
@@ -148,7 +150,8 @@ export default async function HomePage({ params }) {
         <section className="container px-4 py-10 mx-auto lg:h-128 lg:space-x-8 lg:flex lg:items-center">
           <div className="w-full text-center lg:text-left lg:w-1/2 lg:-mt-8">
             <h2 className="text-3xl leading-snug text-gray-800 dark:text-gray-200 md:text-4xl">
-              {t2?.tagline1} <span className="font-semibold">{t2?.tagline2}</span>{' '}
+              {t2?.tagline1}{' '}
+              <span className="font-semibold">{t2?.tagline2}</span>{' '}
               {t2?.tagline3} <br className="hidden lg:block" /> {t2?.tagline4}{' '}
               {/* <span className="font-semibold underline decoration-primary">
               Tailwind CSS
@@ -181,104 +184,63 @@ export default async function HomePage({ params }) {
           <BlogPage params={params} />
         </div>
         {/* Bottom Section: Continued Educational Content */}
-        <section className="container mx-auto px-4 py-8 ">
+        <section className="container mx-auto px-4 py-8">
           <div className="text-left text-muted-foreground space-y-4 text-sm md:text-base leading-relaxed">
-            <p>
-              We emphasize <strong>legal, sustainable earning methods</strong>{' '}
-              because we’ve seen too many developers lose money—or worse,
-              violate regulations—by jumping into gray-area schemes. Our guides
-              on play-to-earn ecosystems only cover games with proven payouts,
-              clear terms, and real user earnings. We also explain how to report
-              crypto income properly to stay compliant with IRS and global tax
-              standards.
-            </p>
-            <p>
-              Additionally, we’re exploring how{' '}
-              <strong>AI can automate and enhance trading strategies</strong> —
-              not through “get-rich-quick bots,” but through transparent,
-              backtested systems. We teach how to:
-            </p>
+            <p
+              dangerouslySetInnerHTML={{ __html: t?.educationalContent?.p1 }}
+            />
+            <p
+              dangerouslySetInnerHTML={{ __html: t?.educationalContent?.p2 }}
+            />
             <ul className="list-disc pl-5 space-y-2">
-              <li>Use AI to analyze on-chain data and social sentiment</li>
-              <li>
-                Build alert systems for wallet movements or protocol changes
-              </li>
-              <li>
-                Integrate secure exchange APIs with proper rate limiting and 2FA
-              </li>
-              <li>
-                Deploy trading logic on serverless platforms without exposing
-                keys
-              </li>
+              {t?.educationalContent?.list?.map((item, i) => (
+                <li key={i}>{item}</li>
+              ))}
             </ul>
-            <p>
-              All code examples are open, tested in staging environments, and
-              include disclaimers about financial risk. We never guarantee
-              profits — only educational value.
-            </p>
-            <p>
-              Our <strong>Next.js and React content</strong> follows the same
-              philosophy. Whether it’s optimizing Core Web Vitals, implementing
-              secure authentication with Firebase 10, or structuring apps with
-              React Server Components, we focus on patterns that scale in
-              production. We test every tutorial on real hosting platforms
-              (Vercel, AWS, etc.) and share performance benchmarks.
-            </p>
+            <p>{t?.educationalContent?.p3}</p>
+            <p
+              dangerouslySetInnerHTML={{ __html: t?.educationalContent?.p4 }}
+            />
           </div>
         </section>
       </section>
 
+      <div className="max-w-3xl mx-auto px-4 py-8 text-center text-muted-foreground text-sm md:text-base leading-relaxed">
+        <p dangerouslySetInnerHTML={{ __html: t?.closing?.p1 }} />
+        <p dangerouslySetInnerHTML={{ __html: t?.closing?.p2 }} />
+      </div>
       <footer className="border-t py-12 mt-4 bg-background">
         <div className="max-w-7xl mx-auto px-4 text-center space-x-6 text-muted-foreground">
           <Link href={`/${locale}`} className="underline hover:text-primary">
-            Home
+            {t?.footerLinks?.home}
           </Link>
           <Link
             href={`/${locale}/blogpost`}
             className="underline hover:text-primary"
           >
-            All Blogs
+            {t?.footerLinks?.allBlogs}
           </Link>
           <Link
             href={`/${locale}/about`}
             className="underline hover:text-primary"
           >
-            About
+            {t?.footerLinks?.about}
           </Link>
           <Link
             href={`/${locale}/contact`}
             className="underline hover:text-primary"
           >
-            Contact
+            {t?.footerLinks?.contact}
           </Link>
           <Link
             href={`/${locale}/privacy-policy`}
             className="underline hover:text-primary"
           >
-            Privacy Policy
+            {t?.footerLinks?.privacy}
           </Link>
           <Link href="/sitemap.xml" className="underline hover:text-primary">
-            Sitemap
+            {t?.footerLinks?.sitemap}
           </Link>
-        </div>
-        {/* Footer Section: Closing Educational Content */}
-        <div className="max-w-3xl mx-auto px-4 py-8 text-center text-muted-foreground text-sm md:text-base leading-relaxed">
-          <p>
-            Ultimately,{' '}
-            <strong>
-              ExploreTheBuzz exists to empower developers and Traders with
-              clarity in a noisy tech landscape
-            </strong>
-            . We avoid hype, disclose limitations, and update content as tools
-            evolve. Our goal isn’t virality — it’s becoming your trusted
-            technical companion as you build the next generation of intelligent,
-            secure, and user-respecting applications.
-          </p>
-          <p>
-            New articles drop every <strong>Tuesday</strong>. Each one is
-            crafted to save you hours of debugging, research, and risk — so you
-            can focus on what matters: building.
-          </p>
         </div>
       </footer>
     </main>
