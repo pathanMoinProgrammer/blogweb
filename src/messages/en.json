@@ -34,7 +34,875 @@
     "createNewBlog": "Create New Blog",
     "loading": "Loading..."
   },
+  "privacy": {
+    "title": "Privacy Policy",
+    "heroTitle": "Privacy Policy",
+    "heroSubtitle": "At ExploreTheBuzz, your privacy is our priority. We are committed to protecting your personal information and being transparent about our data practices.",
+    "lastUpdated": "Last Updated: December 2025",
 
+    "introduction": {
+      "title": "Introduction",
+      "subtitle": "Understanding Our Commitment to Your Privacy",
+      "p1": "Welcome to ExploreTheBuzz (\"we,\" \"our,\" or \"us\"). This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website explorethebuzz.com (the \"Site\"). We are committed to ensuring that your privacy is protected and that you understand our data practices.",
+      "p2": "By accessing or using ExploreTheBuzz, you agree to this Privacy Policy. If you do not agree with the terms of this Privacy Policy, please do not access or use the Site. We reserve the right to make changes to this Privacy Policy at any time and for any reason."
+    },
+
+    "informationWeCollect": {
+      "title": "Information We Collect",
+      "subtitle": "What Data We Gather and Why",
+      "personalInfo": {
+        "title": "Personal Information You Provide",
+        "desc": "We may collect personal information that you voluntarily provide to us when you:",
+        "list": [
+          "Submit contact forms or inquiries",
+          "Subscribe to newsletters or updates",
+          "Comment on blog posts or articles",
+          "Participate in surveys or promotional activities",
+          "Communicate with us via email or other channels"
+        ],
+        "extra": "This information may include your name, email address, phone number, and any other information you choose to provide."
+      },
+      "autoCollected": {
+        "title": "Automatically Collected Information",
+        "desc": "When you visit our Site, we automatically collect certain information about your device and browsing behavior, including:",
+        "list": [
+          "IP address and approximate geographic location (country/city level)",
+          "Browser type, version, and language preferences",
+          "Operating system and device type (desktop, mobile, tablet)",
+          "Pages viewed, time spent on pages, and navigation paths",
+          "Referring website or source of traffic",
+          "Date and time of access",
+          "Click and scroll behavior on our Site"
+        ]
+      },
+      "cookies": {
+        "title": "Cookies and Tracking Technologies",
+        "desc": "We use cookies, web beacons, pixels, and similar tracking technologies to enhance your experience, analyze site traffic, and serve personalized advertisements. Cookies are small data files stored on your device that help us remember your preferences and understand how you use our Site."
+      }
+    },
+
+    "howWeUse": {
+      "title": "How We Use Your Information",
+      "subtitle": "Purposes for Data Processing",
+      "intro": "We use the information we collect for various legitimate business purposes, including:",
+      "list": [
+        "Provide, operate, and maintain our website and services",
+        "Improve and personalize user experience on our Site",
+        "Analyze usage patterns and site performance metrics",
+        "Respond to inquiries, comments, and support requests",
+        "Send administrative information and service updates",
+        "Display personalized advertisements through Google AdSense",
+        "Detect, prevent, and address technical issues or security threats",
+        "Comply with legal obligations and enforce our terms",
+        "Conduct research and development for site improvements",
+        "Send newsletters and promotional content (with consent)"
+      ]
+    },
+
+    "thirdParty": {
+      "title": "Third-Party Services & Disclosure",
+      "subtitle": "External Tools We Use",
+      "ga": {
+        "title": "Google Analytics 4",
+        "text": "We use Google Analytics 4 to analyze website traffic and user behavior. This service collects anonymous data such as page views, session duration, bounce rates, device types, and geographic locations. Google Analytics uses cookies and may collect IP addresses in anonymized form. For more information, visit Google's Privacy Policy at https://policies.google.com/privacy"
+      },
+      "adsense": {
+        "title": "Google AdSense",
+        "text": "We participate in the Google AdSense program to display personalized advertisements on our Site. Google AdSense uses cookies and similar technologies to serve ads based on your browsing history and interests. You can opt out of personalized advertising by visiting Google's Ad Settings at https://www.google.com/settings/ads or the Network Advertising Initiative opt-out page at https://optout.networkadvertising.org"
+      },
+      "sharing": {
+        "title": "When We Share Your Information",
+        "intro": "We do not sell, rent, or trade your personal information to third parties. However, we may share your information in the following circumstances:",
+        "list": [
+          "With service providers who assist in operating our Site (hosting, analytics, email services)",
+          "With advertising partners like Google AdSense for serving ads",
+          "To comply with legal obligations, court orders, or government requests",
+          "To protect our rights, property, safety, or that of our users",
+          "In connection with a business transaction (merger, acquisition, sale of assets)",
+          "With your explicit consent or at your direction"
+        ]
+      }
+    },
+
+    "security": {
+      "title": "Data Security & Retention",
+      "subtitle": "How We Protect Your Information",
+      "measures": [
+        "Secure Socket Layer (SSL) encryption for data transmission",
+        "Regular security audits and vulnerability assessments",
+        "Restricted access to personal data on a need-to-know basis",
+        "Server logs deleted after 14 days for privacy protection"
+      ],
+      "warning": "However, no method of transmission over the Internet or electronic storage is 100% secure. While we strive to protect your information, we cannot guarantee its absolute security.",
+      "retention": "We retain your personal information only for as long as necessary to fulfill the purposes outlined in this Privacy Policy, unless a longer retention period is required or permitted by law."
+    },
+
+    "rights": {
+      "title": "Your Privacy Rights",
+      "subtitle": "GDPR, CCPA & International Compliance",
+      "intro": "Depending on your location, you may have certain rights regarding your personal information under applicable data protection laws, including the General Data Protection Regulation (GDPR) and the California Consumer Privacy Act (CCPA). These rights may include:",
+      "list": [
+        {
+          "title": "Right to Access",
+          "desc": "Request a copy of all personal data we hold about you in a portable format (JSON)"
+        },
+        {
+          "title": "Right to Correction",
+          "desc": "Request correction of inaccurate or incomplete personal information"
+        },
+        {
+          "title": "Right to Deletion",
+          "desc": "Request permanent deletion of your personal data from our systems"
+        },
+        {
+          "title": "Right to Object",
+          "desc": "Object to processing of your data for marketing or analytics purposes"
+        },
+        {
+          "title": "Right to Opt-Out",
+          "desc": "Opt out of personalized advertising and analytics tracking"
+        },
+        {
+          "title": "Right to Withdraw Consent",
+          "desc": "Withdraw consent at any time where processing is based on consent"
+        }
+      ],
+      "howTo": "To exercise any of these rights, please email us at explorethebuz@gmail.com with your request. We will respond within 30 days and may require verification of your identity before processing your request."
+    },
+
+    "cookiesPolicy": {
+      "title": "Cookies & Tracking Policy",
+      "subtitle": "Understanding Cookies on Our Site",
+      "types": [
+        {
+          "type": "Essential Cookies",
+          "desc": "Necessary for site functionality and cannot be disabled"
+        },
+        {
+          "type": "Analytics Cookies",
+          "desc": "Help us understand how visitors interact with our Site (Google Analytics)"
+        },
+        {
+          "type": "Advertising Cookies",
+          "desc": "Used to deliver personalized ads based on your interests (Google AdSense)"
+        },
+        {
+          "type": "Performance Cookies",
+          "desc": "Collect information about site performance and user experience"
+        }
+      ],
+      "manage": {
+        "title": "Managing Cookies",
+        "ways": [
+          "Browser settings: Most browsers allow you to refuse or accept cookies",
+          "Google Ad Settings: https://www.google.com/settings/ads",
+          "Network Advertising Initiative: https://optout.networkadvertising.org",
+          "Do Not Track: We respect browser Do Not Track signals where possible"
+        ],
+        "note": "Note: Disabling cookies may affect site functionality and user experience."
+      }
+    },
+
+    "children": {
+      "title": "Children's Privacy",
+      "subtitle": "Protection for Users Under 13",
+      "text": "Our Site is not intended for children under the age of 13. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe your child has provided us with personal information, please contact us immediately at explorethebuz@gmail.com, and we will take steps to remove such information from our systems."
+    },
+
+    "transfers": {
+      "title": "International Data Transfers",
+      "subtitle": "Cross-Border Data Processing",
+      "p1": "Your information, including personal data, may be transferred to and maintained on computers located outside of your state, province, country, or other governmental jurisdiction where data protection laws may differ from those in your jurisdiction.",
+      "p2": "If you are located outside the United States and choose to provide information to us, please note that we transfer the data, including personal data, to the United States and process it there. Your consent to this Privacy Policy followed by your submission of such information represents your agreement to that transfer.",
+      "commitment": "We will take all steps reasonably necessary to ensure that your data is treated securely and in accordance with this Privacy Policy, and no transfer of your personal data will take place to an organization or a country unless there are adequate controls in place including the security of your data and other personal information."
+    },
+
+    "dnt": {
+      "title": "Do Not Track Signals",
+      "subtitle": "Browser Privacy Preferences",
+      "text": "We respect Do Not Track (DNT) signals and do not track, plant cookies, or use advertising when a DNT browser mechanism is in place. Most web browsers and some mobile operating systems include a Do Not Track feature or setting you can activate to signal your privacy preference not to have data about your online browsing activities monitored and collected."
+    },
+
+    "breach": {
+      "title": "Data Breach Notification",
+      "subtitle": "Our Commitment to Transparency",
+      "text": "In the event of a data breach that affects your personal information, we will notify you and relevant authorities within 72 hours of becoming aware of the breach, as required by applicable data protection laws. Our notification will include:",
+      "items": [
+        "The nature of the personal data breach",
+        "The likely consequences of the breach",
+        "Measures taken or proposed to address the breach",
+        "Contact information for further inquiries"
+      ]
+    },
+
+    "changes": {
+      "title": "Changes to This Privacy Policy",
+      "subtitle": "Staying Informed About Updates",
+      "p1": "We reserve the right to update or modify this Privacy Policy at any time and for any reason. We will notify you of any changes by updating the \"Last Updated\" date at the top of this Privacy Policy. Any changes or modifications will be effective immediately upon posting the updated Privacy Policy on the Site.",
+      "p2": "We encourage you to periodically review this Privacy Policy to stay informed about how we are protecting your information. Your continued use of the Site after any changes constitutes your acceptance of the updated Privacy Policy.",
+      "material": "If we make material changes to this Privacy Policy that significantly affect your rights, we will provide prominent notice on our Site or send you an email notification (if you have provided us with your email address)."
+    },
+
+    "contact": {
+      "title": "Questions or Concerns?",
+      "text": "If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please don't hesitate to contact us. We are committed to addressing your privacy concerns promptly and transparently.",
+      "email": "explorethebuz@gmail.com",
+      "website": "explorethebuzz.com",
+      "responseTime": "We typically respond to all inquiries within 48 hours. For data deletion requests, please allow up to 30 days for processing."
+    },
+
+    "disclaimer": "Legal Disclaimer: This Privacy Policy constitutes a legally binding agreement between you and ExploreTheBuzz. By using our Site, you acknowledge that you have read, understood, and agreed to be bound by this Privacy Policy. If you do not agree, please discontinue use of our Site immediately.",
+    "copyright": "© 2025 ExploreTheBuzz. All rights reserved."
+  },
+"contact": {
+    "meta": {
+      "title": "Contact Us – ExploreTheBuzz | Get in Touch for Support & Collaboration",
+      "description": "Have questions, feedback, or collaboration ideas? Contact ExploreTheBuzz for quick support, guest post submissions, bug reports, and technical inquiries. We reply within 24 hours.",
+      "ogTitle": "Contact ExploreTheBuzz – We're Here to Help",
+      "ogDescription": "Reach out to ExploreTheBuzz for questions, guest posts, bug reports, or collaboration. Our team responds to every message within 24-48 hours.",
+      "twitterTitle": "Contact ExploreTheBuzz – Quick Support & Collaboration",
+      "twitterDescription": "Have questions or want to collaborate? Contact ExploreTheBuzz for technical support, guest posts, and partnerships. We reply fast!"
+    },
+
+    "hero": {
+      "title": "Get in Touch",
+      "subtitle": "We read every single message. Whether you have questions, found a bug, want to collaborate, or just want to say hi — we're here to help.",
+      "responseBadge": "Average Response Time: Under 24 Hours"
+    },
+
+    "primaryEmail": {
+      "title": "Primary Conjntact Email",
+      "email": "explorethebuz@gmail.com",
+      "description": "Send us your questions, feedback, bug reports, collaboration ideas, or guest post pitches. We personally read and respond to every message.",
+      "responseTime": "24-48 Hour Response",
+      "allMessagesRead": "All Messages Read"
+    },
+
+    "loveToHear": {
+      "title": "We Especially Love Hearing About",
+      "items": [
+        {
+          "title": "Bug Reports",
+          "description": "Found errors in our code examples or tutorials? Let us know so we can fix them!"
+        },
+        {
+          "title": "Security Issues",
+          "description": "Spotted vulnerabilities or new attack vectors? We want to cover them."
+        },
+        {
+          "title": "Guest Post Ideas",
+          "description": "Have killer content? Must include live demo + GitHub repo."
+        },
+        {
+          "title": "Tool Requests",
+          "description": "Want deep-dives on specific frameworks or technologies? Tell us!"
+        },
+        {
+          "title": "Content Feedback",
+          "description": "Did our tutorial save your day? We love success stories!"
+        },
+        {
+          "title": "Collaboration",
+          "description": "Want to partner on educational content? Let's talk!"
+        }
+      ]
+    },
+
+    "guestPost": {
+      "title": "Guest Post Submissions",
+      "intro": "We welcome high-quality technical content from the developer community! If you want to contribute, here's what we're looking for:",
+      "requirements": [
+        "Deep technical tutorials with working code examples",
+        "Live demo hosted somewhere (CodeSandbox, Vercel, GitHub Pages)",
+        "Complete GitHub repository with clean, documented code",
+        "Original content (no plagiarism or AI-generated fluff)",
+        "Practical examples solving real-world problems",
+        "Clear explanations suitable for intermediate developers"
+      ],
+      "proTip": "Pro Tip: Include \"Guest Post Pitch\" in your email subject line and attach or link to your draft content."
+    },
+
+    "notProvide": {
+      "title": "What We Do NOT Provide",
+      "items": [
+        "Financial or investment advice",
+        "Trading signals or profit strategies",
+        "Private consulting services",
+        "Paid reviews or sponsored content",
+        "Complete project development",
+        "Debugging your personal code (unless it's our tutorial)"
+      ],
+      "note": "Everything on ExploreTheBuzz is free, open, and educational. Always has been. Always will be."
+    },
+
+    "whyTrust": {
+      "title": "Why Developers Trust ExploreTheBuzz",
+      "items": [
+        {
+          "title": "Honest Content",
+          "description": "No clickbait. No fluff. Just real technical solutions."
+        },
+        {
+          "title": "Community First",
+          "description": "Built by developers, for developers. We get it."
+        },
+        {
+          "title": "Always Improving",
+          "description": "We update content, fix bugs, and listen to feedback."
+        }
+      ]
+    },
+
+    "finalCta": {
+      "title": "Ready to Connect?",
+      "text": "Whether you have a question, found a bug, want to collaborate, or just want to say the RAG pipeline article saved your weekend — we want to hear from you!",
+      "button": "Send Us an Email",
+      "closing": "Looking forward to hearing from you!\n— The ExploreTheBuzz Team"
+    },
+
+    "disclaimer": "Disclaimer: ExploreTheBuzz provides educational content only. We do not offer financial, investment, or trading advice. All cryptocurrency and trading content is for informational purposes. Always do your own research and consult licensed professionals for financial decisions."
+  },
+  "terms": {
+    "meta": {
+      "title": "Terms & Conditions – ExploreTheBuzz | User Agreement & Legal Policy",
+      "description": "Read ExploreTheBuzz's Terms & Conditions. Understand your rights, content usage policies, and legal disclaimers for using our developer blog and tutorials.",
+      "ogTitle": "Terms & Conditions – ExploreTheBuzz User Agreement",
+      "ogDescription": "Review ExploreTheBuzz's Terms & Conditions. Learn about content usage, copyright policies, and important disclaimers before using our tutorials.",
+      "twitterTitle": "Terms & Conditions – ExploreTheBuzz Legal Policy",
+      "twitterDescription": "By using ExploreTheBuzz, you agree to our Terms & Conditions. Read our policies on content usage, disclaimers, and user responsibilities."
+    },
+    "hero": {
+      "title": "Terms & Conditions",
+      "subtitle": "By accessing and using ExploreTheBuzz, you agree to be bound by these Terms & Conditions. Please read them carefully before using our website.",
+      "lastUpdated": "Last Updated: December 2025"
+    },
+    "sections": {
+      "acceptance": {
+        "number": "1",
+        "title": "Acceptance of Terms",
+        "subtitle": "Your Agreement to These Conditions",
+        "p1": "By accessing, browsing, or using ExploreTheBuzz (the \"Site\"), you acknowledge that you have read, understood, and agree to be bound by these Terms & Conditions and our Privacy Policy. If you do not agree to these terms, you must discontinue use of the Site immediately.",
+        "p2": "These terms apply to all visitors, users, and others who access or use the Site, including but not limited to readers, contributors, and anyone who interacts with our content or services.",
+        "notice": "Important Notice",
+        "noticeText": "We reserve the right to modify these Terms & Conditions at any time. Your continued use of the Site after changes are posted constitutes acceptance of the modified terms."
+      },
+      "educationalDisclaimer": {
+        "number": "2",
+        "title": "Educational Content Disclaimer",
+        "subtitle": "No Financial, Legal, or Professional Advice",
+        "strongTitle": "NO FINANCIAL ADVICE — EVER",
+        "strongText": "All content on ExploreTheBuzz, including but not limited to articles about cryptocurrency, trading systems, AI agents, play-to-earn games, and investment topics, is provided for educational and informational purposes only. We do NOT provide financial, investment, trading, or legal advice.",
+        "youAcknowledge": "You acknowledge and agree that:",
+        "risks": [
+          "We do not guarantee profits or financial returns",
+          "You are 100% responsible for your financial decisions",
+          "Cryptocurrency and trading involve substantial risk of loss",
+          "Past performance does not indicate future results",
+          "You should consult licensed professionals before investing",
+          "We are not liable for any financial losses you incur"
+        ],
+        "finalNote": "All tutorials, code examples, and technical content are provided \"as is\" for educational purposes. Always test code in development environments before production deployment. Always do your own research (DYOR) and consult with qualified professionals before making any financial or investment decisions."
+      },
+      "contentUsage": {
+        "number": "3",
+        "title": "Content Usage & Copyright",
+        "subtitle": "How You Can Use Our Content",
+        "code": {
+          "title": "Code Snippets & Tutorials",
+          "p": "You are free to use code snippets, examples, and tutorials from ExploreTheBuzz in both personal and commercial projects. We encourage learning and building!",
+          "list": [
+            "Attribution is appreciated but not legally required",
+            "You may modify and adapt code for your specific needs",
+            "Code examples are provided under permissive licensing",
+            "We are not liable for issues arising from code usage"
+          ]
+        },
+        "articles": {
+          "title": "Written Content & Articles",
+          "p1": "All articles, blog posts, written tutorials, and original content on ExploreTheBuzz are protected by copyright law and owned by ExploreTheBuzz or our content contributors.",
+          "allowed": "Allowed:",
+          "allowedList": [
+            "Sharing links to our articles on social media",
+            "Brief quotes (under 200 words) with proper attribution",
+            "Referencing our content in your own blog posts"
+          ],
+          "prohibited": "Prohibited:",
+          "prohibitedList": [
+            "Republishing entire articles without written permission",
+            "Scraping content for AI training or content farms",
+            "Claiming our content as your own (plagiarism)",
+            "Removing attribution or copyright notices"
+          ]
+        }
+      },
+      "dmca": {
+        "number": "4",
+        "title": "DMCA & Copyright Claims",
+        "subtitle": "Protecting Intellectual Property",
+        "p": "We respect the intellectual property rights of others and expect our users to do the same. If you believe that your copyrighted work has been copied in a way that constitutes copyright infringement and is accessible on our Site, please notify us immediately.",
+        "howToFile": "How to File a DMCA Takedown Notice",
+        "email": "explorethebuz@gmail.com",
+        "requirements": [
+          "Your contact information (name, email, address)",
+          "Identification of the copyrighted work being infringed",
+          "URL(s) of the allegedly infringing content on our Site",
+          "A statement of good faith belief",
+          "Your physical or electronic signature"
+        ],
+        "response": "We typically respond within 24 hours and remove infringing content the same day when valid claims are submitted."
+      },
+      "conduct": {
+        "number": "5",
+        "title": "User Conduct & Prohibited Activities",
+        "subtitle": "What You Cannot Do",
+        "p": "When using ExploreTheBuzz, you agree NOT to engage in any of the following prohibited activities:",
+        "list": [
+          "Scraping, copying, or harvesting content for unauthorized purposes",
+          "Using automated bots or scripts to access the Site",
+          "Attempting to gain unauthorized access to our servers or systems",
+          "Distributing malware, viruses, or harmful code",
+          "Harassing, threatening, or impersonating others",
+          "Posting spam, advertisements, or unsolicited promotions",
+          "Violating any applicable laws or regulations",
+          "Interfering with the proper functioning of the Site"
+        ],
+        "termination": "We reserve the right to terminate or suspend your access to the Site immediately, without prior notice, for any violation of these Terms & Conditions or for any conduct that we deem harmful to the Site, other users, or third parties."
+      },
+      "accuracy": {
+        "number": "6",
+        "title": "Accuracy & Content Updates",
+        "subtitle": "Technology Changes Fast",
+        "p": "While we strive for accuracy and test all tutorials at the time of publication, technology evolves rapidly. Code examples, APIs, frameworks, and best practices may change over time.",
+        "responsibility": "Your Responsibility",
+        "responsibilityList": [
+          "Always verify code in your own development environment",
+          "Check package versions and dependencies for compatibility",
+          "Test thoroughly before deploying to production",
+          "Refer to official documentation for the most current information",
+          "Report outdated content to help us keep tutorials current"
+        ],
+        "final": "We make no guarantees that the information on this Site is complete, accurate, or up-to-date at all times. We reserve the right to update, modify, or remove content without prior notice."
+      },
+      "liability": {
+        "number": "7",
+        "title": "Limitation of Liability",
+        "subtitle": "Use at Your Own Risk",
+        "p": "TO THE FULLEST EXTENT PERMITTED BY LAW, EXPLORETHEBUZZ, ITS OWNERS, CONTRIBUTORS, AND AFFILIATES SHALL NOT BE LIABLE FOR ANY:",
+        "list": [
+          "Direct, indirect, incidental, or consequential damages",
+          "Loss of profits, revenue, data, or business opportunities",
+          "Damages resulting from use or inability to use the Site",
+          "Errors, bugs, or issues in code examples or tutorials",
+          "Financial losses from trading, investing, or cryptocurrency",
+          "Security breaches or unauthorized access to your systems",
+          "Third-party actions or content linked from our Site",
+          "Any damages exceeding the amount you paid to access this Site ($0)"
+        ],
+        "asIs": "The Site and all content are provided \"AS IS\" and \"AS AVAILABLE\" without warranties of any kind, either express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement."
+      },
+      "thirdParty": {
+        "number": "8",
+        "title": "Third-Party Links & External Content",
+        "subtitle": "We're Not Responsible for External Sites",
+        "p": "Our Site may contain links to third-party websites, resources, tools, APIs, and services that are not owned or controlled by ExploreTheBuzz. These links are provided for your convenience and reference only.",
+        "disclaimer": "Important Disclaimer",
+        "disclaimerList": [
+          "We do not control or endorse third-party websites or content",
+          "We are not responsible for the accuracy, privacy policies, or practices of external sites",
+          "Visiting third-party links is at your own risk",
+          "We do not receive compensation for linking to external resources (unless explicitly disclosed)",
+          "Always verify the legitimacy and security of external sites before providing personal information"
+        ]
+      },
+      "ads": {
+        "number": "9",
+        "title": "Advertising & Monetization",
+        "subtitle": "Google AdSense & Sponsored Content",
+        "p": "ExploreTheBuzz participates in the Google AdSense program to display third-party advertisements on our Site. These ads help us maintain and improve our free educational content.",
+        "whatThisMeans": "What This Means for You",
+        "whatThisMeansList": [
+          "Ads are served by Google and other advertising networks",
+          "We do not control which ads appear on our Site",
+          "Ads may use cookies to personalize content (see Privacy Policy)",
+          "You can opt out of personalized ads via Google Ad Settings"
+        ],
+        "transparency": "Our Transparency Commitment",
+        "transparencyList": [
+          "We will never accept paid content disguised as tutorials",
+          "All sponsored content will be clearly labeled",
+          "Our reviews and recommendations remain unbiased",
+          "We only recommend tools we actually use"
+        ],
+        "final": "We do not endorse or guarantee any products or services advertised on our Site. Any transactions you make with advertisers are solely between you and the advertiser."
+      },
+      "law": {
+        "number": "10",
+        "title": "Governing Law & Dispute Resolution",
+        "subtitle": "Legal Jurisdiction",
+        "p1": "These Terms & Conditions shall be governed by and construed in accordance with the laws of the jurisdiction in which ExploreTheBuzz operates, without regard to its conflict of law provisions.",
+        "p2": "Any disputes arising out of or relating to these Terms & Conditions or your use of the Site shall be resolved through binding arbitration or in the courts of competent jurisdiction. You agree to submit to the personal jurisdiction of such courts.",
+        "informal": "Informal Resolution First",
+        "informalText": "Before initiating any formal legal proceedings, we encourage you to contact us at explorethebuz@gmail.com to attempt to resolve the issue informally. Most disputes can be resolved through open communication."
+      },
+      "severability": {
+        "number": "11",
+        "title": "Severability & Entire Agreement",
+        "subtitle": "Legal Provisions",
+        "severability": "Severability",
+        "severabilityText": "If any provision of these Terms & Conditions is found to be unlawful, void, or unenforceable, that provision shall be deemed severable and shall not affect the validity and enforceability of the remaining provisions.",
+        "entire": "Entire Agreement",
+        "entireText": "These Terms & Conditions, together with our Privacy Policy, constitute the entire agreement between you and ExploreTheBuzz regarding your use of the Site and supersede all prior agreements and understandings, whether written or oral.",
+        "waiver": "Waiver",
+        "waiverText": "Our failure to enforce any right or provision of these Terms & Conditions will not be considered a waiver of those rights. Any waiver of any provision must be in writing and signed by us."
+      },
+      "changes": {
+        "number": "12",
+        "title": "Changes to These Terms",
+        "subtitle": "How We Update Our Policies",
+        "p": "We reserve the right to modify, update, or replace these Terms & Conditions at any time and for any reason. When we make changes, we will update the \"Last Updated\" date at the top of this page.",
+        "responsibility": "Your Responsibility to Review",
+        "responsibilityText": "It is your responsibility to periodically review these Terms & Conditions to stay informed of updates. Your continued use of the Site after any modifications indicates your acceptance of the revised terms.",
+        "materialChanges": "For material changes that significantly affect your rights, we will provide prominent notice on the Site or send you an email notification (if you have subscribed to our mailing list)."
+      }
+    },
+    "contact": {
+      "title": "Questions About These Terms?",
+      "text": "If you have any questions, concerns, or feedback about these Terms & Conditions, please don't hesitate to contact us. We're here to help clarify anything that might be confusing.",
+      "email": "explorethebuz@gmail.com",
+      "responseTime": "We typically respond within 24-48 hours"
+    },
+    "acknowledgment": {
+      "title": "Acknowledgment of Terms",
+      "strong": "BY USING EXPLORETHEBUZZ, YOU ACKNOWLEDGE THAT YOU HAVE READ, UNDERSTOOD, AND AGREE TO BE BOUND BY THESE TERMS & CONDITIONS.",
+      "disagree": "If you do not agree to these terms, you must immediately discontinue use of our Site.",
+      "legal": "These Terms & Conditions constitute a legally binding agreement between you and ExploreTheBuzz. We built this to be fair, transparent, and straightforward — not to hide behind legal jargon.",
+      "copyright": "© 2025 ExploreTheBuzz. All rights reserved."
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "About Us – ExploreTheBuzz | Real Developers, Production-Ready Tutorials",
+      "description": "Meet the ExploreTheBuzz team. We're full-stack engineers who build real apps and share deep technical tutorials on AI, Next.js, Web3, and modern development. No fluff, just production-grade code.",
+      "ogTitle": "About ExploreTheBuzz – Who We Are & What We Build",
+      "ogDescription": "ExploreTheBuzz is built by full-stack developers who ship real production apps. Learn about our mission to provide honest, tested tutorials for modern web development.",
+      "twitterTitle": "About ExploreTheBuzz – Real Developers, Real Code",
+      "twitterDescription": "We're full-stack engineers who share production-tested tutorials on AI, Next.js, Web3, and modern development. No sponsored content, just real expertise."
+    },
+    "hero": {
+      "title": "About ExploreTheBuzz",
+      "subtitle": "We're full-stack engineers who ship real production apps and share deep, tested tutorials that actually work in the real world."
+    },
+    "originStory": {
+      "title": "Born Out of Frustration",
+      "p1": "ExploreTheBuzz was created because we got tired of seeing the same recycled content everywhere — shallow tutorials that work locally but explode in production, AI guides that ignore costs and security, and crypto articles that either shill garbage or dismiss the entire space.",
+      "p2": "We've spent years building and deploying real applications: SaaS platforms, AI tools, trading dashboards, blockchain integrations — all with real users and real money on the line. We know what breaks in production because we've fixed it at 2 AM.",
+      "highlight": "So we built this: a blog where every tutorial is written by someone who has actually shipped the code in a real app."
+    },
+    "topics": {
+      "title": "What We Actually Cover",
+      "items": [
+        {
+          "title": "AI Agents in Production",
+          "description": "RAG with live data, streaming responses, error recovery, cost monitoring, and token optimization"
+        },
+        {
+          "title": "Next.js 14+ Done Right",
+          "description": "App Router, Server Actions, streaming, partial prerendering, edge vs node runtime trade-offs"
+        },
+        {
+          "title": "Firebase 10 Auth Patterns",
+          "description": "Authentication that doesn't leak tokens or break on refresh, with proper session management"
+        },
+        {
+          "title": "Secure Web3 Integrations",
+          "description": "Self-custody wallets, signed messages, phishing-resistant flows, and smart contract audits"
+        },
+        {
+          "title": "Crypto Safety & Security",
+          "description": "Spot fake airdrops, audit contracts, verify team doxxing, avoid honeypots and rug pulls"
+        },
+        {
+          "title": "AI Trading Systems",
+          "description": "Backtested strategies, open-source code, full risk disclaimers, no secret sauce promises"
+        }
+      ]
+    },
+    "standards": {
+      "title": "Every Article Includes",
+      "items": [
+        {
+          "title": "Complete GitHub Repo",
+          "description": "Full source code, not snippets"
+        },
+        {
+          "title": "Live Demo",
+          "description": "Working deployment when possible"
+        },
+        {
+          "title": "Performance Benchmarks",
+          "description": "Real metrics, not guesses"
+        },
+        {
+          "title": "Security Audit Checklist",
+          "description": "Production-ready safeguards"
+        },
+        {
+          "title": "Deployment Instructions",
+          "description": "Vercel, Railway, AWS covered"
+        },
+        {
+          "title": "Cost Breakdown",
+          "description": "Tokens, API calls, hosting fees"
+        }
+      ]
+    },
+    "schedule": {
+      "title": "We Publish Every Tuesday.",
+      "description": "No exceptions. Consistent, high-quality content you can rely on. Subscribe to never miss a deep-dive tutorial."
+    },
+    "values": {
+      "title1": "No Sponsored Posts",
+      "desc1": "We don't accept money to promote products. Our recommendations are based on what we actually use.",
+      "title2": "No Affiliate Scams",
+      "desc2": "No shady referral links or hidden commissions. If we link to something, it's because it's genuinely useful.",
+      "title3": "No Financial Advice",
+      "desc3": "We're engineers, not advisors. Everything crypto/trading is educational only. Always do your own research."
+    },
+    "mission": {
+      "title": "Just the Truth About What Actually Works in 2025",
+      "description": "If you're done with clickbait and ready for content that respects your time and intelligence — you're home."
+    },
+    "team": {
+      "title": "Who We Are",
+      "p1": "We're a distributed team of full-stack developers, DevOps engineers, and technical writers who have collectively built and scaled applications serving millions of users.",
+      "p2": "Our backgrounds span web development, machine learning, blockchain infrastructure, cloud architecture, and cybersecurity. What unites us is a shared frustration with surface-level content and a commitment to sharing what we've actually learned in the trenches.",
+      "highlight": "We write the tutorials we wish existed when we were learning."
+    },
+    "cta": {
+      "title": "Start Reading Production-Ready Tutorials",
+      "description": "Browse our latest articles and discover tutorials that actually work in production. Every post includes complete code, live demos, and deployment instructions.",
+      "btnTutorials": "Browse Tutorials",
+      "btnContact": "Contact Us"
+    },
+    "footer": "— The ExploreTheBuzz Team\nBuilding in public since 2024"
+  },
+  "terms": {
+    "meta": {
+      "title": "Terms & Conditions – ExploreTheBuzz | User Agreement & Legal Policy",
+      "description": "Read ExploreTheBuzz's Terms & Conditions. Understand your rights, content usage policies, and legal disclaimers for using our developer blog and tutorials.",
+      "ogTitle": "Terms & Conditions – ExploreTheBuzz User Agreement",
+      "ogDescription": "Review ExploreTheBuzz's Terms & Conditions. Learn about content usage, copyright policies, and important disclaimers before using our tutorials.",
+      "twitterTitle": "Terms & Conditions – ExploreTheBuzz Legal Policy",
+      "twitterDescription": "By using ExploreTheBuzz, you agree to our Terms & Conditions. Read our policies on content usage, disclaimers, and user responsibilities."
+    },
+    "hero": {
+      "title": "Terms & Conditions",
+      "subtitle": "By accessing and using ExploreTheBuzz, you agree to be bound by these Terms & Conditions. Please read them carefully before using our website.",
+      "lastUpdated": "Last Updated: December 2025"
+    },
+    "sections": {
+      "acceptance": {
+        "number": "1",
+        "title": "Acceptance of Terms",
+        "subtitle": "Your Agreement to These Conditions",
+        "p1": "By accessing, browsing, or using ExploreTheBuzz (the \"Site\"), you acknowledge that you have read, understood, and agree to be bound by these Terms & Conditions and our Privacy Policy. If you do not agree to these terms, you must discontinue use of the Site immediately.",
+        "p2": "These terms apply to all visitors, users, and others who access or use the Site, including but not limited to readers, contributors, and anyone who interacts with our content or services.",
+        "notice": "Important Notice",
+        "noticeText": "We reserve the right to modify these Terms & Conditions at any time. Your continued use of the Site after changes are posted constitutes acceptance of the modified terms."
+      },
+      "educationalDisclaimer": {
+        "number": "2",
+        "title": "Educational Content Disclaimer",
+        "subtitle": "No Financial, Legal, or Professional Advice",
+        "strongTitle": "NO FINANCIAL ADVICE — EVER",
+        "strongText": "All content on ExploreTheBuzz, including but not limited to articles about cryptocurrency, trading systems, AI agents, play-to-earn games, and investment topics, is provided for educational and informational purposes only. We do NOT provide financial, investment, trading, or legal advice.",
+        "youAcknowledge": "You acknowledge and agree that:",
+        "risks": [
+          "We do not guarantee profits or financial returns",
+          "You are 100% responsible for your financial decisions",
+          "Cryptocurrency and trading involve substantial risk of loss",
+          "Past performance does not indicate future results",
+          "You should consult licensed professionals before investing",
+          "We are not liable for any financial losses you incur"
+        ],
+        "finalNote": "All tutorials, code examples, and technical content are provided \"as is\" for educational purposes. Always test code in development environments before production deployment. Always do your own research (DYOR) and consult with qualified professionals before making any financial or investment decisions."
+      },
+      "contentUsage": {
+        "number": "3",
+        "title": "Content Usage & Copyright",
+        "subtitle": "How You Can Use Our Content",
+        "code": {
+          "title": "Code Snippets & Tutorials",
+          "p": "You are free to use code snippets, examples, and tutorials from ExploreTheBuzz in both personal and commercial projects. We encourage learning and building!",
+          "list": [
+            "Attribution is appreciated but not legally required",
+            "You may modify and adapt code for your specific needs",
+            "Code examples are provided under permissive licensing",
+            "We are not liable for issues arising from code usage"
+          ]
+        },
+        "articles": {
+          "title": "Written Content & Articles",
+          "p1": "All articles, blog posts, written tutorials, and original content on ExploreTheBuzz are protected by copyright law and owned by ExploreTheBuzz or our content contributors.",
+          "allowed": "Allowed:",
+          "allowedList": [
+            "Sharing links to our articles on social media",
+            "Brief quotes (under 200 words) with proper attribution",
+            "Referencing our content in your own blog posts"
+          ],
+          "prohibited": "Prohibited:",
+          "prohibitedList": [
+            "Republishing entire articles without written permission",
+            "Scraping content for AI training or content farms",
+            "Claiming our content as your own (plagiarism)",
+            "Removing attribution or copyright notices"
+          ]
+        }
+      },
+      "dmca": {
+        "number": "4",
+        "title": "DMCA & Copyright Claims",
+        "subtitle": "Protecting Intellectual Property",
+        "p": "We respect the intellectual property rights of others and expect our users to do the same. If you believe that your copyrighted work has been copied in a way that constitutes copyright infringement and is accessible on our Site, please notify us immediately.",
+        "howToFile": "How to File a DMCA Takedown Notice",
+        "email": "explorethebuz@gmail.com",
+        "requirements": [
+          "Your contact information (name, email, address)",
+          "Identification of the copyrighted work being infringed",
+          "URL(s) of the allegedly infringing content on our Site",
+          "A statement of good faith belief",
+          "Your physical or electronic signature"
+        ],
+        "response": "We typically respond within 24 hours and remove infringing content the same day when valid claims are submitted."
+      },
+      "conduct": {
+        "number": "5",
+        "title": "User Conduct & Prohibited Activities",
+        "subtitle": "What You Cannot Do",
+        "p": "When using ExploreTheBuzz, you agree NOT to engage in any of the following prohibited activities:",
+        "list": [
+          "Scraping, copying, or harvesting content for unauthorized purposes",
+          "Using automated bots or scripts to access the Site",
+          "Attempting to gain unauthorized access to our servers or systems",
+          "Distributing malware, viruses, or harmful code",
+          "Harassing, threatening, or impersonating others",
+          "Posting spam, advertisements, or unsolicited promotions",
+          "Violating any applicable laws or regulations",
+          "Interfering with the proper functioning of the Site"
+        ],
+        "termination": "We reserve the right to terminate or suspend your access to the Site immediately, without prior notice, for any violation of these Terms & Conditions or for any conduct that we deem harmful to the Site, other users, or third parties."
+      },
+      "accuracy": {
+        "number": "6",
+        "title": "Accuracy & Content Updates",
+        "subtitle": "Technology Changes Fast",
+        "p": "While we strive for accuracy and test all tutorials at the time of publication, technology evolves rapidly. Code examples, APIs, frameworks, and best practices may change over time.",
+        "responsibility": "Your Responsibility",
+        "responsibilityList": [
+          "Always verify code in your own development environment",
+          "Check package versions and dependencies for compatibility",
+          "Test thoroughly before deploying to production",
+          "Refer to official documentation for the most current information",
+          "Report outdated content to help us keep tutorials current"
+        ],
+        "final": "We make no guarantees that the information on this Site is complete, accurate, or up-to-date at all times. We reserve the right to update, modify, or remove content without prior notice."
+      },
+      "liability": {
+        "number": "7",
+        "title": "Limitation of Liability",
+        "subtitle": "Use at Your Own Risk",
+        "p": "TO THE FULLEST EXTENT PERMITTED BY LAW, EXPLORETHEBUZZ, ITS OWNERS, CONTRIBUTORS, AND AFFILIATES SHALL NOT BE LIABLE FOR ANY:",
+        "list": [
+          "Direct, indirect, incidental, or consequential damages",
+          "Loss of profits, revenue, data, or business opportunities",
+          "Damages resulting from use or inability to use the Site",
+          "Errors, bugs, or issues in code examples or tutorials",
+          "Financial losses from trading, investing, or cryptocurrency",
+          "Security breaches or unauthorized access to your systems",
+          "Third-party actions or content linked from our Site",
+          "Any damages exceeding the amount you paid to access this Site ($0)"
+        ],
+        "asIs": "The Site and all content are provided \"AS IS\" and \"AS AVAILABLE\" without warranties of any kind, either express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement."
+      },
+      "thirdParty": {
+        "number": "8",
+        "title": "Third-Party Links & External Content",
+        "subtitle": "We're Not Responsible for External Sites",
+        "p": "Our Site may contain links to third-party websites, resources, tools, APIs, and services that are not owned or controlled by ExploreTheBuzz. These links are provided for your convenience and reference only.",
+        "disclaimer": "Important Disclaimer",
+        "disclaimerList": [
+          "We do not control or endorse third-party websites or content",
+          "We are not responsible for the accuracy, privacy policies, or practices of external sites",
+          "Visiting third-party links is at your own risk",
+          "We do not receive compensation for linking to external resources (unless explicitly disclosed)",
+          "Always verify the legitimacy and security of external sites before providing personal information"
+        ]
+      },
+      "ads": {
+        "number": "9",
+        "title": "Advertising & Monetization",
+        "subtitle": "Google AdSense & Sponsored Content",
+        "p": "ExploreTheBuzz participates in the Google AdSense program to display third-party advertisements on our Site. These ads help us maintain and improve our free educational content.",
+        "whatThisMeans": "What This Means for You",
+        "whatThisMeansList": [
+          "Ads are served by Google and other advertising networks",
+          "We do not control which ads appear on our Site",
+          "Ads may use cookies to personalize content (see Privacy Policy)",
+          "You can opt out of personalized ads via Google Ad Settings"
+        ],
+        "transparency": "Our Transparency Commitment",
+        "transparencyList": [
+          "We will never accept paid content disguised as tutorials",
+          "All sponsored content will be clearly labeled",
+          "Our reviews and recommendations remain unbiased",
+          "We only recommend tools we actually use"
+        ],
+        "final": "We do not endorse or guarantee any products or services advertised on our Site. Any transactions you make with advertisers are solely between you and the advertiser."
+      },
+      "law": {
+        "number": "10",
+        "title": "Governing Law & Dispute Resolution",
+        "subtitle": "Legal Jurisdiction",
+        "p1": "These Terms & Conditions shall be governed by and construed in accordance with the laws of the jurisdiction in which ExploreTheBuzz operates, without regard to its conflict of law provisions.",
+        "p2": "Any disputes arising out of or relating to these Terms & Conditions or your use of the Site shall be resolved through binding arbitration or in the courts of competent jurisdiction. You agree to submit to the personal jurisdiction of such courts.",
+        "informal": "Informal Resolution First",
+        "informalText": "Before initiating any formal legal proceedings, we encourage you to contact us at explorethebuz@gmail.com to attempt to resolve the issue informally. Most disputes can be resolved through open communication."
+      },
+      "severability": {
+        "number": "11",
+        "title": "Severability & Entire Agreement",
+        "subtitle": "Legal Provisions",
+        "severability": "Severability",
+        "severabilityText": "If any provision of these Terms & Conditions is found to be unlawful, void, or unenforceable, that provision shall be deemed severable and shall not affect the validity and enforceability of the remaining provisions.",
+        "entire": "Entire Agreement",
+        "entireText": "These Terms & Conditions, together with our Privacy Policy, constitute the entire agreement between you and ExploreTheBuzz regarding your use of the Site and supersede all prior agreements and understandings, whether written or oral.",
+        "waiver": "Waiver",
+        "waiverText": "Our failure to enforce any right or provision of these Terms & Conditions will not be considered a waiver of those rights. Any waiver of any provision must be in writing and signed by us."
+      },
+      "changes": {
+        "number": "12",
+        "title": "Changes to These Terms",
+        "subtitle": "How We Update Our Policies",
+        "p": "We reserve the right to modify, update, or replace these Terms & Conditions at any time and for any reason. When we make changes, we will update the \"Last Updated\" date at the top of this page.",
+        "responsibility": "Your Responsibility to Review",
+        "responsibilityText": "It is your responsibility to periodically review these Terms & Conditions to stay informed of updates. Your continued use of the Site after any modifications indicates your acceptance of the revised terms.",
+        "materialChanges": "For material changes that significantly affect your rights, we will provide prominent notice on the Site or send you an email notification (if you have subscribed to our mailing list)."
+      }
+    },
+    "contact": {
+      "title": "Questions About These Terms?",
+      "text": "If you have any questions, concerns, or feedback about these Terms & Conditions, please don't hesitate to contact us. We're here to help clarify anything that might be confusing.",
+      "email": "explorethebuz@gmail.com",
+      "responseTime": "We typically respond within 24-48 hours"
+    },
+    "acknowledgment": {
+      "title": "Acknowledgment of Terms",
+      "strong": "BY USING EXPLORETHEBUZZ, YOU ACKNOWLEDGE THAT YOU HAVE READ, UNDERSTOOD, AND AGREE TO BE BOUND BY THESE TERMS & CONDITIONS.",
+      "disagree": "If you do not agree to these terms, you must immediately discontinue use of our Site.",
+      "legal": "These Terms & Conditions constitute a legally binding agreement between you and ExploreTheBuzz. We built this to be fair, transparent, and straightforward — not to hide behind legal jargon.",
+      "copyright": "© 2025 ExploreTheBuzz. All rights reserved."
+    }
+  },
   "client": {
     "Navbar": {
       "ourblogs": "Our Blogs",
@@ -42,6 +910,8 @@
       "about": "About",
       "blog": "Blog",
       "contact": "Contact",
+      "priva": "Privacy Policy",
+      "termsandcondition": "Terms & Conditions",
       "signIn": "Sign In",
       "logout": "LogOut",
       "myBlogs": "My Blogs"

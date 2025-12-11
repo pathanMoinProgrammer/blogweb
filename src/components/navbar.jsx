@@ -62,6 +62,15 @@ export default function Navbar() {
             </Button>
             <Button
               variant="ghost"
+              onClick={() =>
+                handleNavigation(`/${locale}/terms-and-conditions`)
+              }
+              className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium p-0 h-auto hover:bg-transparent dark:hover:bg-slate-500/50"
+            >
+              {t?.termsandcondition || 'terms & conditions'}
+            </Button>
+            <Button
+              variant="ghost"
               onClick={() => handleNavigation(`/${locale}/blogpost`)}
               className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium p-0 h-auto hover:bg-transparent dark:hover:bg-slate-500/50"
             >
@@ -73,6 +82,13 @@ export default function Navbar() {
               className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium p-0 h-auto hover:bg-transparent dark:hover:bg-slate-500/50"
             >
               {t?.contact || 'Contact'}
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={() => handleNavigation(`/${locale}/privacy-policy`)}
+              className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium p-0 h-auto hover:bg-transparent dark:hover:bg-slate-500/50"
+            >
+              {t?.privacypolicy || 'Privacy Policy'}
             </Button>
             {/* <Button
               variant="ghost"
@@ -148,6 +164,16 @@ export default function Navbar() {
                   <Button
                     variant="ghost"
                     onClick={() => {
+                      handleNavigation(`/${locale}/terms-and-conditions`);
+                      handleLinkClick();
+                    }}
+                    className="justify-start py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700 h-auto"
+                  >
+                    {t?.termsandcondition || 'terms & conditions'}
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={() => {
                       handleNavigation(`/${locale}/blogpost`);
                       handleLinkClick();
                     }}
@@ -164,6 +190,16 @@ export default function Navbar() {
                     className="justify-start py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700 h-auto"
                   >
                     {t?.contact || 'Contact'}
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={() => {
+                      handleNavigation(`/${locale}/privacy-policy`);
+                      handleLinkClick();
+                    }}
+                    className="justify-start py-2 px-2 text-indigo-700 font-medium hover:text-indigo-900 transition rounded-md hover:bg-indigo-50 dark:hover:bg-gray-700 h-auto"
+                  >
+                    {t?.privacypolicy || 'Privacy Policy'}
                   </Button>
                   {/* <Button
                     variant="ghost"
