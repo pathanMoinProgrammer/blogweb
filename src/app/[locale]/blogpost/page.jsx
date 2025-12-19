@@ -7,32 +7,8 @@ export default async function Page({ params }) {
   const locale = parameters.locale;
   const t = await getTranslations(locale, 'BlogPage');
   return (
-    <section className="py-16 px-4 bg-linear-to-b from-white to-gray-100 dark:from-gray-900 dark:to-gray-800 min-h-screen relative">
+    <section className="  bg-linear-to-b from-white to-gray-100 dark:from-gray-900 dark:to-gray-800 min-h-screen relative">
       <div className="max-w-380 mx-auto">
-       <h1 className="text-3xl md:text-5xl font-bold text-center mb-12 text-gray-900 dark:text-white">
-          {t.ourblogs || 'Latest Technology, AI & Innovation Blogs'}
-        </h1>
-        {/* <p className="text-xl md:text-2xl  text-muted-foreground  mx-auto mb-10 leading-relaxed">
-          ExploreTheBuzz is the growing blog website for developers & Traders
-          who want to stay ahead in artificial intelligence automation, Deep
-          Knowledge of Crypto Currency. Every Tuesday , we publish
-          in-depth, no-fluff tutorials and Knowledge Blogs written by full-stack
-          engineers who actually deploy production apps — not theorists, not
-          influencers.
-          <br />
-          <br />
-          From building AI Auto Mation, to securing play-to-earn ecosystems and
-          spotting crypto scams — we cover what actually matters in 2025.
-          <br />
-          <br />
-          No sponsored fluff. No “get rich quick” promises. Just tested code,
-          performance benchmarks, and honest takes on tools that work (and those
-          that don’t).
-          <br />
-          <br />
-          If you’re tired of shallow listicles and want content that saves you
-          hours of debugging — you’re in the right place.
-        </p> */}
 
         <Suspense
           fallback={
