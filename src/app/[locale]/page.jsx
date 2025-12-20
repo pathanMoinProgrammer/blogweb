@@ -3,6 +3,7 @@ import { routing } from '../../i18n/routing';
 import { redirect } from 'next/navigation';
 import BlogPage from './blogpost/page';
 import { getTranslations } from '@/components/traslator';
+import BlogListClient from '@/components/ui/BlogListClient';
 
 export const dynamic = 'force-static';
 export const revalidate = 300;
@@ -73,7 +74,8 @@ export default async function HomePage({ params }) {
     <main className="min-h-screen bg-gradient-to-br from-background to-muted">
       <section className="py-2 ">
         <div className=" px-1">
-          <BlogPage params={params} />
+          {/* <BlogPage params={params} /> */}
+          <BlogListClient locale={locale} t={t2} />
         </div>
         <section className="container mx-auto px-4 py-8">
           <div className="text-left text-muted-foreground space-y-4 text-sm md:text-base leading-relaxed">

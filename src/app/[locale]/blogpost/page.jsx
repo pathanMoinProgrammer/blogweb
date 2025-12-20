@@ -7,7 +7,7 @@ export default async function Page({ params }) {
   const locale = parameters.locale;
   const t = await getTranslations(locale, 'BlogPage');
   return (
-    <section className="  bg-linear-to-b from-white to-gray-100 dark:from-gray-900 dark:to-gray-800 min-h-screen relative">
+    <section className="   min-h-screen relative">
       <div className="max-w-380 mx-auto">
 
         <Suspense
