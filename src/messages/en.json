@@ -7,7 +7,6 @@
     "tagline4": "Stay Productive, Up-to-Date.",
     "tagline5": "& Stand in the Market with Confidence. ",
     "tagline6": "Our Other Applications ",
-
     "landingBottom": {
       "educationalContent": {
         "p1": "We emphasize <strong>legal, sustainable earning methods</strong> because we’ve seen too many developers lose money—or worse, violate regulations—by jumping into gray-area schemes. Our guides on play-to-earn ecosystems only cover games with proven payouts, clear terms, and real user earnings. We also explain how to report crypto income properly to stay compliant with IRS and global tax standards.",
@@ -31,7 +30,8 @@
         "about": "About",
         "contact": "Contact",
         "privacy": "Privacy Policy",
-        "sitemap": "Sitemap"
+        "sitemap": "Sitemap",
+        "termsandcondition": "Terms & Conditions"
       }
     }
   },
@@ -65,14 +65,12 @@
     "heroTitle": "Privacy Policy",
     "heroSubtitle": "At ExploreTheBuzz, your privacy is our priority. We are committed to protecting your personal information and being transparent about our data practices.",
     "lastUpdated": "Last Updated: December 2025",
-
     "introduction": {
       "title": "Introduction",
       "subtitle": "Understanding Our Commitment to Your Privacy",
       "p1": "Welcome to ExploreTheBuzz (\"we,\" \"our,\" or \"us\"). This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website explorethebuzz.com (the \"Site\"). We are committed to ensuring that your privacy is protected and that you understand our data practices.",
       "p2": "By accessing or using ExploreTheBuzz, you agree to this Privacy Policy. If you do not agree with the terms of this Privacy Policy, please do not access or use the Site. We reserve the right to make changes to this Privacy Policy at any time and for any reason."
     },
-
     "informationWeCollect": {
       "title": "Information We Collect",
       "subtitle": "What Data We Gather and Why",
@@ -106,7 +104,6 @@
         "desc": "We use cookies, web beacons, pixels, and similar tracking technologies to enhance your experience, analyze site traffic, and serve personalized advertisements. Cookies are small data files stored on your device that help us remember your preferences and understand how you use our Site."
       }
     },
-
     "howWeUse": {
       "title": "How We Use Your Information",
       "subtitle": "Purposes for Data Processing",
@@ -124,7 +121,6 @@
         "Send newsletters and promotional content (with consent)"
       ]
     },
-
     "thirdParty": {
       "title": "Third-Party Services & Disclosure",
       "subtitle": "External Tools We Use",
@@ -149,7 +145,6 @@
         ]
       }
     },
-
     "security": {
       "title": "Data Security & Retention",
       "subtitle": "How We Protect Your Information",
@@ -162,7 +157,6 @@
       "warning": "However, no method of transmission over the Internet or electronic storage is 100% secure. While we strive to protect your information, we cannot guarantee its absolute security.",
       "retention": "We retain your personal information only for as long as necessary to fulfill the purposes outlined in this Privacy Policy, unless a longer retention period is required or permitted by law."
     },
-
     "rights": {
       "title": "Your Privacy Rights",
       "subtitle": "GDPR, CCPA & International Compliance",
@@ -195,7 +189,6 @@
       ],
       "howTo": "To exercise any of these rights, please email us at explorethebuz@gmail.com with your request. We will respond within 30 days and may require verification of your identity before processing your request."
     },
-
     "cookiesPolicy": {
       "title": "Cookies & Tracking Policy",
       "subtitle": "Understanding Cookies on Our Site",
@@ -228,13 +221,11 @@
         "note": "Note: Disabling cookies may affect site functionality and user experience."
       }
     },
-
     "children": {
       "title": "Children's Privacy",
       "subtitle": "Protection for Users Under 13",
       "text": "Our Site is not intended for children under the age of 13. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe your child has provided us with personal information, please contact us immediately at explorethebuz@gmail.com, and we will take steps to remove such information from our systems."
     },
-
     "transfers": {
       "title": "International Data Transfers",
       "subtitle": "Cross-Border Data Processing",
@@ -242,13 +233,11 @@
       "p2": "If you are located outside the United States and choose to provide information to us, please note that we transfer the data, including personal data, to the United States and process it there. Your consent to this Privacy Policy followed by your submission of such information represents your agreement to that transfer.",
       "commitment": "We will take all steps reasonably necessary to ensure that your data is treated securely and in accordance with this Privacy Policy, and no transfer of your personal data will take place to an organization or a country unless there are adequate controls in place including the security of your data and other personal information."
     },
-
     "dnt": {
       "title": "Do Not Track Signals",
       "subtitle": "Browser Privacy Preferences",
       "text": "We respect Do Not Track (DNT) signals and do not track, plant cookies, or use advertising when a DNT browser mechanism is in place. Most web browsers and some mobile operating systems include a Do Not Track feature or setting you can activate to signal your privacy preference not to have data about your online browsing activities monitored and collected."
     },
-
     "breach": {
       "title": "Data Breach Notification",
       "subtitle": "Our Commitment to Transparency",
@@ -260,7 +249,6 @@
         "Contact information for further inquiries"
       ]
     },
-
     "changes": {
       "title": "Changes to This Privacy Policy",
       "subtitle": "Staying Informed About Updates",
@@ -268,34 +256,24 @@
       "p2": "We encourage you to periodically review this Privacy Policy to stay informed about how we are protecting your information. Your continued use of the Site after any changes constitutes your acceptance of the updated Privacy Policy.",
       "material": "If we make material changes to this Privacy Policy that significantly affect your rights, we will provide prominent notice on our Site or send you an email notification (if you have provided us with your email address)."
     },
-
-    "contact": {
-      "title": "Questions or Concerns?",
-      "text": "If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please don't hesitate to contact us. We are committed to addressing your privacy concerns promptly and transparently.",
-      "email": "explorethebuz@gmail.com",
-      "website": "explorethebuzz.com",
-      "responseTime": "We typically respond to all inquiries within 48 hours. For data deletion requests, please allow up to 30 days for processing."
-    },
-
     "disclaimer": "Legal Disclaimer: This Privacy Policy constitutes a legally binding agreement between you and ExploreTheBuzz. By using our Site, you acknowledge that you have read, understood, and agreed to be bound by this Privacy Policy. If you do not agree, please discontinue use of our Site immediately.",
     "copyright": "© 2025 ExploreTheBuzz. All rights reserved."
   },
   "contact": {
     "meta": {
       "title": "Contact Us – ExploreTheBuzz | Get in Touch for Support & Collaboration",
-      "description": "Have questions, feedback, or collaboration ideas? Contact ExploreTheBuzz for quick support, guest post submissions, bug reports, and technical inquiries. We reply within 24 hours.",
-      "ogTitle": "Contact ExploreTheBuzz – We're Here to Help",
-      "ogDescription": "Reach out to ExploreTheBuzz for questions, guest posts, bug reports, or collaboration. Our team responds to every message within 24-48 hours.",
-      "twitterTitle": "Contact ExploreTheBuzz – Quick Support & Collaboration",
-      "twitterDescription": "Have questions or want to collaborate? Contact ExploreTheBuzz for technical support, guest posts, and partnerships. We reply fast!"
+      "label1": "Your Name",
+      "label2": "Your Message",
+      "placeholder1": "Enter your name",
+      "placeholder2": "Write your message here...",
+      "button": "Send Message",
+      "footer": "We usually reply within 24–48 hours"
     },
-
     "hero": {
       "title": "Get in Touch",
       "subtitle": "We read every single message. Whether you have questions, found a bug, want to collaborate, or just want to say hi — we're here to help.",
       "responseBadge": "Average Response Time: Under 24 Hours"
     },
-
     "primaryEmail": {
       "title": "Primary Conjntact Email",
       "email": "explorethebuz@gmail.com",
@@ -303,7 +281,6 @@
       "responseTime": "24-48 Hour Response",
       "allMessagesRead": "All Messages Read"
     },
-
     "loveToHear": {
       "title": "We Especially Love Hearing About",
       "items": [
@@ -333,7 +310,6 @@
         }
       ]
     },
-
     "guestPost": {
       "title": "Guest Post Submissions",
       "intro": "We welcome high-quality technical content from the developer community! If you want to contribute, here's what we're looking for:",
@@ -347,7 +323,6 @@
       ],
       "proTip": "Pro Tip: Include \"Guest Post Pitch\" in your email subject line and attach or link to your draft content."
     },
-
     "notProvide": {
       "title": "What We Do NOT Provide",
       "items": [
@@ -360,7 +335,6 @@
       ],
       "note": "Everything on ExploreTheBuzz is free, open, and educational. Always has been. Always will be."
     },
-
     "whyTrust": {
       "title": "Why Developers Trust ExploreTheBuzz",
       "items": [
@@ -378,14 +352,12 @@
         }
       ]
     },
-
     "finalCta": {
       "title": "Ready to Connect?",
       "text": "Whether you have a question, found a bug, want to collaborate, or just want to say the RAG pipeline article saved your weekend — we want to hear from you!",
       "button": "Send Us an Email",
       "closing": "Looking forward to hearing from you!\n— The ExploreTheBuzz Team"
     },
-
     "disclaimer": "Disclaimer: ExploreTheBuzz provides educational content only. We do not offer financial, investment, or trading advice. All cryptocurrency and trading content is for informational purposes. Always do your own research and consult licensed professionals for financial decisions."
   },
   "terms": {
@@ -931,7 +903,7 @@
   },
   "client": {
     "Navbar": {
-      "ourblogs": "Our Blogs",
+      "ourblogs": "ExploretheBuzz",
       "home": "Home",
       "about": "About",
       "blog": "Blog",
@@ -942,7 +914,6 @@
       "logout": "LogOut",
       "myBlogs": "My Blogs"
     },
-
     "createBlogPage": {
       "notification": {},
       "metadata": {

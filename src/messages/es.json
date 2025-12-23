@@ -30,7 +30,8 @@
         "about": "Acerca de",
         "contact": "Contacto",
         "privacy": "Política de Privacidad",
-        "sitemap": "Mapa del sitio"
+        "sitemap": "Mapa del sitio",
+        "termsandcondition": "Términos y Condiciones"
       }
     }
   },
@@ -282,11 +283,12 @@
   "contact": {
     "meta": {
       "title": "Contáctanos – ExploreTheBuzz | Soporte y Colaboración",
-      "description": "¿Tienes preguntas, feedback o ideas de colaboración? Contacta con ExploreTheBuzz para soporte rápido, envío de artículos como invitado, reportes de errores e consultas técnicas. Respondemos en 24 horas.",
-      "ogTitle": "Contacta con ExploreTheBuzz – Estamos aquí para ayudarte",
-      "ogDescription": "Contáctanos para preguntas, artículos como invitado, reportes de errores o colaboraciones. Nuestro equipo responde cada mensaje en 24-48 horas.",
-      "twitterTitle": "Contacta con ExploreTheBuzz – Soporte Rápido y Colaboración",
-      "twitterDescription": "¿Tienes preguntas o quieres colaborar? Contacta con ExploreTheBuzz para soporte técnico, artículos como invitado y alianzas. ¡Respondemos rápido!"
+      "label1": "Tu nombre",
+      "label2": "Tu mensaje",
+      "placeholder1": "Introduce tu nombre",
+      "placeholder2": "Escribe tu mensaje aquí...",
+      "button": "Enviar mensaje",
+      "footer": "Normalmente respondemos en un plazo de 24 a 48 horas"
     },
 
     "hero": {

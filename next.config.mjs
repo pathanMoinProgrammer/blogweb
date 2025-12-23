@@ -10,16 +10,31 @@ const nextConfig = {
   experimental: {
     optimizeCss: true,
   },
+
   images: {
-    remotePatterns: [{ hostname: 'firebasestorage.googleapis.com' }],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'firebasestorage.googleapis.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.pexels.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+      },
+    ],
   },
+
   // Ensure Next infers this repository's root (helps locate next-intl config)
   outputFileTracingRoot: resolve(__dirname),
-  // Bundle splitting + tree-shaking
-  // swcMinify: true,
+
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
+
   async redirects() {
     return [
       {
@@ -30,13 +45,13 @@ const nextConfig = {
       },
     ];
   },
-  // …rest of your config
 };
 
-// Point the plugin at the request config used by this project.
+// next-intl plugin
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.js');
 
 export default withNextIntl(nextConfig);
+
 
 // // next.config.mjs
 // import createNextIntlPlugin from 'next-intl/plugin';

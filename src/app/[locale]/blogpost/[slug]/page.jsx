@@ -1,6 +1,7 @@
 // For Firebase Firestore blogs
 import Link from 'next/link';
 import { slugReadRef } from '@/firebase/firebaseAdminRefs';
+import { ArrowLeft } from 'lucide-react';
 
 
 export async function generateMetadata({ params }) {
@@ -77,7 +78,7 @@ const page = async ({ params }) => {
           )}
         </header>
 
-        <section className="bg-card rounded-xl shadow-lg p-1  mb-12">
+        <section className="bg-card rounded-xl shadow-lg p-8 mb-12">
           {data?.content && (
             <div
               className="prose-content"
@@ -91,56 +92,9 @@ const page = async ({ params }) => {
             href={`/${locale}`}
             className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-3 rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 "
           >
-            <svg
-              className="w-5 h-5 dark:text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M10 19l-7-7m0 0l7-7m-7 7h18"
-              />
-            </svg>
+            <ArrowLeft />
             <span className="dark:text-white">Back to Blogs</span>
           </Link>
-          <div className="flex justify-center gap-6 my-12">
-            <a
-              href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(
-                currentUrl,
-              )}&text=${encodeURIComponent(data?.title || '')}`}
-              target="_blank"
-              rel="noopener"
-              className="p-4 bg-[#1DA1F2] text-white rounded-full hover:scale-110 transition"
-              style={{ color: 'white' }}
-            >
-              Twitter
-            </a>
-            <a
-              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-                currentUrl,
-              )}`}
-              target="_blank"
-              rel="noopener"
-              className="p-4 bg-[#1877F2] text-white rounded-full hover:scale-110 transition"
-              style={{ color: 'white' }}
-            >
-              Facebook
-            </a>
-            <a
-              href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(
-                currentUrl,
-              )}&title=${encodeURIComponent(data?.title || '')}`}
-              target="_blank"
-              rel="noopener"
-              className="p-4 bg-[#0A66C2] text-white rounded-full hover:scale-110 transition"
-              style={{ color: 'white' }}
-            >
-              LinkedIn
-            </a>
-          </div>
         </footer>
       </article>
     </div>

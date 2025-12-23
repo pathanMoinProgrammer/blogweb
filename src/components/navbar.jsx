@@ -37,22 +37,16 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 border-b justify-center backdrop-blur-sm border-indigo-100 dark:bg-[rgb(21,29,44)] shadow-sm bg-background/50">
       <div className="w-[88%] mx-auto flex items-center justify-between h-16">
         <div className="hidden md:flex items-center justify-between space-x-8 gap-[10px] w-full ">
-          <Button
+          <button
             variant="ghost"
             onClick={() => handleNavigation(`/${locale}`)}
-            className="text-2xl font-bold text-blue-500 dark:text-white tracking-tight p-0 h-auto hover:bg-transparent cursor-pointer dark:hover:bg-slate-500/50 p-2"
+            className="text-2xl font-bold text-blue-500 dark:text-white tracking-tight p-0 h-auto cursor-pointer dark:hover:bg-slate-500/50 p-2"
           >
-            {t?.ourblogs || 'Our Blogs'}
-          </Button>
+            {'ExploretheBuzz'}
+          </button>
 
           <div className="flex items-center gap-8 ml-6  [&>*]:cursor-pointer  [&>*]:p-2">
-            <Button
-              variant="ghost"
-              onClick={() => handleNavigation(`/${locale}`)}
-              className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium p-0 h-auto hover:bg-transparent dark:hover:bg-slate-500/50"
-            >
-              {t?.home || 'Home'}
-            </Button>
+
             <Button
               variant="ghost"
               onClick={() => handleNavigation(`/${locale}/about`)}
@@ -69,13 +63,13 @@ export default function Navbar() {
             >
               {t?.termsandcondition || 'terms & conditions'}
             </Button>
-            <Button
+            {/* <Button
               variant="ghost"
               onClick={() => handleNavigation(`/${locale}/blogpost`)}
               className="hover:scale-125 dark:text-white transition-transform hover:underline hover:font-bold hover:text-purple-500 font-medium p-0 h-auto hover:bg-transparent dark:hover:bg-slate-500/50"
             >
               {t?.blog || 'Blogs'}
-            </Button>
+            </Button> */}
             <Button
               variant="ghost"
               onClick={() => handleNavigation(`/${locale}/contact`)}
