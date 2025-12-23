@@ -2,11 +2,17 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Reactions from '@/components/ui/ReactionBtns';
 
+function shuffleArray(array) {
+  return [...array].sort(() => Math.random() - 0.5);
+}
+
 export default function BlogGrid({ blogs, locale, t }) {
+  const shuffledBlogs = shuffleArray(blogs);
+
   return (
     <section className="py-16 px-4">
       <div className="max-w-8xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-        {blogs.map((blog, index) => (
+        {shuffledBlogs.map((blog, index) => (
           <div
             key={blog.id}
             className="group rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all"
@@ -38,7 +44,6 @@ export default function BlogGrid({ blogs, locale, t }) {
                 </div>
               </Link>
 
-              {/* reactions lazy */}
               <div className="border-t p-3">
                 <Reactions
                   slug={blog.slug}
