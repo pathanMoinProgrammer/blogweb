@@ -25,6 +25,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'lh3.googleusercontent.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'pub-0e3a11849d0e47749d9082d6fde434df.r2.dev',
+      },
     ],
   },
 

@@ -370,7 +370,7 @@ export default function Reactions({ slug, postid, locale, reactionsArray = {} })
   }
 
   return (
-    <div className="flex gap-3 items-center justify-center sm:justify-start select-none">
+    <div className="flex gap-3 items-center justify-center select-none">
       {emojis.map(({ icon, label, key }) => (
         <Tooltip key={key}>
           <TooltipTrigger asChild>
