@@ -95,8 +95,6 @@ const ShowAvailableLang = ({ locale, languages = [], postid }) => {
     en: 'English (EN)',
     hi: 'हिन्दी (HI)',
     pt: 'Português (PT)',
-    zh: '中文 (ZH)',
-    'pt-BR': 'Português (Brasil)',
     es: 'Español (ES)',
   };
 

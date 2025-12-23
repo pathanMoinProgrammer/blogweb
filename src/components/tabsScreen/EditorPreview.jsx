@@ -6,27 +6,28 @@ import BlogMetadataForm from '../blog/BlogMetadataForm';
 import ActionButton from '../ui/actionButton';
 
 export default function EditorPreviewTabs({
-  formData,
-  editor = null,
-  formik,
-  isFullscreen,
-  setIsFullscreen,
-  loading,
-  postid,
-  refArray,
-  locale,
-  setNotifiMessage,
-  languages,
-  type,
-  setShowNotification,
-  showNotification,
-  inputRefs,
-  metadataT,
-  editorT,
-  pendingImages,
-  setPendingImages,
+  formData,//
+  editor = null,//
+  formik,//
+  isFullscreen,//
+  setIsFullscreen,//
+  loading,//
+  postid,//
+  refArray, //
+  locale,//
+  setNotifiMessage,//
+  languages,//
+  type, //
+  setShowNotification,//
+  showNotification, //
+  inputRefs,//
+  metadataT,//
+  editorT, //
+  pendingImages, //
+  setPendingImages,//
 }) {
   const { HtmContent } = formik.values;
+
 
   return (
     <>

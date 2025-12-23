@@ -129,7 +129,7 @@ const CreateBlogPage = ({ editorT }) => {
       </div>
       <div className="min-[1300px]:hidden ">
         <EditorPreviewTabs
-          c
+          formData={formData}
           formik={formik}
           setNotifiMessage={setNotifiMessage}
           isFullscreen={isFullscreen}

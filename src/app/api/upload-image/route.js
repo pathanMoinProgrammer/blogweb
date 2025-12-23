@@ -1,41 +1,40 @@
-import { writeFile, mkdir, readdir } from "fs/promises";
-import path from "path";
+import { writeFile, mkdir, readdir } from 'fs/promises';
+import path from 'path';
 
-// Remove special chars + spaces
 function sanitizeName(str) {
   return str
     .toLowerCase()
     .trim()
-    .replace(/[^a-z0-9-_]/g, "-") // keep only a-z 0-9 - _
-    .replace(/-+/g, "-");
+    .replace(/[^a-z0-9-_]/g, '-')
+    .replace(/-+/g, '-');
 }
 
 export async function POST(req) {
   try {
     const data = await req.formData();
-    const file = data.get("file");
-    let slug = data.get("slug");
-    let name = data.get("name");
-    const index = data.get("index");
-    const type = data.get("type")?.toLowerCase();
+    const file = data.get('file');
+    let slug = data.get('slug');
+    let name = data.get('name');
+    const index = data.get('index');
+    const type = data.get('type')?.toLowerCase();
 
     if (!file) {
-      return new Response(JSON.stringify({ error: "No file received" }), { status: 400 });
+      return new Response(JSON.stringify({ error: 'No file received' }), {
+        status: 400,
+      });
     }
 
-    name = sanitizeName(name); // sanitize folder
+    name = sanitizeName(name);
 
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    const uploadDir = path.join(process.cwd(), "public/uploads", slug);
+    const uploadDir = path.join(process.cwd(), 'public/uploads', slug);
     await mkdir(uploadDir, { recursive: true });
 
-    // Base filename
     let filename = `${name}.${type}`;
     let filePath = path.join(uploadDir, filename);
 
-    // If exists → generate new name: image-0 (1).jpg
     const existingFiles = await readdir(uploadDir);
     let counter = 1;
 
@@ -51,11 +50,10 @@ export async function POST(req) {
       JSON.stringify({
         url: `/uploads/${slug}/${filename}`,
       }),
-      { status: 200 }
+      { status: 200 },
     );
-
   } catch (err) {
-    console.error("UPLOAD ERROR:", err);
+    console.error('UPLOAD ERROR:', err);
     return new Response(JSON.stringify({ url: null }), { status: 500 });
   }
 }

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 
-const ADSENSE_PUB_ID = process.env.NEXT_PUBLIC_ADSENSE_ID || 'ca-pub-xxxxxxxxxxxxxxxx';
+const ADSENSE_PUB_ID = process.env.ADSENSE_ID || 'ca-pub-xxxxxxxxxxxxxxxx';
 
 export function AdSenseUnit({ 
   slot = '', 

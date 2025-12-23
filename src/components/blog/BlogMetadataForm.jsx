@@ -2,7 +2,7 @@
 import leoProfanity from 'leo-profanity';
 import { useSafeInputHandler } from '@/hooks/costumHooks/blogMetaDataChecker';
 import BlogTitle from '../ui/blogTitle';
-import { useGameTranslations } from '../traslatorclient';
+// import { useGameTranslations } from '../traslatorclient';
 import { useEffect } from 'react';
 import ImageUploader from './imageupload';
 

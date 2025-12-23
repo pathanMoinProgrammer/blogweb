@@ -1,12 +1,17 @@
 import { useEffect, useRef, useState, useMemo } from 'react';
 import React from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { arrayUnion } from 'firebase/firestore';
-import { postDocRef, timestamp } from '@/firebase/firebaseRefs';
-import { useCreateDoc } from '@/hooks/fireatoreHooks/useCreateDoc';
-import { useReadDoc } from '@/hooks/fireatoreHooks/useReadDoc';
+import { arrayUnion, doc } from 'firebase/firestore';
+import {
+  postDocRef,
+  timestamp,
+} from '@/firebase/firebaseRefs';
+import { useCreateDoc } from '../fireatoreHooks/useCreateDoc';
+import { useReadDoc } from '../fireatoreHooks/useReadDoc';
 import { useFormik } from 'formik';
-import { blogSchema } from '../../components/yupValidSchema';
+import { blogSchema } from '@/components/yupValidSchema';
+import { removeEmptyFields, emptyLanguagedInstance } from '@/lib/emptyInstances';
+import { uploadThumbnailToR2 } from '@/app/actions/thumbnail-upload';
 import { useGameTranslations } from '@/components/traslatorclient';
 
 function getFormattedDateTime(type) {
@@ -64,6 +69,7 @@ export default function useCreateBlogPage() {
     hh: getFormattedDateTime('hh-mm').split('-')?.[0],
     mm: getFormattedDateTime('hh-mm').split('-')?.[1],
     ampm: getFormattedDateTime('ampm'),
+    language: 'en',
   });
   const [showNotification, setShowNotification] = useState(false);
   const [notifyMessage, setNotifiMessage] = useState({
@@ -88,9 +94,19 @@ export default function useCreateBlogPage() {
   const { loading, error, setDataWithLang } = useCreateDoc();
   const params = useParams();
   const router = useRouter();
-  const locale = params?.locale;
-  const postid = params?.postid?.[0];
+  const lang = params?.locale || 'en';
+  const [locale, setLocale] = useState(lang);
+  const postidArray = params?.postid;
+  const postid = Array.isArray(postidArray) && postidArray.length > 0 ? postidArray[0] : postidArray;
   const url = `${locale}slug`;
+ 
+
+  useEffect(()=>{
+    if(locale === "all"){
+      setLocale('en')
+    }
+  }, [lang])
+
 
   const {
     translations,
@@ -135,28 +151,65 @@ export default function useCreateBlogPage() {
     parentRead: true,
   });
 
+  const getChangedReactions = (original = {}, current = {}) => {
+    const changed = {};
+    let hasChange = false;
+
+    Object.keys(current).forEach((key) => {
+      const prev = original?.[key] ?? 0;
+      const now = current[key] ?? 0;
+
+      if (now > 0 && now !== prev) {
+        changed[key] = now;
+        hasChange = true;
+      }
+    });
+
+    return hasChange ? changed : null;
+  };
+
   useEffect(() => {
     if (data !== undefined && data?.type) {
       setType(data?.type);
     }
   }, [data?.type]);
 
+  useEffect(() => {
+    if (!data || typeof data !== 'object') return;
+
+    const cleanedData = removeEmptyFields(data);
+
+    if (Object.keys(cleanedData).length === 0) return;
+
+    setFormData((prev) => ({
+      ...prev,
+      ...cleanedData,
+    }));
+
+    if (cleanedData.reactions && typeof cleanedData.reactions === 'object') {
+      setReactions((prev) => ({
+        ...prev,
+        ...cleanedData.reactions,
+      }));
+    }
+  }, [data]);
+
   const AUTO_SAVE_DELAY = 2000;
   const DRAFT_KEY = 'blogDraft';
   const saveTimeout = useRef(null);
 
-  useEffect(() => {
-    if (data && data !== undefined && Object.keys(data).length > 0) {
-      const d = data;
-      setFormData((prev) => ({
-        ...prev,
-        ...d,
-      }));
-      if (typeof data?.reactions !== undefined) {
-        setReactions(data?.reactions);
-      }
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (data && data !== undefined && Object.keys(data).length > 0) {
+  //     const d = data;
+  //     setFormData((prev) => ({
+  //       ...prev,
+  //       ...d,
+  //     }));
+  //     if (typeof data?.reactions !== undefined) {
+  //       setReactions(data?.reactions);
+  //     }
+  //   }
+  // }, [data]);
 
   useEffect(() => {
     setIsMounted(true);
@@ -206,80 +259,77 @@ export default function useCreateBlogPage() {
   };
 
   const handleCreateBlog = async (values) => {
+    let currentParentRef = parentRef;
+    let currentChildRef = childRef;
+    let currentPostid = postid;
+    const changedReactions = getChangedReactions(
+      data?.reactions || {},
+      reactions,
+    );
+  
+
     try {
-      await setDataWithLang(parentRef, {
+      await setDataWithLang(currentParentRef, {
         ...values,
         HtmContent: `${values?.content.slice(0, 20)}...`,
         content: `${values?.content?.slice(0, 20)}...`,
+        id: postid,
         languages: arrayUnion(locale),
         [url]: values.slug,
         slug: arrayUnion(values.slug),
         lang: locale,
         updatedAt: timestamp(),
+        
       });
-      await setDataWithLang(childRef, {
+      await setDataWithLang(currentChildRef, {
         ...values,
+        id: postid,
         slug: values.slug,
         lang: locale,
         updatedAt: timestamp(),
-        reactions: reactions,
+          ...(changedReactions ? { reactions: changedReactions } : {}),
         hhmm: `${values.hh}:${values.mm}`,
         ampm: `${values.ampm}`,
+        // imgUrl:t
       });
+
+      return currentPostid;
     } catch (err) {
-      console.error('Error creating blog:', err);
+      console.warn('Error creating blog:', err);
+      throw err;
     }
   };
 
-  const uploadThumbnail = async (slug) => {
-    if (!thumbnailFile) return null;
 
+
+  const uploadThumbnail = async (slug) => {
+  if (!thumbnailFile) return null;
+
+  try {
     const formDataSend = new FormData();
     formDataSend.append('file', thumbnailFile);
     formDataSend.append('slug', slug);
+    formDataSend.append('type', thumbnailFile?.type?.split('/')?.[1]);
 
-    const res = await fetch('/api/upload-thumbnail', {
-      method: 'POST',
-      body: formDataSend,
-    });
+    // Call Server Action directly (no fetch!)
+    const result = await uploadThumbnailToR2(formDataSend);
 
-    const data = await res.json();
-
-    if (data?.url) {
-      return data.url;
-    } else {
-      console.error('Thumbnail upload failed:', data);
+    if (!result.success) {
+      console.warn('Thumbnail upload failed:', result.error);
       return null;
     }
-  };
 
-  const uploadImages = async (slug) => {
-    const uploadedUrls = [];
-
-    for (let i = 0; i < pendingImages.length; i++) {
-      const f = pendingImages[i];
-      if (!f) continue;
-
-      const type = f?.type?.split('/')?.[1]?.toLocaleLowerCase();
-
-      const formDataSend = new FormData();
-      formDataSend.append('file', f);
-      formDataSend.append('slug', slug);
-      formDataSend.append('name', f.name.split('.')[0]);
-      formDataSend.append('index', i);
-      formDataSend.append('type', type);
-
-      const res = await fetch('/api/upload-image', {
-        method: 'POST',
-        body: formDataSend,
-      });
-      console.log('Upload response for image', i, res);
-
-      const data = await res.json();
-      uploadedUrls.push(data.url);
+    if (!result.url) {
+      console.warn('No URL returned from upload');
+      return null;
     }
-    return uploadedUrls;
-  };
+
+    return result.url;
+  } catch (err) {
+    console.error('Thumbnail upload error:', err);
+    return null;
+  }
+};
 
   const formik = useFormik({
     initialValues: formData,
@@ -295,23 +345,19 @@ export default function useCreateBlogPage() {
         if (values.type === 'publish') {
           setType('publish');
 
-          const imageUploadPromise =
-            pendingImages.length > 0
-              ? uploadImages(values.slug)
-              : Promise.resolve([]);
 
-          const thumbnailUploadPromise = uploadThumbnail(values.slug);
+          const thumbnailUploadPromise = await uploadThumbnail(values.slug);
 
-          const [uploadedImageUrls, thumbnailUrl] = await Promise.all([
-            imageUploadPromise,
+          const [thumbnailUrl] = await Promise.all([
+            // imageUploadPromise,
             thumbnailUploadPromise,
           ]);
 
-          await handleCreateBlog({
+          const publishedPostid = await handleCreateBlog({
             ...values,
             type: 'publish',
-            imagesUploaded: uploadedImageUrls?.length || 0,
-            thumbnailUrl: thumbnailUrl || null,
+            imagesUploaded: pendingImages?.length || 0,
+            imgUrl: values?.imgUrl!== "setCloudFlare"?values?.imgUrl : thumbnailUrl ,
           });
 
           // clear draft
@@ -339,7 +385,7 @@ export default function useCreateBlogPage() {
           setTimeout(() => setShowNotification(true), 0);
         }
       } catch (err) {
-        console.error('⚠ Serious: Blog submission failed:', err);
+        console.warn('⚠ Serious: Blog submission failed:', err);
 
         setNotifiMessage({
           type: 'error',
@@ -381,6 +427,7 @@ export default function useCreateBlogPage() {
     formik,
     refArray,
     locale,
+    setLocale,
     notifyMessage,
     setNotifiMessage,
     languages: relateLangs,
@@ -395,7 +442,9 @@ export default function useCreateBlogPage() {
     setThumbnailFile,
     thumbPreview,
     setThumbPreview,
-    t,
+    reactions,
+    setReactions,
+        t,
     notifyT,
     metadataT,
     editorT,

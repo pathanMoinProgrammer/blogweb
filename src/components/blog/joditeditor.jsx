@@ -25,8 +25,9 @@ import {
   Code,
 } from 'lucide-react';
 import MonacoEditor from '@monaco-editor/react';
-import useTiptapEditor from '@/components/hooks/useTiptapEditor';
+import useTiptapEditor from '../hooks/useTiptapEditor';
 import { useEffect, useState } from 'react';
+import { uploadImageToR2 } from '@/app/actions/image-upload';
 
 export default function TiptapEditor(props) {
   const {
@@ -75,128 +76,112 @@ export default function TiptapEditor(props) {
 
   const { setPendingImages, setNotifiMessage, setShowNotification, formData } =
     props;
+const ImageUploadCustom = ({ setImageUrl, editor, setImagePopup }) => {
+  return (
+    <div className="space-y-2">
+      <label
+        htmlFor="image-upload"
+        className="flex flex-col items-center justify-center w-full h-20 border border-slate-300 rounded-lg cursor-pointer hover:bg-slate-50"
+      >
+        <Upload size={28} className="text-slate-500" />
+        <span className="mt-2 text-sm text-slate-600">
+          Click to upload image
+        </span>
+      </label>
 
-  const ImageUploadCustom = ({ setImageUrl, editor, setImagePopup }) => {
-    return (
-      <div className="space-y-2">
-        <label
-          htmlFor="image-upload"
-          className="flex flex-col items-center justify-center w-full h-20 border border-slate-300 rounded-lg cursor-pointer hover:bg-slate-50"
-        >
-          <Upload size={28} height={15} className="text-slate-500" />
-          <span className="mt-2 text-sm text-slate-600">
-            Click to upload image
-          </span>
-        </label>
+      <input
+        id="image-upload"
+        type="file"
+        accept="image/*"
+        onChange={async (e) => {
+          const file = e.target.files?.[0];
+          if (!file) return;
 
-        <input
-          id="image-upload"
-          type="file"
-          accept="image/*"
-          // onChange={(e) => {
-          //   const file = e.target.files?.[0];
-          //   const acceptable = ['gif', 'png', 'jpeg', 'webp'];
-          //   const filetype = file.type?.split('/')?.[1].toLocaleLowerCase();
-          //   if (!file) return;
-          //   if (file.size > 2 * 1024 * 1024) {
-          //     let message = 'Image size Must be 2 MB or less.';
-          //     setImagePopup(false);
-          //     setShowNotification(true);
-          //     setNotifiMessage({
-          //       type: 'error',
-          //       message: message,
-          //     });
-
-          //     setTimeout(() => {
-          //       setNotifiMessage({ type: '', message: [] });
-          //     }, 2000);
-          //     return;
-          //   }
-
-          //   const localUrl = URL.createObjectURL(file);
-          //   function sanitizeName(str) {
-          //     return str
-          //       .toLowerCase()
-          //       .trim()
-          //       .replace(/[^a-z0-9-_]/g, '-')
-          //       .replace(/-+/g, '-');
-          //   }
-          //   let path = `/uploads/${formData?.slug}/${sanitizeName(file.name.split('.')[0])}.${filetype}`
-          //   setImageUrl(path);
-          //   setImagePopup(false);
-
-          //   props.setPendingImages((prev) => [...prev, file]);
-
-          //   editor.chain().focus().setImage({ src: path }).run();
-          // }}
-          onChange={(e) => {
-            const file = e.target.files?.[0];
-            if (!file) return;
-
-            const acceptable = ['gif', 'png', 'jpeg', 'webp'];
-            const filetype = file.type?.split('/')[1]?.toLowerCase();
-            if (!acceptable.includes(filetype)) return;
-
-            if (file.size > 2 * 1024 * 1024) {
-              setImagePopup(false);
-              setShowNotification(true);
-              setNotifiMessage({
-                type: 'error',
-                message: 'Image size Must be 2 MB or less.',
-              });
-
-              setTimeout(() => {
-                setNotifiMessage({ type: '', message: [] });
-              }, 2000);
-              return;
-            }
-            function sanitizeName(str) {
-              return str
-                .toLowerCase()
-                .trim()
-                .replace(/[^a-z0-9-_]/g, '-')
-                .replace(/-+/g, '-');
-            }
-
-            let baseName = sanitizeName(file.name.split('.')[0]);
-
-            let finalName = `${baseName}.${filetype}`;
-
-            const pending = props.pendingImages || [];
-            const existingNames = pending.map(
-              (f) =>
-                sanitizeName(f.name.split('.')[0]) + '.' + f.type.split('/')[1],
-            );
-
-            let counter = 1;
-            while (existingNames.includes(finalName)) {
-              finalName = `${baseName} (${counter}).${filetype}`;
-              counter++;
-            }
-
-            const path = `/uploads/${
-              formData.slug !== '' ? formData.slug : props?.formik?.values?.slug
-            }/${finalName}`;
-
-            setImageUrl(path);
-            setImagePopup(false);
-
-            const renamedFile = new File([file], finalName, {
-              type: file.type,
+          const acceptable = ['gif', 'png', 'jpeg', 'jpg', 'webp'];
+          const filetype = file.type?.split('/')[1]?.toLowerCase();
+          if (!acceptable.includes(filetype)) {
+            setShowNotification(true);
+            setNotifiMessage({
+              type: 'error',
+              message: 'Only GIF, PNG, JPEG, or WEBP images are allowed.',
             });
+            setTimeout(() => setNotifiMessage({ type: '', message: [] }), 3000);
+            return;
+          }
 
-            props.setPendingImages((prev) => [...prev, renamedFile]);
+          if (file.size > 2 * 1024 * 1024) {
+            setShowNotification(true);
+            setNotifiMessage({
+              type: 'error',
+              message: 'Image size must be 2 MB or less.',
+            });
+            setTimeout(() => setNotifiMessage({ type: '', message: [] }), 3000);
+            return;
+          }
 
-            editor.chain().focus().setImage({ src: path }).run();
-          }}
-          className="hidden"
-        />
-      </div>
-    );
-  };
+          function sanitizeName(str) {
+            return str
+              .toLowerCase()
+              .trim()
+              .replace(/[^a-z0-9-_]/g, '-')
+              .replace(/-+/g, '-');
+          }
+
+          const baseName = sanitizeName(file.name.split('.')[0]);
+          const currentSlug =
+            formData.slug || props?.formik?.values?.slug || 'default';
+
+          const formDataSend = new FormData();
+          formDataSend.append('file', file);
+          formDataSend.append('slug', currentSlug);
+          formDataSend.append('name', baseName);
+          formDataSend.append('index', props.pendingImages?.length + 1 || '401');
+
+          setShowNotification(true);
+          setNotifiMessage({
+            type: 'waiting',
+            message: 'Uploading image...',
+          });
+          setImagePopup(false);
+
+          try {
+            // Call Server Action directly (no fetch!)
+            const result = await uploadImageToR2(formDataSend);
+
+            if (!result.success) {
+              throw new Error(result.error || 'Upload failed');
+            }
+
+            if (!result.url) {
+              throw new Error('No URL returned');
+            }
+
+            editor.chain().focus().setImage({ src: result.url }).run();
+
+            setNotifiMessage({
+              type: 'success',
+              message: 'Image uploaded successfully!',
+            });
+            setTimeout(() => setNotifiMessage({ type: '', message: [] }), 2000);
+          } catch (err) {
+            console.error('Image upload error:', err);
+            setNotifiMessage({
+              type: 'error',
+              message: 'Failed to upload image. Try again.',
+            });
+            setTimeout(() => setNotifiMessage({ type: '', message: [] }), 3000);
+          } finally {
+            setImagePopup(false);
+          }
+        }}
+        className="hidden"
+      />
+    </div>
+  );
+};
 
   return (
-    <div className="flex h-full w-full flex-col rounded-2xl border border-slate-200 bg-slate-50 shadow-sm">
+    <div className="flex w-full flex-col rounded-2xl border border-slate-200 bg-slate-50 shadow-sm overflow-auto h-full">
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 bg-white px-4 py-3">
         <div className="flex rounded-lg border border-slate-300 bg-slate-50 p-1">
           <button
@@ -282,7 +267,7 @@ export default function TiptapEditor(props) {
         </div>
       </div>
 
-      <div className="flex flex-col border-b border-slate-200 bg-gradient-to-r from-slate-50 via-indigo-50 to-purple-50 px-3 py-3">
+      <div className="flex flex-col border-b border-slate-200 bg-gradient-to-r from-slate-50 via-indigo-50 to-purple-50 px-3 py-3 sticky top-0 z-10">
         <div className="flex flex-wrap items-center gap-3">
           <ToolbarGroup label="Format">
             <ToolbarButton
@@ -485,8 +470,9 @@ export default function TiptapEditor(props) {
 
       <div className="flex-1 bg-white">
         {isHtmlMode ? (
-          <div className="h-full min-h-[540px] border-t border-slate-200">
+          <div className="h-[600px] border-t border-slate-200">
             <MonacoEditor
+              height="100%"
               language="html"
               theme="vs-dark"
               value={htmlCode}

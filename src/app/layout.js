@@ -14,7 +14,7 @@ import {
 import FirebaseAnalytics from '@/components/FirebaseAnalytics';
 
 // const ADSENSE_PUB_ID =
-//   process.env.NEXT_PUBLIC_ADSENSE_ID;
+//   process.env.ADSENSE_ID;
 const ADSENSE_PUB_ID = 'ca-pub-3639965772557593';
 
 const geistSans = Geist({
