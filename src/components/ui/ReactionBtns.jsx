@@ -7,6 +7,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { motion } from 'framer-motion';
 import { Heart, ThumbsUp, Flame, Laugh, Angry } from 'lucide-react';
 import { postDocRef } from '@/firebase/firebaseRefs';
 import { getFirestore, runTransaction } from 'firebase/firestore';
@@ -127,12 +128,20 @@ export default function Reactions({ slug, postid, locale, reactionsArray = {} })
   const db = getFirestore();
 
   const emojis = [
-    { icon: <Heart className="w-3 h-3 sm:w-4 sm:h-4" />, key: 'love', label: 'Love' },
-    { icon: <ThumbsUp className="w-3 h-3 sm:w-4 sm:h-4" />, key: 'like', label: 'Like' },
-    { icon: <Flame className="w-3 h-3 sm:w-4 sm:h-4" />, key: 'fire', label: 'Fire' },
-    { icon: <Laugh className="w-3 h-3 sm:w-4 sm:h-4" />, key: 'laugh', label: 'Laugh' },
-    { icon: <Angry className="w-3 h-3 sm:w-4 sm:h-4" />, key: 'angry', label: 'Angry' },
+    { icon: <Heart className="text-red-500" />, key: 'love', label: 'Love' },
+    { icon: <ThumbsUp className="text-blue-500" />, key: 'like', label: 'Like' },
+    { icon: <Flame className="text-orange-500" />, key: 'fire', label: 'Fire' },
+    { icon: <Laugh className="text-yellow-500" />, key: 'laugh', label: 'Laugh' },
+    { icon: <Angry className="text-red-700" />, key: 'angry', label: 'Angry' },
   ];
+
+  const bgColors = {
+    love: 'bg-red-200 text-red-600',
+    like: 'bg-blue-200 text-blue-600',
+    fire: 'bg-orange-200 text-orange-600',
+    laugh: 'bg-yellow-200 text-yellow-700',
+    angry: 'bg-red-200 text-red-700',
+  };
 
 
   function getOrCreateReactionData() {
@@ -361,52 +370,25 @@ export default function Reactions({ slug, postid, locale, reactionsArray = {} })
   }
 
   return (
-    <div className="flex flex-wrap justify-center items-center gap-1 sm:gap-2 px-2 py-2 select-none">
+    <div className="flex gap-3 items-center justify-center sm:justify-start select-none">
       {emojis.map(({ icon, label, key }) => (
         <Tooltip key={key}>
           <TooltipTrigger asChild>
-            <button
-              disabled={isUpdating || isCooldown}
-              onClick={() => handleReaction(key)}
-              className={`
-                relative flex items-center justify-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1.5 sm:py-2
-                rounded-lg transition-all duration-200 cursor-pointer
-                text-xs sm:text-sm font-medium min-w-[2.5rem] sm:min-w-[3rem]
-                ${selected === key
-                  ? 'bg-blue-500 text-white shadow-md transform scale-105'
-                  : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
-                }
-                ${isUpdating || isCooldown ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105 active:scale-95'}
-                border border-transparent hover:border-gray-300 dark:hover:border-gray-500
-              `}
-            >
-              {/* Loading overlay */}
-              {(isUpdating || isCooldown) && (
-                <div className="absolute inset-0 rounded-lg bg-black/10 flex items-center justify-center">
-                  <div className="w-3 h-3 border border-white/30 border-t-white rounded-full animate-spin"></div>
-                </div>
-              )}
-
-              {/* Icon */}
-              <span className="text-sm sm:text-base">{icon}</span>
-
-              {/* Count */}
-              <span className="font-semibold text-xs sm:text-sm">
-                {reactionCount[key]}
-              </span>
-
-              {/* Selection indicator */}
-              {selected === key && (
-                <div className="absolute -top-1 -right-1 w-2 h-2 bg-white rounded-full border border-blue-500"></div>
-              )}
-            </button>
+            <motion.div whileTap={{ scale: 1.15 }}>
+              <Button
+                variant={selected === key ? 'default' : 'ghost'}
+                size="sm"
+                disabled={isUpdating || isCooldown}
+                onClick={() => handleReaction(key)}
+                className={`flex items-center gap-1 rounded-full transition-all duration-200 cursor-pointer px-3 py-1 sm:px-4 sm:py-2 sm:text-base ${
+                  selected === key ? bgColors[key] : ''
+                }`}
+              >
+                {icon} <span>{reactionCount[key]}</span>
+              </Button>
+            </motion.div>
           </TooltipTrigger>
-          <TooltipContent
-            className="bg-gray-800 text-white text-xs px-2 py-1 rounded-md"
-            side="top"
-          >
-            {label}
-          </TooltipContent>
+          <TooltipContent>{label}</TooltipContent>
         </Tooltip>
       ))}
     </div>
