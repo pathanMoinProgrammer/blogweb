@@ -18,7 +18,7 @@ export default async function BlogPage({ params, t }) {
 
   return (
     <section className="py-16 px-4 min-h-screen">
-      <div className="max-w-8xl mx-auto">
+      <div className="max-w-7xl bg-red-500 mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {blogs.length > 0 ? (
             blogs?.map((blog, index) => (
@@ -62,7 +62,7 @@ export default async function BlogPage({ params, t }) {
                     </div>
                   </Link>
 
-                  <div className="mt-auto border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 py-3 px-6 flex justify-center items-center">
+                  <div className="mt-auto border-t border-gray-200 dark:border-gray-700 bg-gradient-to-r from-gray-50/80 to-white/80 dark:from-gray-800/80 dark:to-gray-900/80 py-4 px-6 flex justify-center items-center backdrop-blur-sm">
                     <Reactions
                       slug={blog.slug}
                       postid={blog.id}

@@ -1,5 +1,6 @@
+"use client"
 import Link from 'next/link';
-import Image from 'next/image';
+import { useState, useEffect } from 'react';
 import Reactions from '@/components/ui/ReactionBtns';
 
 function shuffleArray(array) {
@@ -7,11 +8,19 @@ function shuffleArray(array) {
 }
 
 export default function BlogGrid({ blogs, locale, t }) {
-  const shuffledBlogs = shuffleArray(blogs);
+  const [shuffledBlogs, setShuffledBlogs] = useState([]);
+
+  useEffect(() => {
+    if (blogs && blogs.length > 0) {
+      setShuffledBlogs(shuffleArray(blogs));
+    }
+  }, [blogs]);
+
+  if (!shuffledBlogs.length) return null;
 
   return (
     <section className="py-16 px-4">
-      <div className="max-w-[100rem] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+      <div className="max-w-[90rem] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         {shuffledBlogs.map((blog, index) => (
           <div
             key={blog?.id}
@@ -20,12 +29,12 @@ export default function BlogGrid({ blogs, locale, t }) {
             <div className="bg-white dark:bg-gray-800 flex flex-col h-full">
               <Link href={`/${locale}/blogpost/${blog.slug}`}>
                 <div className="relative h-48 w-full">
-                  <Image
+                  <img
                     src={blog?.imgUrl}
                     alt={blog?.title}
-                    sizes="(max-width: 768px) 100vw, 25vw"
-                    className="object-cover"
-                    fill
+                    className="w-full h-full object-cover"
+                    width="400"
+                    height="192"
                   />
                 </div>
 
@@ -33,7 +42,7 @@ export default function BlogGrid({ blogs, locale, t }) {
                   <h2 className="text-xl font-bold mb-2 line-clamp-2">
                     {blog?.title}
                   </h2>
-                  <p className="text-sm text-muted-foreground line-clamp-3">
+                  <p className="text-sm text-muted-foreground line-clamp-1">
                     {blog?.description}
                   </p>
 
@@ -43,7 +52,7 @@ export default function BlogGrid({ blogs, locale, t }) {
                 </div>
               </Link>
 
-              <div className="border-t p-3 flex justify-center items-center">
+              <div className="border-t border-gray-200 dark:border-gray-700 bg-gradient-to-r from-gray-50/50 to-white/50 dark:from-gray-800/50 dark:to-gray-900/50 p-4 flex justify-center items-center backdrop-blur-sm">
                 <Reactions
                   slug={blog?.slug}
                   postid={blog?.id}

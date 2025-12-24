@@ -13,7 +13,7 @@ export default async function Page({ params }) {
         <Suspense
           fallback={
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 animate-pulse">
-              {Array.from({ length: 6 }).map((_, i) => (
+              {Array.from({ length: 18 }).map((_, i) => (
                 <div
                   key={i}
                   className="group transform rounded-xl transition-all duration-500"
@@ -32,7 +32,7 @@ export default async function Page({ params }) {
                     </div>
 
                     <div className="border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/40 py-3 flex items-center justify-center gap-3">
-                      {Array.from({ length: 5 }).map((_, j) => (
+                      {Array.from({ length: 18 }).map((_, j) => (
                         <div
                           key={j}
                           className="h-8 w-8 rounded-full bg-gray-300 dark:bg-gray-700"

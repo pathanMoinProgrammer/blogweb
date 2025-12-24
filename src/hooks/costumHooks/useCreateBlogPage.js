@@ -338,7 +338,64 @@ export default function useCreateBlogPage() {
     validateOnChange: false,
     enableReinitialize: true,
 
-    onSubmit: async (values) => {
+    // onSubmit: async (values) => {
+    //   if (!values.type) return;
+
+    //   try {
+    //     if (values.type === 'publish') {
+    //       setType('publish');
+
+
+    //       const thumbnailUploadPromise = await uploadThumbnail(values.slug);
+
+    //       const [thumbnailUrl] = await Promise.all([
+    //         // imageUploadPromise,
+    //         thumbnailUploadPromise,
+    //       ]);
+
+    //       const publishedPostid = await handleCreateBlog({
+    //         ...values,
+    //         type: 'publish',
+    //         imagesUploaded: pendingImages?.length || 0,
+    //         imgUrl: values?.imgUrl!== "setCloudFlare"?values?.imgUrl : thumbnailUrl ,
+    //       });
+
+    //       // clear draft
+    //       localStorage.removeItem('blogDraft');
+
+    //       setNotifiMessage({
+    //         type: 'success',
+    //         message: ['Your Blog was Published ✅ Successfully!!'],
+    //       });
+
+    //       setTimeout(() => setShowNotification(true), 0);
+    //     }
+
+    //     // ---- SAVE AS DRAFT ----
+    //     else if (values.type === 'draft') {
+    //       scheduleSaveDraft({ ...values, type: 'draft' });
+
+    //       await handleCreateBlog({ ...values, type: 'draft' });
+
+    //       setNotifiMessage({
+    //         type: 'success',
+    //         message: ['Your Blog was Saved to Draft ✅ Successfully'],
+    //       });
+
+    //       setTimeout(() => setShowNotification(true), 0);
+    //     }
+    //   } catch (err) {
+    //     console.warn('⚠ Serious: Blog submission failed:', err);
+
+    //     setNotifiMessage({
+    //       type: 'error',
+    //       message: ['⚠ Serious: Failed to publish blog. Check console.'],
+    //     });
+
+    //     setTimeout(() => setShowNotification(true), 0);
+    //   }
+    // },
+     onSubmit: async (values) => {
       if (!values.type) return;
 
       try {
@@ -346,12 +403,8 @@ export default function useCreateBlogPage() {
           setType('publish');
 
 
-          const thumbnailUploadPromise = await uploadThumbnail(values.slug);
+         const thumbnailUrl = await uploadThumbnail(values.slug);
 
-          const [thumbnailUrl] = await Promise.all([
-            // imageUploadPromise,
-            thumbnailUploadPromise,
-          ]);
 
           const publishedPostid = await handleCreateBlog({
             ...values,
@@ -361,7 +414,7 @@ export default function useCreateBlogPage() {
           });
 
           // clear draft
-          localStorage.removeItem('blogDraft');
+          localStorage.removeItem(DRAFT_KEY);
 
           setNotifiMessage({
             type: 'success',

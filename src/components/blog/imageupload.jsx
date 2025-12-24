@@ -160,7 +160,7 @@ function ImageUploader({
 
     // Show preview
     // setImgUrl(URL.createObjectURL(file));
-    setFieldValue("setCloudFlare");
+    setFieldValue("imgUrl","setCloudFlare");
     // console.log("formik imgUrl", URL.createObjectURL(file));
     setThumbPreview(URL.createObjectURL(file));
   };
