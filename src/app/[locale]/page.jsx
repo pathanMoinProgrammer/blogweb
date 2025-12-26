@@ -81,19 +81,6 @@ export default async function HomePage({ params }) {
   return (
     <main className="min-h-screen bg-gradient-to-br from-background to-muted">
 
-      {/* ================= HERO / TOP CONTENT ================= */}
-      <section className="container mx-auto px-4 py-6">
-        <div className="text-left space-y-4 max-w-4xl">
-          <h1 className="text-3xl md:text-4xl font-bold">
-            {t2?.heroTitle || 'ExploreTheBuzz'}
-          </h1>
-          <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
-            {t2?.heroDescription ||
-              'Real-world guides on Crypto, AI automation, scam awareness, and modern Next.js engineering.'}
-          </p>
-        </div>
-      </section>
-
       {/* ================= BLOG LIST ================= */}
       {/* IMPORTANT:
          - This section is intentionally AFTER hero
