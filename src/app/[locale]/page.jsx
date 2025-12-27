@@ -81,20 +81,6 @@ export default async function HomePage({ params }) {
   return (
     <main className="min-h-screen bg-gradient-to-br from-background to-muted">
 
-      {/* ================= HERO / SPACER ================= */}
-      {/* 🔥 This ensures blog images never become LCP */}
-      <section className="min-h-[80vh] flex items-center">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <h1 className="text-3xl md:text-4xl font-bold mb-4">
-            {t2?.heroTitle || 'ExploreTheBuzz'}
-          </h1>
-          <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
-            {t2?.heroDescription ||
-              'Real-world guides on Crypto, AI automation, scam awareness, and modern Next.js engineering.'}
-          </p>
-        </div>
-      </section>
-
       {/* ================= BLOG LIST (BELOW THE FOLD) ================= */}
       <section className="content-visibility-auto contain-intrinsic-size-[1200px]">
         <BlogListClient locale={locale} t={t2} />
