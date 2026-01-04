@@ -74,7 +74,6 @@ export default async function HomePage({ params }) {
     <main className="min-h-screen bg-gradient-to-br from-background to-muted">
       <section className="py-2 ">
         <div className=" px-1">
-          {/* <BlogPage params={params} /> */}
           <BlogListClient locale={locale} t={t2} />
         </div>
         <section className="container mx-auto px-4 py-8">

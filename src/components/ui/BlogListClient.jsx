@@ -17,7 +17,9 @@ export default function BlogListClient({ locale, t }) {
       });
   }, [locale]);
 
-  if (loading) return <BlogSkeleton />;
+  if (loading) return <div className='max-w-[90rem] py-16 mx-auto flex justify-center items-center'> <BlogSkeleton /></div>;
 
   return <BlogGrid blogs={blogs} locale={locale} t={t} />;
 }
+
+
