@@ -11,7 +11,18 @@ const nextConfig = {
     optimizeCss: true,
   },
 
+  /* ---------------- IMAGE OPTIMIZATION (CRITICAL) ---------------- */
   images: {
+    // Modern formats → smaller size → faster LCP
+    formats: ['image/avif', 'image/webp'],
+
+    // Responsive image sizes (important for blog grids)
+    deviceSizes: [320, 420, 640, 768, 1024, 1280, 1536],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+
+    // Cache images longer (CDN friendly)
+    minimumCacheTTL: 60 * 60 * 24 * 7, // 7 days
+
     remotePatterns: [
       {
         protocol: 'https',
@@ -32,13 +43,15 @@ const nextConfig = {
     ],
   },
 
-  // Ensure Next infers this repository's root (helps locate next-intl config)
+  /* ---------------- TRACING ROOT ---------------- */
   outputFileTracingRoot: resolve(__dirname),
 
+  /* ---------------- PROD CLEANUP ---------------- */
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
 
+  /* ---------------- REDIRECTS ---------------- */
   async redirects() {
     return [
       {
@@ -51,21 +64,7 @@ const nextConfig = {
   },
 };
 
-// next-intl plugin
+/* ---------------- next-intl plugin ---------------- */
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.js');
 
 export default withNextIntl(nextConfig);
-
-
-// // next.config.mjs
-// import createNextIntlPlugin from 'next-intl/plugin';
-
-// // i18n request config ka path
-// const withNextIntl = createNextIntlPlugin('./src/i18n/request.js');
-
-// /** @type {import('next').NextConfig} */
-// const nextConfig = {
-//   // Agar koi aur config ho toh yaha add karo
-// };
-
-// export default withNextIntl(nextConfig);
